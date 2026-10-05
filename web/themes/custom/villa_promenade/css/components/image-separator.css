@@ -1,0 +1,90 @@
+/* Front-page separators: description panel followed by a photographic title. */
+.image-separator {
+  --image-separator-height: clamp(20rem, 38.65vw, 40rem);
+  display: grid;
+  grid-template-areas:
+    "description"
+    "banner";
+  grid-template-columns: minmax(0, 1fr);
+  isolation: isolate;
+  background: #292929;
+}
+
+.image-separator__description {
+  grid-area: description;
+  padding: clamp(3rem, 11.5vw, 10rem) clamp(1.25rem, 4vw, 3rem);
+  color: #171714;
+  background: #f6f6ef;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: clamp(1rem, 1.65vw, 1.5rem);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.image-separator__description > .field {
+  max-width: 68rem;
+  margin-inline: auto;
+}
+
+.image-separator__description p {
+  margin-block: 0 1.25em;
+}
+
+.image-separator__description .field__item > :last-child {
+  margin-bottom: 0;
+}
+
+.image-separator__image {
+  z-index: 0;
+  grid-area: banner;
+  height: var(--image-separator-height);
+  overflow: hidden;
+}
+
+.image-separator__image img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: var(--image-separator-height);
+  object-fit: cover;
+  object-position: center;
+}
+
+.image-separator--grayscale .image-separator__image img {
+  filter: grayscale(1);
+}
+
+.image-separator::after {
+  z-index: 1;
+  grid-area: banner;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 20%), rgb(0 0 0 / 40%));
+  content: "";
+  pointer-events: none;
+}
+
+.image-separator__title {
+  z-index: 2;
+  grid-area: banner;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--image-separator-height);
+  margin: 0;
+  padding: 3rem 1.25rem clamp(3rem, 8.5vw, 8rem);
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3.45vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgb(0 0 0 / 35%);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 48rem) {
+  .image-separator__description {
+    text-align: justify;
+  }
+}

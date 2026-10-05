@@ -1,0 +1,26 @@
+name: 'Villa Promenade'
+type: theme
+'base theme': false
+version: 1.0.0
+libraries:
+  - villa_promenade/base
+  - villa_promenade/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - villa_promenade/user
+  core/drupal.dropbutton:
+    - villa_promenade/dropbutton
+  core/drupal.dialog:
+    - villa_promenade/dialog
+  file/drupal.file:
+    - villa_promenade/file
+  core/drupal.item-list:
+    - villa_promenade/item-list
+  core/drupal.progress:
+    - villa_promenade/progress
+  core/drupal.tablesort:
+    - villa_promenade/drupal.tablesort
+description: ''
+core_version_requirement: ^11
+generator: 'starterkit_theme:11.4.8'

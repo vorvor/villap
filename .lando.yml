@@ -1,0 +1,99 @@
+name: villapromenade
+recipe: drupal11
+
+config:
+  php: "8.3"
+  via: apache:2.4
+  database: mysql:8.0
+  composer_version: 2-latest
+  drush: ^13
+  webroot: web
+
+services:
+  pma:
+    type: phpmyadmin
+    hosts:
+      - database
+
+  mailhog:
+    type: mailhog
+    portforward: true
+    hogfrom:
+      - appserver
+
+  appserver:
+    xdebug: true
+    overrides:
+      environment:
+        PHP_IDE_CONFIG: "serverName=appserver"
+        XDEBUG_SESSION_START: lando
+
+  hermes:
+    api: 4
+    type: l337
+    image: nousresearch/hermes-agent:latest
+    command: sleep infinity
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    shm_size: "1gb"
+
+    environment:
+      HERMES_UID: "501"
+      HERMES_GID: "20"
+      HERMES_HOME: /opt/data
+      HERMES_WRITE_SAFE_ROOT: /workspace:/opt/data
+      COMPOSER_HOME: /opt/data/composer
+
+    volumes:
+      - ./:/workspace
+      - hermes-data:/opt/data
+
+tooling:
+  xdebug-on:
+    service: appserver
+    description: Enable xdebug for apache.
+    cmd:
+      - |
+        rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        docker-php-ext-enable xdebug
+        /etc/init.d/apache2 reload
+        echo "Xdebug enabled"
+    user: root
+
+  xdebug-off:
+    service: appserver
+    description: Disable xdebug for apache.
+    cmd:
+      - |
+        rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        /etc/init.d/apache2 reload
+        echo "Xdebug disabled"
+    user: root
+
+  drush:
+    service: appserver
+    env:
+      DRUSH_OPTIONS_URI: "https://villapromenade.lndo.site/"
+
+  lint-be:
+    service: appserver
+    description: Runs composer validate and PHPCS lint.
+    cmd:
+      - |
+        composer run lint-be
+
+  hermes:
+    service: hermes
+    cmd: hermes
+    dir: /workspace
+    user: hermes
+
+  hermes-shell:
+    service: hermes
+    cmd: bash
+    dir: /workspace
+    user: hermes
+
+volumes:
+  hermes-data:

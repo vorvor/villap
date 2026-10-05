@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Front-page layout with published image separators, oldest first.
+ *
+ * image_separators is a cacheable render array built in preprocessPage().
+ * The HTML document wrapper remains in html--front.html.twig.
+ */
+#}
+<div class="layout-container">
+  <header>
+    {{ page.header }}
+  </header>
+
+  {{ page.primary_menu }}
+  {{ page.secondary_menu }}
+  {{ page.breadcrumb }}
+  {{ page.highlighted }}
+  {{ page.help }}
+
+  <main>
+    <a id="main-content" tabindex="-1"></a>
+
+    <div class="layout-content">
+      {{ page.content }}
+      {{ image_separators }}
+    </div>
+
+    {% if page.sidebar_first %}
+      <aside class="layout-sidebar-first">
+        {{ page.sidebar_first }}
+      </aside>
+    {% endif %}
+
+    {% if page.sidebar_second %}
+      <aside class="layout-sidebar-second">
+        {{ page.sidebar_second }}
+      </aside>
+    {% endif %}
+  </main>
+
+  {% if page.footer %}
+    <footer>
+      {{ page.footer }}
+    </footer>
+  {% endif %}
+</div>
