@@ -1,0 +1,120 @@
+/* Front-page masthead; its background remains a full-color photograph. */
+.front-hero {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: clamp(34rem, 56.5vw, 60rem);
+  color: #fff;
+  background:
+    linear-gradient(rgb(0 0 0 / 55%), rgb(0 0 0 / 55%)),
+    url("../../images/vp-bg-1.png") center / cover no-repeat;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.front-hero__navigation {
+  display: flex;
+  align-items: center;
+  min-height: 5.5rem;
+  border-bottom: 1px solid rgb(255 255 255 / 80%);
+}
+
+.front-hero__menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  gap: 1rem 2rem;
+  list-style: none;
+}
+
+.front-hero__menu a {
+  display: inline-block;
+  padding-block: 0.25rem;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.055em;
+  text-decoration: none;
+}
+
+.front-hero__menu a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.front-hero__menu a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 0.35rem;
+}
+
+.front-hero__branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.25rem 1rem;
+  text-align: center;
+}
+
+.front-hero__emblem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 5rem;
+  height: 6.625rem;
+  border: 1px solid rgb(255 255 255 / 65%);
+  border-radius: 50%;
+}
+
+.front-hero__emblem::before {
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: inherit;
+  content: "";
+}
+
+.front-hero__emblem img {
+  display: block;
+  width: 65%;
+  height: auto;
+}
+
+.front-hero__title {
+  margin: 1.25rem 0 0.9rem;
+  font-size: clamp(2rem, 3.45vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.065em;
+  overflow-wrap: anywhere;
+}
+
+.front-hero__date {
+  margin: 0;
+  font-size: clamp(1.125rem, 1.75vw, 1.75rem);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 47.99rem) {
+  .front-hero__menu {
+    justify-content: center;
+    padding-inline: 1rem;
+    gap: 0.75rem 1.25rem;
+  }
+
+  .front-hero__menu a {
+    font-size: 0.875rem;
+  }
+
+  .front-hero__branding {
+    padding-block: 3rem;
+  }
+}

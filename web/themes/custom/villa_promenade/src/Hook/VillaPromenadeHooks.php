@@ -20,6 +20,31 @@ class VillaPromenadeHooks {
 
     $entity_type_manager = \Drupal::entityTypeManager();
     $storage = $entity_type_manager->getStorage('node');
+    $variables['front_intro'] = [];
+    $intro_cache = new CacheableMetadata();
+    $intro_cache->setCacheTags(['node_list', 'node:7']);
+    $intro_cache->setCacheContexts(['languages:language_content']);
+    if ($intro = $storage->load(7)) {
+      $intro = \Drupal::service('entity.repository')->getTranslationFromContext($intro);
+      $intro_access = $intro->access('view', NULL, TRUE);
+      $intro_cache->addCacheableDependency($intro);
+      $intro_cache->addCacheableDependency($intro_access);
+      if ($intro_access->isAllowed() && $intro->hasField('field_description')) {
+        $variables['front_intro'] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['front-intro', 'image-separator__description']],
+          '#attached' => ['library' => ['villa_promenade/image-separator']],
+          'description' => $entity_type_manager->getViewBuilder('node')->viewField($intro->get('field_description'), [
+            'label' => 'hidden',
+            'type' => 'text_default',
+          ]),
+        ];
+      }
+    }
+    CacheableMetadata::createFromRenderArray($variables['front_intro'])
+      ->merge($intro_cache)
+      ->applyTo($variables['front_intro']);
+
     $ids = $storage->getQuery()
       ->accessCheck(TRUE)
       ->condition('type', 'image_separator')
@@ -79,7 +104,7 @@ class VillaPromenadeHooks {
           $class = $field_name === 'field_description' ? 'image-separator__description' : 'image-separator__image';
           $build[$id][$field_name]['#prefix'] = '<div class="' . $class . '">';
           $build[$id][$field_name]['#suffix'] = '</div>';
-          $build[$id][$field_name]['#weight'] = $field_name === 'field_description' ? -10 : 0;
+          $build[$id][$field_name]['#weight'] = $field_name === 'field_description' ? 20 : 0;
         }
       }
     }

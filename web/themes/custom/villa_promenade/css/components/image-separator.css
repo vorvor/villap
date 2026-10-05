@@ -1,10 +1,10 @@
-/* Front-page separators: description panel followed by a photographic title. */
+/* Front-page separators: photographic title followed by a description panel. */
 .image-separator {
   --image-separator-height: clamp(20rem, 38.65vw, 40rem);
   display: grid;
   grid-template-areas:
-    "description"
-    "banner";
+    "banner"
+    "description";
   grid-template-columns: minmax(0, 1fr);
   isolation: isolate;
   background: #292929;

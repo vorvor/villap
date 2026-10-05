@@ -7,7 +7,30 @@
  * The HTML document wrapper remains in html--front.html.twig.
  */
 #}
+{{ attach_library('villa_promenade/front-hero') }}
 <div class="layout-container">
+  <section class="front-hero" aria-labelledby="front-hero-title">
+    <nav class="front-hero__navigation" aria-label="{{ 'Main navigation'|t }}">
+      <ul class="front-hero__menu">
+        <li><a href="/#">A HÁZ</a></li>
+        <li><a href="/#">SZOLGÁLTATÁSAINK</a></li>
+        <li><a href="/#">GALÉRIA</a></li>
+        <li><a href="/#">RÓLUNK</a></li>
+        <li><a href="/#">TERVEZZÜNK</a></li>
+      </ul>
+    </nav>
+
+    <div class="front-hero__branding">
+      <span class="front-hero__emblem" aria-hidden="true">
+        <img src="{{ base_path ~ directory }}/images/front-hero-tree.png" alt="" width="243" height="272">
+      </span>
+      <h1 id="front-hero-title" class="front-hero__title">VILLA PROMENADE</h1>
+      <p class="front-hero__date">EST. 1660</p>
+    </div>
+  </section>
+
+  {{ front_intro }}
+
   <header>
     {{ page.header }}
   </header>

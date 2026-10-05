@@ -60,6 +60,10 @@ file:
     component:
       css/components/file.css:
         weight: -10
+front-hero:
+  css:
+    component:
+      css/components/front-hero.css: {}
 image-separator:
   css:
     component:
