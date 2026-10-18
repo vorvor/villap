@@ -1,0 +1,22 @@
+uuid: 90b39b66-0174-41a4-af00-916d98e3290c
+langcode: en
+status: true
+dependencies:
+  theme:
+    - villa_promenade
+_core:
+  default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
+id: villa_promenade_primary_local_tasks
+theme: villa_promenade
+region: highlighted
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

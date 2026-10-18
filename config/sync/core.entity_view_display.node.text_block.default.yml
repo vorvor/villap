@@ -1,0 +1,27 @@
+uuid: 5937d1b8-9695-4669-a53d-4a52939525fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.text_block.field_description
+    - node.type.text_block
+  module:
+    - user
+id: node.text_block.default
+targetEntityType: node
+bundle: text_block
+mode: default
+content:
+  field_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

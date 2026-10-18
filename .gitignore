@@ -8,7 +8,7 @@ Thumbs.db
 *~
 
 # Composer-managed dependencies; keep composer.json and composer.lock tracked.
-/vendor/
+
 /web/core/
 /web/modules/contrib/
 /web/themes/contrib/

@@ -1,0 +1,42 @@
+uuid: 42ecd169-7c8c-4fc8-9c4a-c61ec16bf85d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.image_separator.field_description
+    - field.field.node.image_separator.field_gallery_images
+    - field.field.node.image_separator.field_image
+    - node.type.image_separator
+  module:
+    - image
+    - user
+id: node.image_separator.default
+targetEntityType: node
+bundle: image_separator
+mode: default
+content:
+  field_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_gallery_images: true

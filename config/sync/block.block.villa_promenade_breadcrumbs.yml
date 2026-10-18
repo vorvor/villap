@@ -1,0 +1,22 @@
+uuid: 6e74431f-150e-4e38-90b6-8f82695f454f
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - villa_promenade
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: villa_promenade_breadcrumbs
+theme: villa_promenade
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,19 @@
+uuid: 8f7876bc-2fcb-4767-b4e8-a86eb24e6cf4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_titulus
+    - node.type.team_member
+id: node.team_member.field_titulus
+field_name: field_titulus
+entity_type: node
+bundle: team_member
+label: Titulus
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

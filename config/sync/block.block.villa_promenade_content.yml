@@ -1,0 +1,26 @@
+uuid: f1cc5b6d-ae9f-405e-b215-8eb03670c5e5
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - villa_promenade
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: villa_promenade_content
+theme: villa_promenade
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '<front>'

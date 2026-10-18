@@ -1,0 +1,20 @@
+uuid: 43ca3e21-86c5-4d8f-8db2-cf9546c6733a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - villa_promenade
+_core:
+  default_config_hash: Q9_2whdOj1YIomfvsIfopROW4FT_X5pY0DjdOiOaQ5U
+id: villa_promenade_primary_admin_actions
+theme: villa_promenade
+region: highlighted
+weight: -5
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

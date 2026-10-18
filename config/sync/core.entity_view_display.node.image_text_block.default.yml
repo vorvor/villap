@@ -1,0 +1,40 @@
+uuid: e14b160a-41d5-40ca-9d9c-cf1f27a7f97d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.image_text_block.field_description
+    - field.field.node.image_text_block.field_image
+    - node.type.image_text_block
+  module:
+    - image
+    - user
+id: node.image_text_block.default
+targetEntityType: node
+bundle: image_text_block
+mode: default
+content:
+  field_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

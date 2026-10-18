@@ -1,0 +1,15 @@
+uuid: 952045b4-32bf-427f-b09c-13d31493318a
+langcode: en
+status: true
+dependencies: {  }
+name: gallery_preview
+label: 'Gallery preview'
+effects:
+  a4fe4ea1-45b3-4001-ad5e-0a61e3c0ec01:
+    uuid: a4fe4ea1-45b3-4001-ad5e-0a61e3c0ec01
+    id: image_scale
+    weight: 0
+    data:
+      width: 1000
+      height: 1000
+      upscale: false
