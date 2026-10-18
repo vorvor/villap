@@ -1,0 +1,223 @@
+/* Scoped login styling; retain the native Drupal form and messages. */
+.villa-login {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  color: #171714;
+  background: #f6f6ef url("../../images/paper-texture.png") repeat;
+  font-family: var(--villa-font-text);
+}
+
+.villa-login__hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-height: clamp(15rem, 32vh, 24rem);
+  padding: 4.5rem 1.5rem 2.5rem;
+  background:
+    linear-gradient(rgb(0 0 0 / 45%), rgb(0 0 0 / 65%)),
+    url("../../images/vp-bg-1.png") center 44% / cover no-repeat;
+}
+
+.villa-login__brand {
+  display: block;
+  width: clamp(14rem, 24vw, 23rem);
+  max-width: 100%;
+}
+
+.villa-login__brand img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.villa-login__home {
+  position: absolute;
+  top: 1rem;
+  left: clamp(1rem, 3vw, 3rem);
+  padding-block: 0.75rem;
+  color: #fff;
+  font-size: 0.8125rem;
+  text-decoration: none;
+  text-underline-offset: 0.3em;
+}
+
+.villa-login__home:hover {
+  text-decoration: underline;
+}
+
+.villa-login__main {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 31rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3rem) 1.5rem;
+}
+
+.villa-login__eyebrow {
+  margin: 0 0 0.75rem;
+  color: #625642;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.villa-login .page-title {
+  margin: 0 0 1.75rem;
+  font-family: var(--villa-font-h2);
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.villa-login .tabs.primary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  border-bottom: 1px solid rgb(23 23 20 / 20%);
+  gap: 0.25rem 1.5rem;
+  list-style: none;
+}
+
+.villa-login .tabs.primary > li {
+  margin: 0;
+}
+
+.villa-login .tabs.primary a {
+  display: block;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid transparent;
+  color: #625642;
+  background: transparent;
+  font-size: 0.8125rem;
+  text-decoration: none;
+}
+
+.villa-login .tabs.primary a[aria-current="page"],
+.villa-login .tabs.primary a:hover {
+  border-bottom-color: #171714;
+  color: #171714;
+}
+
+.villa-login .user-login-form .form-item {
+  margin: 0 0 1.5rem;
+}
+
+.villa-login .user-login-form label {
+  display: block;
+  margin-bottom: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.villa-login .user-login-form .form-text {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-height: 3.125rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid #8b8578;
+  border-radius: 0;
+  color: #171714;
+  background: rgb(255 255 255 / 35%);
+  box-shadow: none;
+  font: inherit;
+  font-size: 1rem;
+}
+
+.villa-login .user-login-form .form-text:focus {
+  border-color: #625642;
+  outline: 2px solid #625642;
+  outline-offset: 2px;
+}
+
+.villa-login .user-login-form .form-text.error {
+  border-color: #a12622;
+}
+
+.villa-login .user-login-form .description {
+  margin-top: 0.5rem;
+  color: #59564d;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.villa-login .user-login-form .form-actions {
+  margin: 1.75rem 0 0;
+}
+
+.villa-login .user-login-form .form-submit {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3.125rem;
+  margin: 0;
+  padding: 0.875rem 1.5rem;
+  border: 1px solid #171714;
+  border-radius: 0;
+  color: #171714;
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.villa-login .user-login-form .form-submit:hover {
+  color: #f6f6ef;
+  background: #171714;
+}
+
+.villa-login .messages {
+  margin: 0 0 1.5rem;
+  overflow-wrap: anywhere;
+}
+
+.villa-login__footer {
+  box-sizing: border-box;
+  width: calc(100% - 3rem);
+  max-width: 49rem;
+  margin: auto auto 0;
+  padding: 1.25rem 0 1.5rem;
+  border-top: 1px solid rgb(23 23 20 / 20%);
+  color: #59564d;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.villa-login__footer address {
+  font-style: normal;
+}
+
+.villa-login__footer a {
+  color: inherit;
+  text-underline-offset: 0.25em;
+}
+
+.villa-login__footer .menu {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.villa-login__footer .menu-item {
+  padding: 0;
+}
+
+.villa-login a:focus-visible,
+.villa-login .form-submit:focus-visible {
+  outline: 2px solid #625642;
+  outline-offset: 0.25rem;
+}
+
+.villa-login__hero a:focus-visible {
+  outline-color: #fff;
+}

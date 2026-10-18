@@ -1,0 +1,12 @@
+uuid: 35bd2ba6-df89-4440-aa87-e5643e29aa88
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: site_preview
+label: 'Site preview'
+weight: 4
+is_admin: false
+permissions:
+  - 'access site in maintenance mode'

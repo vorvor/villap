@@ -1,0 +1,14 @@
+uuid: 7d80efcb-9d8e-42e6-a1ad-9ea0a703a986
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.site_preview
+  module:
+    - user
+id: user_add_role_action.site_preview
+label: 'Add the Site preview role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: site_preview

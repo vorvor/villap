@@ -1,0 +1,30 @@
+{# Branded login layout; Drupal retains ownership of the authentication form. #}
+{{ attach_library('villa_promenade/login-page') }}
+<div class="villa-login">
+  <header class="villa-login__hero">
+    <a class="villa-login__home" href="{{ path('<front>') }}">← {{ 'Vissza a főoldalra'|t }}</a>
+    <a class="villa-login__brand" href="{{ path('<front>') }}" rel="home">
+      <img src="{{ base_path ~ directory }}/images/logo-top-white.png" alt="Villa Promenade — {{ 'Home'|t }}" width="1800" height="833" fetchpriority="high">
+    </a>
+    {{ page.header }}
+  </header>
+
+  <main id="main-content" class="villa-login__main" tabindex="-1">
+    <p class="villa-login__eyebrow">Villa Promenade</p>
+    <div class="villa-login__heading">{{ page.sidebar_first }}</div>
+    {{ page.primary_menu }}
+    {{ page.secondary_menu }}
+    {{ page.highlighted }}
+    {{ page.help }}
+    {{ page.content }}
+    {% if page.sidebar_second %}
+      <aside>{{ page.sidebar_second }}</aside>
+    {% endif %}
+  </main>
+
+  <footer class="villa-login__footer">
+    <address>2000 Szentendre, Futó utca 4.</address>
+    <a href="mailto:event@villapromenade.hu">event@villapromenade.hu</a>
+    {{ page.footer }}
+  </footer>
+</div>

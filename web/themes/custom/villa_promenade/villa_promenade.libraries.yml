@@ -1,3 +1,10 @@
+login-page:
+  css:
+    theme:
+      css/components/login-page.css: {}
+  dependencies:
+    - villa_promenade/base
+    - core/normalize
 maintenance-page:
   css:
     theme:

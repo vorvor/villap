@@ -1,0 +1,14 @@
+uuid: ab27b209-2fc2-4b93-8f9d-54d6dc2734a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.site_preview
+  module:
+    - user
+id: user_remove_role_action.site_preview
+label: 'Remove the Site preview role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: site_preview
