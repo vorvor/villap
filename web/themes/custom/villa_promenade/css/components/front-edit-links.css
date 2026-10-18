@@ -1,0 +1,39 @@
+.front-editable {
+  position: relative;
+}
+
+.front-edit-link {
+  position: absolute;
+  z-index: 10;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-block;
+  max-width: calc(100% - 1.5rem);
+  box-sizing: border-box;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #fff;
+  border-radius: 0.25rem;
+  color: #fff;
+  background: #222;
+  font-family: Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: normal;
+  overflow-wrap: anywhere;
+}
+
+.front-edit-link:hover,
+.front-edit-link:focus-visible {
+  color: #fff;
+  background: #005a9c;
+  text-decoration: underline;
+}
+
+.front-edit-link:focus-visible {
+  outline: 3px solid #005a9c;
+  outline-offset: 3px;
+}

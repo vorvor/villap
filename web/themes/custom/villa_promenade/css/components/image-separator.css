@@ -15,7 +15,7 @@
   padding: clamp(3rem, 11.5vw, 10rem) clamp(1.25rem, 4vw, 3rem);
   color: #171714;
   background: #f6f6ef;
-  font-family: "Trebuchet MS", sans-serif;
+  font-family: var(--villa-font-text);
   font-size: clamp(1rem, 1.65vw, 1.5rem);
   line-height: 1.4;
   overflow-wrap: anywhere;
@@ -24,6 +24,17 @@
 .image-separator__description > .field {
   max-width: 68rem;
   margin-inline: auto;
+}
+
+.front-intro__title {
+  max-width: 68rem;
+  margin: 0 auto 1.5rem;
+  font-family: var(--villa-font-h2);
+  font-size: clamp(2rem, 3.45vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: left;
+  text-transform: none;
 }
 
 .image-separator__description p {
@@ -35,6 +46,7 @@
 }
 
 .image-separator__image {
+  position: relative;
   z-index: 0;
   grid-area: banner;
   height: var(--image-separator-height);
@@ -54,10 +66,11 @@
   filter: grayscale(1);
 }
 
-.image-separator::after {
+.image-separator__image::after {
+  position: absolute;
   z-index: 1;
-  grid-area: banner;
-  background: linear-gradient(to bottom, rgb(0 0 0 / 20%), rgb(0 0 0 / 40%));
+  inset: 0;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 35%) 50%, #000 100%);
   content: "";
   pointer-events: none;
 }
@@ -73,7 +86,7 @@
   margin: 0;
   padding: 3rem 1.25rem clamp(3rem, 8.5vw, 8rem);
   color: #fff;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--villa-font-h2);
   font-size: clamp(2rem, 3.45vw, 3.25rem);
   font-weight: 700;
   line-height: 1.15;
@@ -83,8 +96,6 @@
   overflow-wrap: anywhere;
 }
 
-@media (min-width: 48rem) {
-  .image-separator__description {
-    text-align: justify;
-  }
+.image-separator__description {
+  text-align: left;
 }

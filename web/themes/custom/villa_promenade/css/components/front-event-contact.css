@@ -1,0 +1,344 @@
+/* Front-page enquiry panel, scoped to leave the standalone form unchanged. */
+.front-event-contact {
+  padding: clamp(2.5rem, 5vw, 4.5rem) 1.25rem;
+  color: #171714;
+  background: #f6f6ef url("../../images/paper-texture.png") repeat;
+  font-family: var(--villa-font-text);
+  scroll-margin-top: calc(var(--drupal-displace-offset-top, 0px) + var(--villa-navigation-height, 5.5rem) + 1rem);
+}
+
+.front-event-contact__title {
+  max-width: 76rem;
+  margin: 0 auto;
+  font-family: var(--villa-font-title);
+  font-size: clamp(1.75rem, 3.1vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.045em;
+  text-align: center;
+}
+
+.front-event-contact__intro {
+  max-width: 42rem;
+  margin: 0.85rem auto 0;
+  color: #625d53;
+  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+  text-align: center;
+}
+
+.front-event-contact .villa-promenade-contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  max-width: 56rem;
+  margin: 1.75rem auto 0;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid rgb(23 23 20 / 25%);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.front-event-contact .villa-promenade-contact-form > .form-item-event,
+.front-event-contact .villa-promenade-contact-form > fieldset,
+.front-event-contact .villa-promenade-contact-form > .form-type-item,
+.front-event-contact .villa-promenade-contact-form > .form-actions {
+  grid-column: 1 / -1;
+}
+
+.front-event-contact div.form-item:not(.villa-contact-honeypot):not(.form-type-item):not(.form-type-checkbox):not(.form-type-radio) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+  gap: 0.4rem;
+}
+
+.front-event-contact label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.front-event-contact input:not([type="hidden"]):not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
+.front-event-contact select,
+.front-event-contact textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgb(23 23 20 / 18%);
+  border-radius: 0;
+  color: #171714;
+  background-color: rgb(255 255 255 / 45%);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: normal;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.front-event-contact textarea {
+  height: 5.5rem;
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+.front-event-contact textarea[name="other[description]"] {
+  height: 11rem;
+  min-height: 11rem;
+}
+
+.front-event-contact select[name="event"] {
+  color: #171714;
+  background-color: rgb(255 255 255 / 60%);
+  font-weight: 500;
+}
+
+/* Only the inner wrapper gets a grid: Drupal owns fieldset visibility. */
+.front-event-contact .villa-contact-event-details > .fieldset-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 1.5rem 1.75rem;
+}
+
+.front-event-contact .villa-contact-event-details > .fieldset-wrapper > fieldset,
+.front-event-contact .villa-contact-event-details > .fieldset-wrapper > .form-type-textarea,
+.front-event-contact .villa-contact-event-details > .fieldset-wrapper > [data-drupal-states] {
+  grid-column: 1 / -1;
+}
+
+/* Stack long questions and retain native-sized choice controls. */
+.front-event-contact .villa-contact-event-details div.form-item:not(.form-type-checkbox):not(.form-type-radio) {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.35rem;
+}
+
+.front-event-contact .villa-contact-event-details .form-checkboxes,
+.front-event-contact .villa-contact-event-details .form-radios {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.front-event-contact .villa-contact-event-details div.form-type-checkbox,
+.front-event-contact .villa-contact-event-details div.form-type-radio {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 0;
+  padding: 0.65rem 0.25rem;
+  gap: 0.6rem;
+  border: 1px solid transparent;
+  border-bottom-color: rgb(23 23 20 / 12%);
+  background: transparent;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.front-event-contact .villa-contact-event-details .option {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+/* Extend each native label's hit area across its entire choice card. */
+.front-event-contact .villa-contact-event-details .option::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+.front-event-contact .villa-contact-event-details .form-item:has(> input:checked) {
+  border-bottom-color: #625642;
+  background: rgb(98 86 66 / 7%);
+}
+
+.front-event-contact .villa-contact-event-details .form-item:has(> input:focus-visible) {
+  outline: 2px solid #625642;
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .front-event-contact .villa-contact-event-details .form-type-checkbox:hover,
+  .front-event-contact .villa-contact-event-details .form-type-radio:hover {
+    border-bottom-color: #a99c85;
+  }
+}
+
+.front-event-contact .villa-contact-event-details input[type="checkbox"],
+.front-event-contact .villa-contact-event-details input[type="radio"] {
+  flex: 0 0 1.1rem;
+  width: 1.1rem;
+  min-height: 0;
+  height: 1.1rem;
+  margin: 0;
+  padding: 0;
+  accent-color: #625642;
+}
+
+.front-event-contact .villa-contact-event-details .description,
+.front-event-contact .villa-contact-event-details .form-item--error-message {
+  grid-column: 1 / -1;
+}
+
+.front-event-contact input:focus-visible,
+.front-event-contact select:focus-visible,
+.front-event-contact textarea:focus-visible {
+  outline: 2px solid #625642;
+  outline-offset: 3px;
+}
+
+.front-event-contact input.error,
+.front-event-contact select.error,
+.front-event-contact textarea.error {
+  border-color: #b42318;
+}
+
+/* Let Drupal states control fieldset visibility; keep extra details usable. */
+.front-event-contact fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.front-event-contact .villa-contact-event-details {
+  margin-top: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(23 23 20 / 25%);
+}
+
+.front-event-contact legend {
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 0.55rem;
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.front-event-contact .villa-contact-event-details > legend {
+  padding: 0 0.75rem 0 0;
+  color: #171714;
+  font-family: var(--villa-font-title);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+/* Editorial question groups echo the page's typography and fine rules. */
+.front-event-contact .villa-contact-event-details > .fieldset-wrapper > .form-item {
+  padding: 0.875rem 0 0;
+  border: 0;
+  border-top: 1px solid rgb(23 23 20 / 18%);
+  background: transparent;
+}
+
+.front-event-contact .villa-contact-event-details > .fieldset-wrapper > fieldset > legend {
+  max-width: 100%;
+  margin: 0;
+  padding: 0 0.75rem 0 0;
+  color: #171714;
+  font-family: var(--villa-font-title);
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.015em;
+}
+
+.front-event-contact .villa-contact-event-details > .fieldset-wrapper > div.form-item > label {
+  color: #171714;
+  font-family: var(--villa-font-title);
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.015em;
+}
+
+.front-event-contact .description,
+.front-event-contact .form-item--error-message {
+  grid-column: 1 / -1;
+  margin-top: 0.25rem;
+  color: #6a6255;
+  font-size: 0.75rem;
+  letter-spacing: normal;
+}
+
+.front-event-contact .form-item--error-message {
+  color: #b42318;
+}
+
+.front-event-contact .form-type-item {
+  margin: 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid #ded9cd;
+  color: #6a6255;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  letter-spacing: normal;
+}
+
+.front-event-contact .form-actions {
+  margin: 0;
+  padding-top: 0.5rem;
+  text-align: center;
+}
+
+.front-event-contact .form-submit {
+  min-height: 2.875rem;
+  padding: 0.75rem 3.5rem;
+  border: 1px solid #171714;
+  border-radius: 0;
+  color: #171714;
+  background: transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.front-event-contact .form-submit:hover {
+  color: #f6f6ef;
+  background: #171714;
+}
+
+.front-event-contact .form-submit:focus-visible {
+  outline: 2px solid #625642;
+  outline-offset: 3px;
+}
+
+@media (max-width: 35.99rem) {
+  .front-event-contact .villa-promenade-contact-form,
+  .front-event-contact .villa-contact-event-details > .fieldset-wrapper,
+  .front-event-contact .villa-contact-event-details .form-checkboxes,
+  .front-event-contact .villa-contact-event-details .form-radios {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .front-event-contact .form-submit {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .front-event-contact input,
+  .front-event-contact select,
+  .front-event-contact textarea,
+  .front-event-contact .villa-contact-event-details .form-item {
+    transition: none;
+  }
+}

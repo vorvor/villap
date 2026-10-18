@@ -1,0 +1,6 @@
+form:
+  css:
+    component:
+      css/event-contact.css: {}
+  dependencies:
+    - core/drupal.states

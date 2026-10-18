@@ -1,0 +1,414 @@
+langcode: en
+status: true
+dependencies:
+  module:
+  - villa_promenade_contact
+  - views
+  - options
+  enforced:
+    module:
+    - villa_promenade_contact
+id: villa_customer_requests
+label: Villa Promenade customer requests
+module: views
+description: Private event enquiries with filtering, sorting and management actions.
+tag: administration
+base_table: villa_customer_request
+base_field: id
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: Customer requests
+      fields:
+        id:
+          id: id
+          table: villa_customer_request
+          field: id
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: id
+          plugin_id: field
+          label: Request ID
+          type: number_integer
+          settings:
+            link_to_entity: false
+        name:
+          id: name
+          table: villa_customer_request
+          field: name
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: name
+          plugin_id: field
+          label: Customer
+          type: string
+          settings:
+            link_to_entity: true
+        email:
+          id: email
+          table: villa_customer_request
+          field: email
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: email
+          plugin_id: field
+          label: Email
+          type: basic_string
+          settings:
+            link_to_entity: false
+        event:
+          id: event
+          table: villa_customer_request
+          field: event
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: event
+          plugin_id: field
+          label: Event
+          type: list_default
+          settings:
+            link_to_entity: false
+        request_status:
+          id: request_status
+          table: villa_customer_request
+          field: request_status
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: request_status
+          plugin_id: field
+          label: Status
+          type: list_default
+          settings:
+            link_to_entity: false
+        is_demo:
+          id: is_demo
+          table: villa_customer_request
+          field: is_demo
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: is_demo
+          plugin_id: field
+          label: Demo
+          type: boolean
+          settings:
+            link_to_entity: false
+        created:
+          id: created
+          table: villa_customer_request
+          field: created
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: created
+          plugin_id: field
+          label: Submitted
+          type: timestamp
+          settings:
+            link_to_entity: false
+        operations:
+          id: operations
+          table: villa_customer_request
+          field: operations
+          relationship: none
+          entity_type: villa_customer_request
+          plugin_id: entity_operations
+          label: Actions
+          destination: true
+      filters:
+        name:
+          id: name
+          table: villa_customer_request
+          field: name
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: name
+          plugin_id: string
+          operator: contains
+          value: ''
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: Customer name
+            description: ''
+            use_operator: false
+            operator: name_op
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+        email:
+          id: email
+          table: villa_customer_request
+          field: email
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: email
+          plugin_id: string
+          operator: contains
+          value: ''
+          exposed: true
+          expose:
+            operator_id: email_op
+            label: Email
+            description: ''
+            use_operator: false
+            operator: email_op
+            identifier: email
+            required: false
+            remember: false
+            multiple: false
+        event:
+          id: event
+          table: villa_customer_request
+          field: event
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: event
+          plugin_id: list_field
+          operator: or
+          value: {}
+          exposed: true
+          expose:
+            operator_id: event_op
+            label: Event
+            description: ''
+            use_operator: false
+            operator: event_op
+            identifier: event
+            required: false
+            remember: false
+            multiple: false
+          reduce_duplicates: false
+        request_status:
+          id: request_status
+          table: villa_customer_request
+          field: request_status
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: request_status
+          plugin_id: list_field
+          operator: or
+          value: {}
+          exposed: true
+          expose:
+            operator_id: request_status_op
+            label: Status
+            description: ''
+            use_operator: false
+            operator: request_status_op
+            identifier: request_status
+            required: false
+            remember: false
+            multiple: false
+          reduce_duplicates: false
+        is_demo:
+          id: is_demo
+          table: villa_customer_request
+          field: is_demo
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: is_demo
+          plugin_id: boolean
+          operator: '='
+          value: All
+          exposed: true
+          expose:
+            operator_id: is_demo_op
+            label: Demo requests
+            description: ''
+            use_operator: false
+            operator: is_demo_op
+            identifier: is_demo
+            required: false
+            remember: false
+            multiple: false
+          accept_null: false
+        created:
+          id: created
+          table: villa_customer_request
+          field: created
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: created
+          plugin_id: date
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          exposed: true
+          expose:
+            operator_id: created_op
+            label: Submitted on or after
+            description: ''
+            use_operator: false
+            operator: created_op
+            identifier: created
+            required: false
+            remember: false
+            multiple: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      sorts:
+        created:
+          id: created
+          table: villa_customer_request
+          field: created
+          entity_type: villa_customer_request
+          entity_field: created
+          plugin_id: date
+          order: DESC
+        id:
+          id: id
+          table: villa_customer_request
+          field: id
+          entity_type: villa_customer_request
+          entity_field: id
+          plugin_id: standard
+          order: DESC
+      access:
+        type: perm
+        options:
+          perm: manage villa customer requests
+      cache:
+        type: none
+        options: {}
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Filter
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: Sort by
+          expose_sort_order: true
+          sort_asc_label: Ascending
+          sort_desc_label: Descending
+      pager:
+        type: full
+        options:
+          items_per_page: 25
+          offset: 0
+          id: 0
+          quantity: 9
+      style:
+        type: table
+        options:
+          grouping: []
+          row_class: ''
+          default_row_class: true
+          columns:
+            id: id
+            name: name
+            email: email
+            event: event
+            request_status: request_status
+            is_demo: is_demo
+            created: created
+            operations: operations
+          info:
+            id:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            email:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            event:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            request_status:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            is_demo:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            created:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            operations:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: created
+          override: true
+          sticky: true
+          empty_table: false
+      row:
+        type: fields
+        options: {}
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
+          empty: true
+          content:
+            value: No customer requests match your filters.
+            format: plain_text
+      display_extenders: {}
+  page_1:
+    id: page_1
+    display_title: Customer requests
+    display_plugin: page
+    position: 1
+    display_options:
+      path: admin/content/customer-requests
+      display_extenders: {}

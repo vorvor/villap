@@ -1,0 +1,9 @@
+manage villa customer requests:
+  title: 'Manage Villa Promenade customer requests'
+  description: 'View customer names, email addresses and event details; edit statuses and internal notes; delete requests.'
+  restrict access: true
+
+administer villa contact settings:
+  title: 'Administer Villa Promenade contact notification settings'
+  description: 'Choose the staff addresses that receive private customer request data by email.'
+  restrict access: true

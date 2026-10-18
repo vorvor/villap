@@ -1,0 +1,8 @@
+name: Villa Promenade Contact
+type: module
+description: 'Event contact form with honeypot protection and private customer request management.'
+package: Villa Promenade
+core_version_requirement: ^11
+dependencies:
+  - drupal:views
+  - drupal:options

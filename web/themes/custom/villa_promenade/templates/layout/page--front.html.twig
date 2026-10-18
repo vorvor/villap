@@ -8,24 +8,13 @@
  */
 #}
 {{ attach_library('villa_promenade/front-hero') }}
+{{ attach_library('villa_promenade/front-footer') }}
 <div class="layout-container">
   <section class="front-hero" aria-labelledby="front-hero-title">
-    <nav class="front-hero__navigation" aria-label="{{ 'Main navigation'|t }}">
-      <ul class="front-hero__menu">
-        <li><a href="/#">A HÁZ</a></li>
-        <li><a href="/#">SZOLGÁLTATÁSAINK</a></li>
-        <li><a href="/#">GALÉRIA</a></li>
-        <li><a href="/#">RÓLUNK</a></li>
-        <li><a href="/#">TERVEZZÜNK</a></li>
-      </ul>
-    </nav>
-
     <div class="front-hero__branding">
-      <span class="front-hero__emblem" aria-hidden="true">
-        <img src="{{ base_path ~ directory }}/images/front-hero-tree.png" alt="" width="243" height="272">
-      </span>
-      <h1 id="front-hero-title" class="front-hero__title">VILLA PROMENADE</h1>
-      <p class="front-hero__date">EST. 1660</p>
+      <h1 id="front-hero-title" class="front-hero__title">
+        <img class="front-hero__logo" src="{{ base_path ~ directory }}/images/logo-top-white.png" alt="Villa Promenade — EST. 1660" width="1800" height="833" fetchpriority="high">
+      </h1>
     </div>
   </section>
 
@@ -45,7 +34,6 @@
     <a id="main-content" tabindex="-1"></a>
 
     <div class="layout-content">
-      {{ page.content }}
       {{ image_separators }}
     </div>
 
@@ -62,9 +50,56 @@
     {% endif %}
   </main>
 
-  {% if page.footer %}
-    <footer>
-      {{ page.footer }}
-    </footer>
-  {% endif %}
+  <footer class="front-footer">
+    <div class="front-footer__inner">
+      <img class="front-footer__logo" src="{{ base_path ~ directory }}/images/footer-logo.png" alt="Villa Promenade — EST. 1660" width="462" height="638" loading="lazy">
+
+      {# The reference contains no social profile URLs; do not invent destinations. #}
+      <div class="front-footer__socials">
+        <span class="front-footer__social" role="img" aria-label="Instagram">
+          <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <rect x="3" y="3" width="26" height="26" rx="7" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="16" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="24" cy="8" r="2" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="front-footer__social" role="img" aria-label="Facebook">
+          <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <circle cx="16" cy="16" r="15" fill="currentColor"/>
+            <path d="M18 31V19h4l.6-5H18v-2.5c0-1.5.5-2.5 2.5-2.5H23V4.5c-.8-.1-2-.3-3.5-.3-4 0-6.5 2.5-6.5 6.8v3H9v5h4v12Z" fill="#f6f6ef"/>
+          </svg>
+        </span>
+      </div>
+
+      <address class="front-footer__contacts">
+        <a class="front-footer__contact" href="mailto:event@villapromenade.hu">
+          <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <path d="M3 8h34v24H3Z" fill="currentColor"/>
+            <path d="m3 8 17 14L37 8M3 32l12-13m22 13L25 19" fill="none" stroke="#f6f6ef" stroke-width="1.8"/>
+          </svg>
+          <span>event@villapromenade.hu</span>
+        </a>
+        <a class="front-footer__contact" href="tel:+36706573266">
+          <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <path d="M10 4 4 9c-2 2 1 11 9 19s17 11 19 9l5-6c1-1 0-2-1-3l-7-4c-1-1-2-1-3 0l-3 4c-4-2-9-7-11-11l4-3c1-1 1-2 0-3l-4-7c-1-1-2-1-2 0Z" fill="currentColor"/>
+          </svg>
+          <span>06 70 657 3266</span>
+        </a>
+        <a class="front-footer__contact" href="https://www.google.com/maps/search/?api=1&amp;query=2000%20Szentendre%2C%20Fut%C3%B3%20utca%204.">
+          <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <path d="M20 2C13 2 8 7 8 14c0 9 12 21 12 21s12-12 12-21C32 7 27 2 20 2Z" fill="currentColor"/>
+            <circle cx="20" cy="14" r="5" fill="#f6f6ef"/>
+            <path d="M12 32c-5 1-7 2-7 4 0 2 7 3 15 3s15-1 15-3c0-2-2-3-7-4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span>2000 Szentendre, Futó utca 4.</span>
+        </a>
+      </address>
+
+      {% if page.footer %}
+        <div class="front-footer__region">
+          {{ page.footer }}
+        </div>
+      {% endif %}
+    </div>
+  </footer>
 </div>

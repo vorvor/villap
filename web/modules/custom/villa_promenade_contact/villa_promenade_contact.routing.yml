@@ -1,0 +1,19 @@
+villa_promenade_contact.form:
+  path: '/contact/event'
+  defaults:
+    _form: '\Drupal\villa_promenade_contact\Form\EventContactForm'
+    _title: 'Event enquiry'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: TRUE
+
+villa_promenade_contact.settings:
+  path: '/admin/config/system/villa-promenade-contact'
+  defaults:
+    _form: '\Drupal\villa_promenade_contact\Form\ContactSettingsForm'
+    _title: 'Villa Promenade contact notifications'
+  requirements:
+    _permission: 'administer villa contact settings'
+  options:
+    _admin_route: TRUE

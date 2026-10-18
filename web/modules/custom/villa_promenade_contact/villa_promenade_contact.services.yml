@@ -1,0 +1,9 @@
+services:
+  villa_promenade_contact.request_notifier:
+    class: Drupal\villa_promenade_contact\RequestNotifier
+    arguments:
+      - '@config.factory'
+      - '@plugin.manager.mail'
+      - '@email.validator'
+      - '@language_manager'
+      - '@logger.factory'

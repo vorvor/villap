@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @file
+ * Updates for Villa Promenade customer request storage.
+ */
+
+use Drupal\Core\Serialization\Yaml;
+use Drupal\views\Entity\View;
+use Drupal\villa_promenade_contact\EventQuestions;
+
+/**
+ * Adds private customer request storage and the administration View.
+ */
+function villa_promenade_contact_update_11001() {
+  $manager = \Drupal::entityTypeManager();
+  $manager->clearCachedDefinitions();
+  $updates = \Drupal::entityDefinitionUpdateManager();
+  if (!$updates->getEntityType('villa_customer_request')) {
+    $updates->installEntityType($manager->getDefinition('villa_customer_request'));
+  }
+  if (!View::load('villa_customer_requests')) {
+    $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_contact');
+    $definition = Yaml::decode(file_get_contents($path . '/config/install/views.view.villa_customer_requests.yml'));
+    View::create($definition)->save();
+  }
+  return t('Customer request storage and the private administration View are ready.');
+}
+
+/**
+ * Adds disabled-by-default notification settings without overwriting recipients.
+ */
+function villa_promenade_contact_update_11002() {
+  $config = \Drupal::configFactory()->getEditable('villa_promenade_contact.settings');
+  if ($config->isNew()) {
+    $config->set('notifications_enabled', FALSE)->set('recipients', [])->save();
+  }
+  return t('Contact notification settings are ready. Configure recipients and enable notifications in administration.');
+}
+
+/**
+ * Names event choices while preserving identifiers and legacy requests.
+ */
+function villa_promenade_contact_update_11003() {
+  $updates = \Drupal::entityDefinitionUpdateManager();
+  $field = $updates->getFieldStorageDefinition('event', 'villa_customer_request');
+  if ($field) {
+    $field->setSetting('allowed_values', EventQuestions::eventOptions() + ['event3' => 'event3 (legacy)', 'event4' => 'event4 (legacy)', 'event5' => 'event5 (legacy)']);
+    $updates->updateFieldStorageDefinition($field);
+  }
+  return t('Private and corporate event labels are ready. Legacy request identifiers are preserved.');
+}
+
+/**
+ * Allows other event enquiries without changing existing request identifiers.
+ */
+function villa_promenade_contact_update_11004() {
+  $updates = \Drupal::entityDefinitionUpdateManager();
+  $field = $updates->getFieldStorageDefinition('event', 'villa_customer_request');
+  if ($field) {
+    $field->setSetting('allowed_values', EventQuestions::eventOptions() + $field->getSetting('allowed_values'));
+    $updates->updateFieldStorageDefinition($field);
+  }
+  return t('The Other event choice is available for customer requests.');
+}
+
+/**
+ * Uses sentence case for event labels while preserving existing values.
+ */
+function villa_promenade_contact_update_11005() {
+  $updates = \Drupal::entityDefinitionUpdateManager();
+  $field = $updates->getFieldStorageDefinition('event', 'villa_customer_request');
+  if ($field) {
+    $field->setSetting('allowed_values', EventQuestions::eventOptions() + $field->getSetting('allowed_values'));
+    $updates->updateFieldStorageDefinition($field);
+  }
+  return t('Event labels now use sentence case.');
+}

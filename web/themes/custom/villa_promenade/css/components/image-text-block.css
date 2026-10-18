@@ -1,0 +1,87 @@
+.image-text-block {
+  padding: clamp(3rem, 7.7vw, 6.5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
+  color: #171714;
+  background: #f6f6ef url("../../images/paper-texture.png") repeat;
+  font-family: var(--villa-font-text);
+  font-size: clamp(1rem, 1.65vw, 1.5rem);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.image-text-block__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.96fr);
+  max-width: 68rem;
+  margin-inline: auto;
+  gap: 1.5rem 3rem;
+  align-items: start;
+}
+
+.image-text-block__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.26;
+  object-fit: cover;
+}
+
+.image-text-block__title {
+  margin: 0 0 1.75rem;
+  font-family: var(--villa-font-h2);
+  font-size: clamp(1.75rem, 2.95vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: none;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.image-text-block__text p {
+  margin-block: 0 1.25em;
+}
+
+.image-text-block__text .field__item > :last-child {
+  margin-bottom: 0;
+}
+
+.image-text-block__gallery {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.625rem;
+}
+
+.image-text-block__gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.12;
+  object-fit: cover;
+}
+
+.image-text-block--text-only .image-text-block__text {
+  grid-column: 1 / -1;
+}
+
+.image-text-block__text {
+  text-align: left;
+}
+
+@media (max-width: 47.99rem) {
+  .image-text-block__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .image-text-block__gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 29.99rem) {
+  .image-text-block__gallery {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

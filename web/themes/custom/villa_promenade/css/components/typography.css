@@ -1,0 +1,104 @@
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-Thin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-ExtraLight.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-ExtraBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Einstellung";
+  src: url("../../fonts/neue-einstellung/NeueEinstellung-Black.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+:root {
+  --villa-font-title: "Cormorant Garamond", serif;
+  --villa-font-h2: "Times New Roman MT", "Times New Roman", Times, serif;
+  --villa-font-text: "Neue Einstellung", "Manrope", sans-serif;
+}
+
+/* Body fonts are self-hosted; headings retain the existing serif family. */
+body {
+  font-family: var(--villa-font-text);
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--villa-font-title);
+}
+
+h2 {
+  font-family: var(--villa-font-h2);
+  text-transform: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}

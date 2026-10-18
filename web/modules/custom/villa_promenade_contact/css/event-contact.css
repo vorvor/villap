@@ -1,0 +1,22 @@
+.villa-promenade-contact-form {
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+/* Keep the bot trap out of the visual layout, not a hidden input. */
+.villa-promenade-contact-form .villa-contact-honeypot {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.villa-promenade-contact-form .form-text,
+.villa-promenade-contact-form .form-email,
+.villa-promenade-contact-form .form-select,
+.villa-promenade-contact-form .form-textarea {
+  box-sizing: border-box;
+  max-width: 100%;
+}

@@ -1,0 +1,71 @@
+.four-block-layout {
+  display: grid;
+  gap: clamp(3rem, 8vw, 7rem);
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
+  background: #f6f6ef url("../../images/paper-texture.png") repeat;
+}
+
+.four-block-layout .four-block-layout__row {
+  padding: 0;
+  background: transparent;
+}
+
+.four-block-layout .image-text-block__inner {
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4.5vw, 4rem);
+}
+
+.four-block-layout .image-text-block__image {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.four-block-layout .image-text-block__image img {
+  aspect-ratio: 16 / 9;
+}
+
+.four-block-layout .image-text-block__text {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.four-block-layout .image-text-block__title {
+  margin-bottom: 1.25rem;
+  font-size: clamp(1.5rem, 2.85vw, 2.5rem);
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 48rem) {
+  .four-block-layout .four-block-layout__row--reversed .image-text-block__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+  }
+
+  .four-block-layout .four-block-layout__row--reversed .image-text-block__image {
+    grid-column: 2;
+  }
+
+  .four-block-layout .four-block-layout__row--reversed .image-text-block__text {
+    grid-column: 1;
+  }
+}
+
+.four-block-layout .image-text-block--text-only .image-text-block__text {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 47.99rem) {
+  .four-block-layout .image-text-block__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .four-block-layout .image-text-block__image {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .four-block-layout .image-text-block__text {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}

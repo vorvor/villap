@@ -1,20 +1,98 @@
 /* Front-page masthead; its background remains a full-color photograph. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.image-separator[id] {
+  scroll-margin-top: calc(var(--drupal-displace-offset-top, 0px) + var(--villa-navigation-height, 5.5rem) + 1rem);
+}
+
 .front-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
+  box-sizing: border-box;
+  padding-top: 0;
   min-height: clamp(34rem, 56.5vw, 60rem);
   color: #fff;
+  background: #292929;
+  font-family: var(--villa-font-text);
+}
+
+/* Overscan keeps the photograph's edges hidden during subtle movement. */
+.front-hero::before {
+  position: absolute;
+  z-index: -2;
+  inset: -16px;
   background:
     linear-gradient(rgb(0 0 0 / 55%), rgb(0 0 0 / 55%)),
     url("../../images/vp-bg-1.png") center / cover no-repeat;
-  font-family: Georgia, "Times New Roman", serif;
+  transform: translate3d(var(--hero-shift-x, 0px), var(--hero-shift-y, 0px), 0);
+  transition: transform 180ms ease-out;
+  pointer-events: none;
+  content: "";
+}
+
+.front-hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(
+    circle 20rem at var(--hero-glow-x, 50%) var(--hero-glow-y, 50%),
+    rgb(255 226 174 / 22%),
+    rgb(255 226 174 / 8%) 35%,
+    transparent 75%
+  );
+  opacity: var(--hero-glow-opacity, 0);
+  transition: opacity 250ms ease;
+  pointer-events: none;
+  content: "";
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .front-hero::before {
+    transform: none;
+    transition: none;
+  }
+
+  .front-hero::after {
+    display: none;
+  }
 }
 
 .front-hero__navigation {
+  position: fixed;
+  z-index: 500;
+  top: var(--drupal-displace-offset-top, 0px);
+  inset-inline: 0;
   display: flex;
   align-items: center;
   min-height: 5.5rem;
   border-bottom: 1px solid rgb(255 255 255 / 80%);
+  background-color: transparent;
+  box-shadow: 0 0 0 rgb(0 0 0 / 0%);
+  font-family: "Playfair Display", serif;
+  transition: background-color 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+}
+
+.front-hero__navigation.is-scrolled {
+  border-bottom-color: rgb(255 255 255 / 12%);
+  background-color: rgb(35 33 30 / 82%);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 12%), 0 14px 32px rgb(0 0 0 / 16%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .front-hero__navigation {
+    transition: none;
+  }
 }
 
 .front-hero__menu {
@@ -36,7 +114,7 @@
   padding-block: 0.25rem;
   color: #fff;
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.4;
   letter-spacing: 0.055em;
   text-decoration: none;
@@ -53,54 +131,27 @@
 }
 
 .front-hero__branding {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem 1.25rem 1rem;
+  position: absolute;
+  inset: 0;
   text-align: center;
 }
 
-.front-hero__emblem {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 5rem;
-  height: 6.625rem;
-  border: 1px solid rgb(255 255 255 / 65%);
-  border-radius: 50%;
-}
-
-.front-hero__emblem::before {
-  position: absolute;
-  inset: 3px;
-  border: 1px solid rgb(255 255 255 / 55%);
-  border-radius: inherit;
-  content: "";
-}
-
-.front-hero__emblem img {
-  display: block;
-  width: 65%;
-  height: auto;
-}
-
 .front-hero__title {
-  margin: 1.25rem 0 0.9rem;
-  font-size: clamp(2rem, 3.45vw, 3.5rem);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: 0.065em;
-  overflow-wrap: anywhere;
+  /* PDF: lockup width 33.757% of the page, top at 48.356% of the hero. */
+  position: absolute;
+  top: 48.356%;
+  left: 52.335%;
+  width: clamp(14rem, 33.757vw, 36rem);
+  max-width: calc(100% - 2.5rem);
+  margin: 0;
+  line-height: 1;
+  transform: translateX(-50%);
 }
 
-.front-hero__date {
-  margin: 0;
-  font-size: clamp(1.125rem, 1.75vw, 1.75rem);
-  line-height: 1.4;
-  letter-spacing: 0.08em;
+.front-hero__logo {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media (max-width: 47.99rem) {
@@ -112,9 +163,5 @@
 
   .front-hero__menu a {
     font-size: 0.875rem;
-  }
-
-  .front-hero__branding {
-    padding-block: 3rem;
   }
 }

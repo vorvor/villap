@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Villa Promenade – font specimen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Jost:wght@100..900&family=Libre+Caslon+Text:wght@400;700&family=Outfit:wght@100..900&family=Playfair+Display:wght@400..900&family=Source+Serif+4:opsz,wght@8..60,200..900&display=swap">
+<style>
+@font-face{font-family:'Sofia Pro';font-weight:100;font-style:normal;font-display:swap;src:url('fonts/SofiaPro-UltraLight.otf') format('opentype')}
+@font-face{font-family:'Sofia Pro';font-weight:200;font-style:normal;font-display:swap;src:url('fonts/SofiaPro-ExtraLight.otf') format('opentype')}
+@font-face{font-family:'Sofia Pro';font-weight:300;font-style:normal;font-display:swap;src:url('fonts/SofiaPro-Light.otf') format('opentype')}
+@font-face{font-family:'Sofia Pro';font-weight:400;font-style:normal;font-display:swap;src:url('fonts/SofiaPro-Regular.otf') format('opentype')}
+@font-face{font-family:'Sofia Pro';font-weight:500;font-style:normal;font-display:swap;src:url('fonts/SofiaPro-Medium.otf') format('opentype')}
+@font-face{font-family:'Sofia Pro';font-weight:600;font-style:normal;font-display:swap;src:url('fonts/SofiaPro-SemiBold.otf') format('opentype')}
+@font-face{font-family:'Sofia Pro';font-weight:700;font-style:normal;font-display:swap;src:url('fonts/SofiaPro-Bold.otf') format('opentype')}
+@font-face{font-family:'Sofia Pro';font-weight:900;font-style:normal;font-display:swap;src:url('fonts/SofiaPro-Black.otf') format('opentype')}
+@font-face{font-family:'Neue Einstellung';font-weight:100;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-Thin.woff2') format('woff2')}
+@font-face{font-family:'Neue Einstellung';font-weight:200;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-ExtraLight.woff2') format('woff2')}
+@font-face{font-family:'Neue Einstellung';font-weight:300;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-Light.woff2') format('woff2')}
+@font-face{font-family:'Neue Einstellung';font-weight:400;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-Regular.woff2') format('woff2')}
+@font-face{font-family:'Neue Einstellung';font-weight:500;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-Medium.woff2') format('woff2')}
+@font-face{font-family:'Neue Einstellung';font-weight:600;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-SemiBold.woff2') format('woff2')}
+@font-face{font-family:'Neue Einstellung';font-weight:700;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-Bold.woff2') format('woff2')}
+@font-face{font-family:'Neue Einstellung';font-weight:800;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-ExtraBold.woff2') format('woff2')}
+@font-face{font-family:'Neue Einstellung';font-weight:900;font-style:normal;font-display:swap;src:url('fonts/NeueEinstellung-Black.woff2') format('woff2')}
+@font-face{font-family:'Amoresa';font-weight:400;font-style:normal;font-display:swap;src:url('fonts/Amoresa-Regular.woff2') format('woff2')}
+@font-face{font-family:'Amoresa Aged';font-weight:400;font-style:normal;font-display:swap;src:url('fonts/Amoresa-Aged.woff2') format('woff2')}
+:root{--bg:#f6f3ec;--fg:#1d1a16;--mute:#6f685d;--line:#d9d2c4;--card:#fffdf8;--link:#6b4a1e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17150f;--fg:#efe9dc;--mute:#a39b8b;--line:#3a352a;--card:#1f1c15;--link:#e0b878;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17150f;--fg:#efe9dc;--mute:#a39b8b;--line:#3a352a;--card:#1f1c15;--link:#e0b878;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:32px 20px 64px}
+h1{font:600 28px/1.2 system-ui,sans-serif;margin:0 0 8px}
+.font{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:24px;margin-bottom:28px}
+.font header{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:8px}
+.font h2{margin:0;font-size:22px;font-family:system-ui,sans-serif}
+.meta{color:var(--mute);font-size:14px;margin:4px 0 0}
+.meta a{color:var(--link);word-break:break-all}
+.note{font-size:13px;color:var(--mute);margin:6px 0 0}
+.w{padding:16px 0;border-bottom:1px solid var(--line)}
+.w:last-child{border-bottom:0}
+.lab{font:13px system-ui,sans-serif;color:var(--mute);margin-bottom:6px}
+.s{margin:0 0 6px;overflow-wrap:anywhere}
+.s1{font-size:44px;line-height:1.15}
+.s2{font-size:24px;line-height:1.3}
+.s3{font-size:15px;line-height:1.6}
+button{font:14px system-ui,sans-serif;padding:6px 12px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:6px;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.slider{padding:16px 0;border-bottom:1px solid var(--line)}
+.slider .row{display:flex;align-items:center;gap:12px;font:14px system-ui,sans-serif;color:var(--mute);margin-bottom:12px}
+.slider input{flex:1;min-width:0;accent-color:var(--link)}
+.slider output{min-width:130px;text-align:right;color:var(--fg);font-variant-numeric:tabular-nums}
+.live{font-size:56px;line-height:1.15;margin:0 0 6px}
+.live2{font-size:20px;line-height:1.5;margin:0}
+.typer{display:flex;gap:8px;margin-bottom:16px}
+.typer input{flex:1;min-width:0;font:14px system-ui,sans-serif;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
+.typer input:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+@media (max-width:600px){.s1{font-size:32px}.live{font-size:38px}.slider output{min-width:100px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Villa Promenade – font specimen</h1>
+<div id="out"></div>
+</main>
+<script>
+const fonts=[
+{n:"Amoresa",role:"Script by Andrey Sharonov, 2 styles (Regular and Aged), so no weight slider",css:"'Amoresa',cursive",url:"https://myfonts.com/fonts/andrey-sharonov/amoresa",w:[400],noslider:true,aged:true},
+{n:"Neue Einstellung",role:"Geometric sans by Hanken Design Co., Thin to Black",css:"'Neue Einstellung',sans-serif",url:"https://myfonts.com/fonts/hanken-designco/neue-einstellung",w:[100,200,300,400,500,600,700,800,900]},
+{n:"Playfair Display",role:"Logo title (VILLA PROMENADE)",css:"'Playfair Display',serif",url:"https://fonts.google.com/specimen/Playfair+Display",w:[400,500,600,700,800,900]},
+{n:"Cormorant Garamond",role:"Navigation and 'EST. 1660' (alternative)",css:"'Cormorant Garamond',serif",url:"https://fonts.google.com/specimen/Cormorant+Garamond",w:[300,400,500,600,700]},
+{n:"Libre Caslon Text",role:"Heading (free alternative)",css:"'Libre Caslon Text',serif",url:"https://fonts.google.com/specimen/Libre+Caslon+Text",w:[400,700]},
+{n:"Source Serif 4",role:"Heading (free alternative)",css:"'Source Serif 4',serif",url:"https://fonts.google.com/specimen/Source+Serif+4",w:[200,300,400,500,600,700,800,900]},
+{n:"Jost",role:"Body text (free alternative)",css:"'Jost',sans-serif",url:"https://fonts.google.com/specimen/Jost",w:[100,200,300,400,500,600,700,800,900]},
+{n:"Outfit",role:"Body text (free alternative)",css:"'Outfit',sans-serif",url:"https://fonts.google.com/specimen/Outfit",w:[100,200,300,400,500,600,700,800,900]},
+{n:"Sofia Pro",role:"Body text",css:"'Sofia Pro',sans-serif",url:"https://www.mostardesign.com/fonts/sofia-pro",w:[100,200,300,400,500,600,700,900],names:{100:"Ultra Light",200:"Extra Light",300:"Light",400:"Regular",500:"Medium",600:"Semi Bold",700:"Bold",900:"Black"}}
+];
+const nm={100:"Thin",200:"ExtraLight",300:"Light",400:"Regular",500:"Medium",600:"SemiBold",700:"Bold",800:"ExtraBold",900:"Black"};
+const variable=["Playfair Display","Cormorant Garamond","Source Serif 4","Jost","Outfit"];
+const stepFor=f=>variable.includes(f.n)?1:(f.n==="Libre Caslon Text"?300:100);
+const tx=(f,s)=>f.ascii?s.normalize("NFD").replace(/[\u0300-\u036f]/g,""):s;
+const t1="Egy régi ház új történetei.";
+const t2="Szentendre egyik legszebb részén, a Dunakorzón van egy régi villa.";
+const t3="Amikor először beléptünk, nem egy rendezvényhelyszínt láttunk benne. Hanem hosszú asztalokat és még hosszabb estéket, hangos nevetéseket, késő estig tartó beszélgetéseket, megtelt kertet és egy házat, amiben élet van.";
+document.getElementById('out').innerHTML=fonts.map(f=>`
+<section class="font">
+<header><h2>${f.n}</h2>
+<p class="meta">${f.role} · <a href="${f.url}" target="_blank" rel="noopener">${f.url}</a></p>
+${f.sub?`<p class="note">Preview uses ${f.sub} as a stand-in, because this font is not available from Google Fonts.</p>`:""}
+</header>
+<div class="slider"><div class="row" ${f.noslider?'style="display:none"':''}><span>Weight</span><input type="range" aria-label="Font weight for ${f.n}" min="${f.w[0]}" max="${f.w[f.w.length-1]}" step="${stepFor(f)}" value="${f.w.includes(400)?400:f.w[0]}"><output></output></div>
+<div class="typer"><input type="text" placeholder="Type your own text to preview it in ${f.n}" aria-label="Custom preview text for ${f.n}"><button type="button" class="reset">Reset</button></div>
+<div class="live-wrap" style="font-family:${f.css}">${f.aged?`<p class="lab">Regular</p>`:""}<p class="live">${tx(f,t1)}</p><p class="live2">${tx(f,"Hosszú asztalok és még hosszabb estéket.")}</p>${f.aged?`<p class="lab" style="margin-top:16px">Aged</p><p class="live" style="font-family:'Amoresa Aged',cursive">${tx(f,t1)}</p><p class="live2" style="font-family:'Amoresa Aged',cursive">${tx(f,"Hosszú asztalok és még hosszabb estéket.")}</p>`:""}</div></div>
+</section>`).join("");
+document.querySelectorAll('.slider').forEach((box,i)=>{const f=fonts[i],inp=box.querySelector('input[type=range]'),out=box.querySelector('output'),wrap=box.querySelector('.live-wrap');
+const upd=()=>{const v=+inp.value;const near=[...f.w].sort((a,b)=>Math.abs(a-v)-Math.abs(b-v))[0];const sv=variable.includes(f.n)?v:near;wrap.style.fontWeight=sv;out.textContent=sv+(sv===near?' – '+((f.names&&f.names[sv])||nm[sv]):'');};
+inp.addEventListener('input',upd);upd();
+const ti=box.querySelector('input[type=text]'),rs=box.querySelector('.reset');
+const sync=()=>{const v=ti.value.trim();box.querySelectorAll('.live').forEach(e=>{e.textContent=v?ti.value:tx(f,t1)});box.querySelectorAll('.live2').forEach(e=>{e.style.display=v?'none':''})};
+ti.addEventListener('input',sync);rs.addEventListener('click',()=>{ti.value='';sync();ti.focus()});});
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+villa_promenade_contact.settings:
+  type: config_object
+  label: 'Villa Promenade contact notification settings'
+  mapping:
+    notifications_enabled:
+      type: boolean
+      label: 'Send staff email notifications'
+    recipients:
+      type: sequence
+      label: 'Notification recipients'
+      sequence:
+        type: email
+        label: 'Email address'

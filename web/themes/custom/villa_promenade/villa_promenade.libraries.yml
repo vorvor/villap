@@ -2,6 +2,7 @@ base:
   version: VERSION
   css:
     component:
+      css/components/typography.css: {}
       css/components/action-links.css:
         weight: -10
       css/components/breadcrumb.css:
@@ -60,14 +61,57 @@ file:
     component:
       css/components/file.css:
         weight: -10
+front-edit-links:
+  css:
+    component:
+      css/components/front-edit-links.css: {}
+front-event-contact:
+  css:
+    component:
+      css/components/front-event-contact.css: {}
+  dependencies:
+    - villa_promenade_contact/form
+front-footer:
+  css:
+    component:
+      css/components/front-footer.css: {}
 front-hero:
   css:
     component:
+      'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&display=swap': { type: external, minified: true }
       css/components/front-hero.css: {}
+  js:
+    js/front-hero.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
 image-separator:
   css:
     component:
       css/components/image-separator.css: {}
+image-text-block:
+  css:
+    component:
+      css/components/image-text-block.css: {}
+four-block-layout:
+  css:
+    component:
+      css/components/four-block-layout.css: {}
+  dependencies:
+    - villa_promenade/image-text-block
+team-members:
+  css:
+    component:
+      css/components/team-members.css: {}
+photo-gallery:
+  css:
+    component:
+      css/components/photo-gallery.css: {}
+  js:
+    js/photo-gallery.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
 image-widget:
   version: VERSION
   css:

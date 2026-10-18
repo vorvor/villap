@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Form presentation and mail integration for Villa Promenade requests.
+ */
+
+use Drupal\Component\Utility\Html;
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function villa_promenade_contact_preprocess_form_element(array &$variables): void {
+  if (!empty($variables['element']['#event_required'])) {
+    // Use Drupal's label marker without requiring inactive event inputs.
+    // Conditional required validation remains in EventContactForm.
+    $variables['label']['#required'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_preprocess_fieldset().
+ */
+function villa_promenade_contact_preprocess_fieldset(array &$variables): void {
+  if (!empty($variables['element']['#event_required'])) {
+    // Mark the group legend, not every individual checkbox or radio label.
+    $variables['required'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function villa_promenade_contact_mail($key, &$message, $params) {
+  if ($key === 'customer_request') {
+    $message['subject'] = $params['subject'];
+    // Mail backends convert HTML to plain text. Escape literal customer input
+    // first so angle brackets cannot become markup or disappear from the mail.
+    $message['body'][] = nl2br(Html::escape($params['body']));
+  }
+}
