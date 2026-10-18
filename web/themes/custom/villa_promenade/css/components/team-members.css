@@ -1,14 +1,14 @@
 .team-members {
   display: grid;
-  gap: clamp(3rem, 7vw, 6rem);
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem);
   color: #171714;
   background: #f6f6ef url("../../images/paper-texture.png") repeat;
 }
 
 /* Halve both spacing sources between the team banner and its first profile. */
 #rolunk .image-separator__description {
-  padding-block: clamp(1.5rem, 5.75vw, 5rem);
+  padding-block: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 #rolunk + .team-members {
@@ -19,9 +19,9 @@
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   width: 100%;
-  max-width: 68rem;
+  max-width: 72rem;
   margin-inline: auto;
-  gap: clamp(1.5rem, 4.5vw, 4rem);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: start;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .team-member__description {
-  margin-top: clamp(2rem, 5vw, 5rem);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
   font-family: var(--villa-font-text);
   font-size: clamp(1rem, 1.65vw, 1.5rem);
   line-height: 1.4;

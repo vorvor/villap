@@ -1,13 +1,13 @@
 /* Quiet, paper-textured closing section from the Villa Promenade design. */
 .front-footer {
-  padding: clamp(3rem, 5vw, 5rem) clamp(1.25rem, 5vw, 5rem) clamp(5rem, 11vw, 10rem);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem);
   color: #171714;
   background: #f6f6ef url("../../images/paper-texture.png") repeat;
   font-family: var(--villa-font-text);
 }
 
 .front-footer__inner {
-  max-width: 76rem;
+  max-width: 72rem;
   margin-inline: auto;
 }
 
@@ -24,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: clamp(6rem, 23vw, 20rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
   gap: 2rem;
 }
 
@@ -44,7 +44,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin: clamp(2.5rem, 7vw, 6rem) 0 0;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
   gap: 2rem;
   font-style: normal;
 }
@@ -116,7 +116,7 @@
 
 @media (max-width: 47.99rem) {
   .front-footer__socials {
-    margin-top: 5rem;
+    margin-top: 2.5rem;
   }
 
   .front-footer__contacts {

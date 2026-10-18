@@ -1,5 +1,5 @@
 .image-text-block {
-  padding: clamp(3rem, 7.7vw, 6.5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem);
   color: #171714;
   background: #f6f6ef url("../../images/paper-texture.png") repeat;
   font-family: var(--villa-font-text);
@@ -11,9 +11,9 @@
 .image-text-block__inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.96fr);
-  max-width: 68rem;
+  max-width: 72rem;
   margin-inline: auto;
-  gap: 1.5rem 3rem;
+  gap: 1.5rem clamp(1.5rem, 4vw, 3.5rem);
   align-items: start;
 }
 

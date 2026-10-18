@@ -1,5 +1,5 @@
 .photo-gallery {
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem);
   background: #f6f6ef url("../../images/paper-texture.png") repeat;
 }
 
@@ -7,7 +7,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-auto-rows: clamp(7rem, 21vw, 19rem);
-  max-width: 68rem;
+  max-width: 72rem;
   margin-inline: auto;
   gap: 4px;
 }

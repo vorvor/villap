@@ -1,6 +1,6 @@
 /* Front-page enquiry panel, scoped to leave the standalone form unchanged. */
 .front-event-contact {
-  padding: clamp(2.5rem, 5vw, 4.5rem) 1.25rem;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem);
   color: #171714;
   background: #f6f6ef url("../../images/paper-texture.png") repeat;
   font-family: var(--villa-font-text);
@@ -8,7 +8,7 @@
 }
 
 .front-event-contact__title {
-  max-width: 76rem;
+  max-width: 60rem;
   margin: 0 auto;
   font-family: var(--villa-font-title);
   font-size: clamp(1.75rem, 3.1vw, 2.75rem);
@@ -32,7 +32,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem 1.25rem;
-  max-width: 56rem;
+  max-width: 60rem;
   margin: 1.75rem auto 0;
   padding: 1.5rem 0 0;
   border-top: 1px solid rgb(23 23 20 / 25%);

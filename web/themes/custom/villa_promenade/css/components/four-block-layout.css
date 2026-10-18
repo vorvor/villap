@@ -1,7 +1,7 @@
 .four-block-layout {
   display: grid;
-  gap: clamp(3rem, 8vw, 7rem);
-  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem);
   background: #f6f6ef url("../../images/paper-texture.png") repeat;
 }
 
@@ -11,8 +11,8 @@
 }
 
 .four-block-layout .image-text-block__inner {
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 4.5vw, 4rem);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
 }
 
 .four-block-layout .image-text-block__image {
@@ -37,7 +37,7 @@
 
 @media (min-width: 48rem) {
   .four-block-layout .four-block-layout__row--reversed .image-text-block__inner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
   }
 
   .four-block-layout .four-block-layout__row--reversed .image-text-block__image {
