@@ -1,0 +1,7 @@
+name: Villa Promenade Access
+type: module
+description: 'Role-specific login behavior for site preview accounts.'
+package: Villa Promenade
+core_version_requirement: ^11
+dependencies:
+  - drupal:user

@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Login behavior for Villa Promenade preview accounts.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_login_form.
+ */
+function villa_promenade_access_form_user_login_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
+  // Run after core has authenticated the user and set its default redirect.
+  $form['#submit'][] = 'villa_promenade_access_login_redirect';
+}
+
+/**
+ * Sends preview accounts to the homepage after a successful login.
+ */
+function villa_promenade_access_login_redirect(array &$form, FormStateInterface $form_state): void {
+  $account = \Drupal::currentUser();
+  if ($account->isAuthenticated() && in_array('site_preview', $account->getRoles(), TRUE)) {
+    $form_state->setIgnoreDestination(TRUE);
+    $form_state->setRedirect('<front>');
+  }
+}
