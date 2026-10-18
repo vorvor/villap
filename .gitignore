@@ -1,0 +1,44 @@
+# IDE and operating-system files.
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Composer-managed dependencies; keep composer.json and composer.lock tracked.
+/vendor/
+/web/core/
+/web/modules/contrib/
+/web/themes/contrib/
+/web/profiles/contrib/
+/web/libraries/
+/drush/Commands/contrib/
+
+# Drupal site-specific configuration and uploaded/private files.
+/web/sites/*/*settings*.php
+!/web/sites/*/default.settings.php
+/web/sites/*/*services*.yml
+!/web/sites/*/default.services.yml
+/web/sites/*/files/
+/web/sites/*/private/
+/web/sites/simpletest/
+/private/
+
+# Local environment and authentication files; retain distributable examples.
+.env
+.env.*
+!.env.example
+!.env.dist
+!.env.*.example
+/auth.json
+/.lando.local.yml
+
+# Frontend dependencies and generated test/cache output.
+node_modules/
+.phpunit.result.cache
+.phpunit.cache/
+/coverage/
+/tmp/
+*.log
