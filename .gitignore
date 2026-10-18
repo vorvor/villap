@@ -17,6 +17,7 @@ Thumbs.db
 /drush/Commands/contrib/
 
 # Drupal site-specific configuration and uploaded/private files.
+/web/sites/default/settings.php
 /web/sites/*/*settings*.php
 !/web/sites/*/default.settings.php
 /web/sites/*/*services*.yml

@@ -1,3 +1,10 @@
+maintenance-page:
+  css:
+    theme:
+      css/components/maintenance-page.css: {}
+  dependencies:
+    - villa_promenade/base
+    - core/normalize
 base:
   version: VERSION
   css:

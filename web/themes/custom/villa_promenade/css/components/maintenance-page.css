@@ -1,0 +1,149 @@
+/* A quiet, self-contained maintenance screen using the front-page assets. */
+body.maintenance-page {
+  margin: 0;
+  color: #171714;
+  background: #f6f6ef url("../../images/paper-texture.png") repeat;
+  font-family: var(--villa-font-text);
+}
+
+.villa-maintenance {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.villa-maintenance__hero {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-height: clamp(18rem, 43vh, 30rem);
+  padding: 3rem 1.5rem;
+  background:
+    linear-gradient(rgb(0 0 0 / 48%), rgb(0 0 0 / 68%)),
+    url("../../images/vp-bg-1.png") center 44% / cover no-repeat;
+}
+
+.villa-maintenance__brand {
+  display: block;
+  width: clamp(16rem, 34vw, 34rem);
+  max-width: 100%;
+}
+
+.villa-maintenance__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.villa-maintenance__main {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 52rem;
+  margin-inline: auto;
+  padding: clamp(2.25rem, 5vw, 4rem) 1.5rem 2rem;
+  text-align: center;
+}
+
+.villa-maintenance__eyebrow {
+  margin: 0 0 1rem;
+  color: #625642;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.villa-maintenance__title {
+  margin: 0;
+  font-family: var(--villa-font-h2);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.villa-maintenance__message {
+  max-width: 38rem;
+  margin: 1.25rem auto 0;
+  color: #59564d;
+  font-size: 1rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.villa-maintenance__message p {
+  margin: 0 0 1rem;
+}
+
+.villa-maintenance__message > :last-child {
+  margin-bottom: 0;
+}
+
+.villa-maintenance__contact {
+  display: inline-block;
+  margin-top: 1.75rem;
+  padding: 0.75rem 1.75rem;
+  border: 1px solid #171714;
+  color: #171714;
+  background: transparent;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.025em;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.villa-maintenance__contact:hover {
+  color: #f6f6ef;
+  background: #171714;
+}
+
+.villa-maintenance__footer {
+  box-sizing: border-box;
+  width: calc(100% - 3rem);
+  max-width: 49rem;
+  margin: auto auto 0;
+  padding: 1.25rem 0 1.5rem;
+  border-top: 1px solid rgb(23 23 20 / 20%);
+  text-align: center;
+}
+
+.villa-maintenance__address {
+  margin: 0;
+  color: #59564d;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  font-style: normal;
+}
+
+.villa-maintenance__login {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  color: #625642;
+  font-size: 0.75rem;
+  text-underline-offset: 0.25em;
+}
+
+.villa-maintenance a:focus-visible {
+  outline: 2px solid #625642;
+  outline-offset: 0.3rem;
+}
+
+.villa-maintenance__brand:focus-visible {
+  outline-color: #fff;
+}
+
+.villa-maintenance__sidebar {
+  max-width: 49rem;
+  margin: 0 auto 1.5rem;
+  padding-inline: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .villa-maintenance__contact {
+    transition: none;
+  }
+}
