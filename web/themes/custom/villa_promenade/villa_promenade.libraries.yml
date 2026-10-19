@@ -1,3 +1,10 @@
+thank-you-page:
+  css:
+    theme:
+      css/components/thank-you-page.css: {}
+  dependencies:
+    - villa_promenade/base
+    - core/normalize
 login-page:
   css:
     theme:

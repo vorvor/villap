@@ -8,6 +8,14 @@ villa_promenade_contact.form:
   options:
     no_cache: TRUE
 
+villa_promenade_contact.thank_you:
+  path: '/contact/event/thank-you'
+  defaults:
+    _controller: '\Drupal\villa_promenade_contact\Controller\ThankYouController::build'
+    _title: 'Köszönjük a megkeresést, hamarosan jelentkezünk!'
+  requirements:
+    _access: 'TRUE'
+
 villa_promenade_contact.settings:
   path: '/admin/config/system/villa-promenade-contact'
   defaults:

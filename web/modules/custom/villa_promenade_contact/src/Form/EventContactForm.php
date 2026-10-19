@@ -265,13 +265,7 @@ final class EventContactForm extends FormBase {
     catch (\Exception $exception) {
       $this->logger('villa_promenade_contact')->error('Email notification failed for saved request @id. The request remains available in administration.', ['@id' => $request->id()]);
     }
-    $this->messenger()->addStatus($this->t('Thank you. Your enquiry has been received.'));
-    if (\Drupal::service('path.matcher')->isFrontPage()) {
-      $form_state->setRedirect('<front>', [], ['fragment' => 'event-contact']);
-    }
-    else {
-      $form_state->setRedirect('villa_promenade_contact.form');
-    }
+    $form_state->setRedirect('villa_promenade_contact.thank_you');
   }
 
 }

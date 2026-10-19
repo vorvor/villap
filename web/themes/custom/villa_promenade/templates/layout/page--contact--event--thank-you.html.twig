@@ -1,0 +1,22 @@
+{# Branded enquiry confirmation; form processing remains in the contact module. #}
+{{ attach_library('villa_promenade/thank-you-page') }}
+<div class="villa-thank-you">
+  <header class="villa-thank-you__hero">
+    <a class="villa-thank-you__brand" href="{{ path('<front>') }}" rel="home">
+      <img src="{{ base_path ~ directory }}/images/logo-top-white.png" alt="Villa Promenade — {{ 'Home'|t }}" width="1800" height="833" fetchpriority="high">
+    </a>
+    {{ page.header }}
+  </header>
+
+  <main id="main-content" class="villa-thank-you__main" tabindex="-1">
+    {{ page.highlighted }}
+    {{ page.help }}
+    {{ page.content }}
+  </main>
+
+  <footer class="villa-thank-you__footer">
+    <address>2000 Szentendre, Futó utca 4.</address>
+    <a href="mailto:event@villapromenade.hu">event@villapromenade.hu</a>
+    {{ page.footer }}
+  </footer>
+</div>
