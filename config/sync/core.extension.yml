@@ -38,6 +38,7 @@ module:
   text: 0
   update: 0
   user: 0
+  views_bulk_operations: 0
   views_ui: 0
   villa_promenade_access: 0
   villa_promenade_contact: 0

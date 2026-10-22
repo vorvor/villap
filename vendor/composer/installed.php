@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3ada2aac12a53eb338ddbc39f7b5ae25719b7bf9',
+        'reference' => '6aba3be0b23f493295fab7b07752639ae2d4961e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -337,7 +337,7 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3ada2aac12a53eb338ddbc39f7b5ae25719b7bf9',
+            'reference' => '6aba3be0b23f493295fab7b07752639ae2d4961e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -366,6 +366,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'drupal/views_bulk_operations' => array(
+            'pretty_version' => '4.4.9',
+            'version' => '4.4.9.0',
+            'reference' => '4.4.9',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/views_bulk_operations',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'drush/drush' => array(
             'pretty_version' => '13.8.0',

@@ -1,0 +1,10 @@
+{% if title %}
+  <h2>{{ title }}</h2>
+{% endif %}
+<div class="request-tiles">
+  {% for row in rows %}
+    <article{{ row.attributes.addClass('request-tile', default_row_class ? 'views-row') }}>
+      {{ row.content }}
+    </article>
+  {% endfor %}
+</div>

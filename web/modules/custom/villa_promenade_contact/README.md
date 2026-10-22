@@ -18,7 +18,7 @@ marked with Drupal's native required label/legend indicator through preprocess
 hooks and validated server-side only for the selected event. Only that
 section and selected Other answers are saved; multi-select answers retain every
 selected label. Without JavaScript all labelled sections remain available.
-Existing event identifiers and legacy event3–event5 requests are preserved.
+Only event1, event2 and other are allowed in request storage, forms and filters.
 
 Security uses Drupal Form API protection plus an off-screen, non-focusable text
 honeypot checked on the server. A signed timestamp rejects submissions within
@@ -38,17 +38,27 @@ personal data is not included in module log messages.
 Open `/admin/content/customer-requests` or Content > Customer requests.
 This is a real Drupal View, editable at
 `/admin/structure/views/view/villa_customer_requests` by users with Views permissions.
-The table includes request ID, customer, email, event, status, demo marker,
+The tiles include request ID, customer, email, event, demo marker,
 submitted date and edit/delete actions. Customer names link to full details.
-Filter by name, email, event, status, demo marker or submitted-on-or-after date.
-Click sortable table headings to change ordering; newest requests appear first.
+The New, Cancelled and Archive tabs open separate status-specific pages:
+the main URL shows New; `/cancelled` and `/archive` show the other states.
+Filter each page by name, email, event, demo marker or submitted-on-or-after date.
+Changing a tile's status refreshes the current list through AJAX and moves the
+request to its matching tab. Legacy In progress/Completed requests remain stored
+and editable but do not appear in these three status-specific pages.
+Requests default to planned event date ascending, with undated requests last
+and request ID ascending as a stable tie-breaker. The internal date key is kept
+in sync whenever request details are saved; original answers remain unchanged.
 The list is paged at 25 requests per page.
 
 Grant `Manage Villa Promenade customer requests` only to trusted staff. Existing
 administrator roles receive it automatically. The list, entity details, editing
 and deletion are permission protected; requests are not public nodes.
 Managers can edit contact details, event details, request status and internal notes.
-Statuses are New, In progress, Completed and Cancelled. Deletion uses a
+Statuses are New, In progress, Completed, Cancelled and Archive. Each tile has
+Cancelled, Archive and New buttons with AJAX saving, permission checks and
+Form API CSRF protection. The current state is shown and its button disabled.
+Archiving retains the request and its data. Deletion uses a
 confirmation form and permanently removes the request.
 
 ## Email notifications
@@ -78,7 +88,7 @@ are installed on existing sites by `drush updb -y`.
 ## Demo data
 
 Run `drush php:script web/modules/custom/villa_promenade_contact/scripts/create-demo-requests.php`
-to add ten fictional requests covering all five events and four statuses.
+to add ten fictional requests covering the three current event types, all starting as New.
 Names contain Demo, addresses use `example.com`, and every fixture has its Demo
 marker set. The script skips existing fixtures instead of overwriting them.
 Use the Demo requests filter to find and delete these records before launch.

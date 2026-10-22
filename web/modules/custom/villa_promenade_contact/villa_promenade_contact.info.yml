@@ -6,3 +6,4 @@ core_version_requirement: ^11
 dependencies:
   - drupal:views
   - drupal:options
+  - views_bulk_operations:views_bulk_operations

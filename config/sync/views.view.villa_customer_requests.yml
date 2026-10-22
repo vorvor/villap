@@ -5,6 +5,7 @@ dependencies:
   module:
     - options
     - user
+    - views_bulk_operations
     - villa_promenade_contact
   enforced:
     module:
@@ -25,6 +26,31 @@ display:
     display_options:
       title: 'Customer requests'
       fields:
+        views_bulk_operations_bulk_form:
+          id: views_bulk_operations_bulk_form
+          table: views
+          field: views_bulk_operations_bulk_form
+          relationship: none
+          group_type: group
+          plugin_id: views_bulk_operations_bulk_form
+          label: 'Bulk operations'
+          batch: true
+          batch_size: 10
+          form_step: true
+          ajax_loader: false
+          buttons: false
+          action_title: Action
+          clear_on_exposed: true
+          show_multipage_selection_box: always_show
+          show_select_all: always_show
+          selected_actions:
+            -
+              action_id: views_bulk_operations_delete_entity
+              preconfiguration:
+                add_confirmation: true
+                confirm_help_text: 'Delete %count selected customer requests? This action cannot be undone.'
+                label_override: 'Delete selected customer requests'
+                message_override: ''
         id:
           id: id
           table: villa_customer_request
@@ -102,7 +128,9 @@ display:
           label: Demo
           type: boolean
           settings:
-            link_to_entity: false
+            format: custom
+            format_custom_false: Live
+            format_custom_true: Demo
         created:
           id: created
           table: villa_customer_request
@@ -115,7 +143,9 @@ display:
           label: Submitted
           type: timestamp
           settings:
-            link_to_entity: false
+            date_format: custom
+            custom_date_format: Y-m-d
+            timezone: ''
         operations:
           id: operations
           table: villa_customer_request
@@ -125,6 +155,47 @@ display:
           plugin_id: entity_operations
           label: Actions
           destination: true
+        details:
+          id: details
+          table: villa_customer_request
+          field: details
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: details
+          plugin_id: field
+          label: 'Request details'
+          type: basic_string
+          settings:
+            link_to_entity: false
+        admin_notes:
+          id: admin_notes
+          table: villa_customer_request
+          field: admin_notes
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: admin_notes
+          plugin_id: field
+          label: 'Internal notes'
+          type: basic_string
+          settings:
+            link_to_entity: false
+        changed:
+          id: changed
+          table: villa_customer_request
+          field: changed
+          relationship: none
+          group_type: group
+          entity_type: villa_customer_request
+          entity_field: changed
+          plugin_id: field
+          label: Updated
+          type: timestamp
+          settings:
+            date_format: custom
+            custom_date_format: Y-m-d
+            timezone: ''
       pager:
         type: full
         options:
@@ -160,14 +231,14 @@ display:
             value: 'No customer requests match your filters.'
             format: plain_text
       sorts:
-        created:
-          id: created
+        planned_date_sort:
+          id: planned_date_sort
           table: villa_customer_request
-          field: created
+          field: planned_date_sort
           entity_type: villa_customer_request
-          entity_field: created
-          plugin_id: date
-          order: DESC
+          entity_field: planned_date_sort
+          plugin_id: standard
+          order: ASC
         id:
           id: id
           table: villa_customer_request
@@ -175,7 +246,19 @@ display:
           entity_type: villa_customer_request
           entity_field: id
           plugin_id: standard
-          order: DESC
+          order: ASC
+      arguments:
+        request_status:
+          id: request_status
+          table: villa_customer_request
+          field: request_status
+          entity_type: villa_customer_request
+          entity_field: request_status
+          plugin_id: string
+          default_action: default
+          default_argument_type: fixed
+          default_argument_options:
+            argument: new
       filters:
         name:
           id: name
@@ -242,30 +325,7 @@ display:
             identifier: event
             required: false
             remember: false
-            multiple: false
-          reduce_duplicates: false
-        request_status:
-          id: request_status
-          table: villa_customer_request
-          field: request_status
-          relationship: none
-          group_type: group
-          entity_type: villa_customer_request
-          entity_field: request_status
-          plugin_id: list_field
-          operator: or
-          value: {  }
-          exposed: true
-          expose:
-            operator_id: request_status_op
-            label: Status
-            description: ''
-            use_operator: false
-            operator: request_status_op
-            identifier: request_status
-            required: false
-            remember: false
-            multiple: false
+            multiple: true
           reduce_duplicates: false
         is_demo:
           id: is_demo
@@ -327,6 +387,7 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
             id: id
             name: name
             email: email
@@ -337,6 +398,13 @@ display:
             operations: operations
           default: created
           info:
+            views_bulk_operations_bulk_form:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             id:
               sortable: true
               default_sort_order: desc
@@ -396,6 +464,7 @@ display:
           override: true
           sticky: true
           empty_table: false
+          class: ''
       row:
         type: fields
         options: {  }
@@ -406,7 +475,7 @@ display:
           distinct: false
       display_extenders: {  }
     cache_metadata:
-      max-age: -1
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -416,14 +485,105 @@ display:
       tags: {  }
   page_1:
     id: page_1
-    display_title: 'Customer requests'
+    display_title: 'New requests'
     display_plugin: page
     position: 1
     display_options:
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      defaults:
+        use_ajax: false
+        style: false
+        arguments: true
+      use_ajax: true
       display_extenders: {  }
       path: admin/content/customer-requests
     cache_metadata:
-      max-age: -1
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  page_archive:
+    id: page_archive
+    display_title: 'Archived requests'
+    display_plugin: page
+    position: 3
+    display_options:
+      arguments:
+        request_status:
+          id: request_status
+          table: villa_customer_request
+          field: request_status
+          entity_type: villa_customer_request
+          entity_field: request_status
+          plugin_id: string
+          default_action: default
+          default_argument_type: fixed
+          default_argument_options:
+            argument: archive
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      defaults:
+        use_ajax: false
+        style: false
+        arguments: false
+      use_ajax: true
+      display_extenders: {  }
+      path: admin/content/customer-requests/archive
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  page_cancelled:
+    id: page_cancelled
+    display_title: 'Cancelled requests'
+    display_plugin: page
+    position: 2
+    display_options:
+      arguments:
+        request_status:
+          id: request_status
+          table: villa_customer_request
+          field: request_status
+          entity_type: villa_customer_request
+          entity_field: request_status
+          plugin_id: string
+          default_action: default
+          default_argument_type: fixed
+          default_argument_options:
+            argument: cancelled
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      defaults:
+        use_ajax: false
+        style: false
+        arguments: false
+      use_ajax: true
+      display_extenders: {  }
+      path: admin/content/customer-requests/cancelled
+    cache_metadata:
+      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'

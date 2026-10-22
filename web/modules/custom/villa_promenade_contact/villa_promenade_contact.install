@@ -8,6 +8,7 @@
 use Drupal\Core\Serialization\Yaml;
 use Drupal\views\Entity\View;
 use Drupal\villa_promenade_contact\EventQuestions;
+use Drupal\villa_promenade_contact\PlannedDate;
 
 /**
  * Adds private customer request storage and the administration View.
@@ -75,4 +76,201 @@ function villa_promenade_contact_update_11005() {
     $updates->updateFieldStorageDefinition($field);
   }
   return t('Event labels now use sentence case.');
+}
+
+/**
+ * Adds confirmed bulk deletion without replacing existing View customizations.
+ */
+function villa_promenade_contact_update_11006() {
+  if (!\Drupal::moduleHandler()->moduleExists('views_bulk_operations')) {
+    \Drupal::service('module_installer')->install(['views_bulk_operations']);
+  }
+  $view = View::load('villa_customer_requests');
+  if (!$view) {
+    throw new \RuntimeException('The customer requests View could not be found.');
+  }
+  $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_contact');
+  $definition = Yaml::decode(file_get_contents($path . '/config/install/views.view.villa_customer_requests.yml'));
+  $defaults = $definition['display']['default']['display_options'];
+  $displays = $view->get('display');
+  foreach ($displays as $id => &$display) {
+    // Include displays with field overrides, leaving inherited fields alone.
+    if ($id !== 'default' && !empty($display['display_options']['defaults']['fields'])) {
+      continue;
+    }
+    if (!isset($display['display_options']['fields'])) {
+      continue;
+    }
+    $options = &$display['display_options'];
+    $field = 'views_bulk_operations_bulk_form';
+    $options['fields'] = [$field => $defaults['fields'][$field]] + $options['fields'];
+    if (($options['style']['type'] ?? '') === 'table') {
+      $options['style']['options']['columns'] = [$field => $field] + ($options['style']['options']['columns'] ?? []);
+      $options['style']['options']['info'] = [$field => $defaults['style']['options']['info'][$field]] + ($options['style']['options']['info'] ?? []);
+    }
+    unset($options);
+  }
+  unset($display);
+  $view->set('display', $displays);
+  $view->save();
+  return t('Customer requests can now be deleted in bulk with confirmation.');
+}
+
+/**
+ * Displays the request administration page as detailed, selectable tiles.
+ */
+function villa_promenade_contact_update_11007() {
+  $view = View::load('villa_customer_requests');
+  if (!$view) {
+    throw new \RuntimeException('The customer requests View could not be found.');
+  }
+  $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_contact');
+  $definition = Yaml::decode(file_get_contents($path . '/config/install/views.view.villa_customer_requests.yml'));
+  $displays = $view->get('display');
+  $options = &$displays['default']['display_options'];
+  foreach (['details', 'admin_notes', 'changed'] as $field) {
+    $options['fields'][$field] = $definition['display']['default']['display_options']['fields'][$field];
+  }
+  $options['fields']['created']['settings'] = [
+    'date_format' => 'custom',
+    'custom_date_format' => 'Y-m-d',
+    'timezone' => '',
+  ];
+  $options['fields']['is_demo']['settings'] = [
+    'format' => 'custom',
+    'format_custom_true' => 'Demo',
+    'format_custom_false' => 'Live',
+  ];
+  $displays['page_1']['display_options']['defaults']['style'] = FALSE;
+  $displays['page_1']['display_options']['style'] = $definition['display']['page_1']['display_options']['style'];
+  $view->set('display', $displays);
+  $view->save();
+  return t('Customer request tiles now include event details, internal notes and dates. Bulk operations and filters are preserved.');
+}
+
+/**
+ * Enables multi-event filtering and native Views AJAX on the request page.
+ */
+function villa_promenade_contact_update_11008() {
+  $view = View::load('villa_customer_requests');
+  if (!$view) {
+    throw new \RuntimeException('The customer requests View could not be found.');
+  }
+  $displays = $view->get('display');
+  $displays['default']['display_options']['filters']['event']['expose']['multiple'] = TRUE;
+  if (isset($displays['page_1']['display_options']['filters']['event'])) {
+    $displays['page_1']['display_options']['filters']['event']['expose']['multiple'] = TRUE;
+  }
+  $displays['page_1']['display_options']['defaults']['use_ajax'] = FALSE;
+  $displays['page_1']['display_options']['use_ajax'] = TRUE;
+  $view->set('display', $displays);
+  $view->save();
+  return t('Event type checkboxes and AJAX filtering are enabled for customer requests.');
+}
+
+/**
+ * Removes unused legacy event choices without deleting customer requests.
+ */
+function villa_promenade_contact_update_11009() {
+  $storage = \Drupal::entityTypeManager()->getStorage('villa_customer_request');
+  $legacy_ids = $storage->getQuery()->accessCheck(FALSE)
+    ->condition('event', ['event3', 'event4', 'event5'], 'IN')
+    ->range(0, 1)
+    ->execute();
+  if ($legacy_ids) {
+    throw new \RuntimeException('Reclassify requests using event3, event4 or event5 before removing those choices. No requests have been deleted.');
+  }
+  $updates = \Drupal::entityDefinitionUpdateManager();
+  $field = $updates->getFieldStorageDefinition('event', 'villa_customer_request');
+  if ($field) {
+    $field->setSetting('allowed_values', EventQuestions::eventOptions());
+    $updates->updateFieldStorageDefinition($field);
+  }
+  return t('Only private, corporate and other event types remain. Customer requests are unchanged.');
+}
+
+/**
+ * Sorts requests by their planned event date without changing saved answers.
+ */
+function villa_promenade_contact_update_11010() {
+  $updates = \Drupal::entityDefinitionUpdateManager();
+  if (!$updates->getFieldStorageDefinition('planned_date_sort', 'villa_customer_request')) {
+    $fields = \Drupal::service('entity_field.manager');
+    $fields->clearCachedFieldDefinitions();
+    $definition = $fields->getFieldStorageDefinitions('villa_customer_request')['planned_date_sort'];
+    $updates->installFieldStorageDefinition('planned_date_sort', 'villa_customer_request', 'villa_promenade_contact', $definition);
+  }
+  // Backfill only the derived key: preserve original answers and timestamps.
+  $database = \Drupal::database();
+  $rows = $database->select('villa_customer_request', 'request')
+    ->fields('request', ['id', 'details'])->execute();
+  foreach ($rows as $row) {
+    $database->update('villa_customer_request')
+      ->fields(['planned_date_sort' => PlannedDate::sortKey((string) $row->details)])
+      ->condition('id', $row->id)->execute();
+  }
+  \Drupal::entityTypeManager()->getStorage('villa_customer_request')->resetCache();
+  $view = View::load('villa_customer_requests');
+  if (!$view) {
+    throw new \RuntimeException('The customer requests View could not be found.');
+  }
+  $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_contact');
+  $definition = Yaml::decode(file_get_contents($path . '/config/install/views.view.villa_customer_requests.yml'));
+  $sorts = $definition['display']['default']['display_options']['sorts'];
+  $displays = $view->get('display');
+  $displays['default']['display_options']['sorts'] = $sorts;
+  if (isset($displays['page_1']['display_options']['sorts'])) {
+    $displays['page_1']['display_options']['sorts'] = $sorts;
+  }
+  $view->set('display', $displays);
+  $view->save();
+  return t('Requests now sort by planned date ascending, with undated requests last and request ID as a stable tie-breaker.');
+}
+
+/**
+ * Adds the Archive state while preserving all existing request statuses.
+ */
+function villa_promenade_contact_update_11011() {
+  $updates = \Drupal::entityDefinitionUpdateManager();
+  $field = $updates->getFieldStorageDefinition('request_status', 'villa_customer_request');
+  if ($field) {
+    $field->setSetting('allowed_values', $field->getSetting('allowed_values') + ['archive' => 'Archive']);
+    $updates->updateFieldStorageDefinition($field);
+  }
+  return t('The Archive request state and inline tile state controls are available. Existing request states are unchanged.');
+}
+
+/**
+ * Separates New, Cancelled and Archive requests into tabbed page displays.
+ */
+function villa_promenade_contact_update_11012() {
+  $view = View::load('villa_customer_requests');
+  if (!$view) {
+    throw new \RuntimeException('The customer requests View could not be found.');
+  }
+  $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_contact');
+  $definition = Yaml::decode(file_get_contents($path . '/config/install/views.view.villa_customer_requests.yml'));
+  $displays = $view->get('display');
+  // Preserve site-specific fields and filters; status is now set by the page.
+  unset($displays['default']['display_options']['filters']['request_status']);
+  $displays['default']['display_options']['arguments'] = $definition['display']['default']['display_options']['arguments'];
+  $displays['page_1']['display_title'] = 'New requests';
+  $displays['page_1']['display_options']['defaults']['arguments'] = TRUE;
+  unset($displays['page_1']['display_options']['arguments']);
+  foreach (['page_cancelled', 'page_archive'] as $id) {
+    $page = $displays['page_1'];
+    $configured = $definition['display'][$id];
+    $page['id'] = $id;
+    $page['display_title'] = $configured['display_title'];
+    $page['position'] = $configured['position'];
+    $page['display_options']['path'] = $configured['display_options']['path'];
+    $page['display_options']['defaults']['arguments'] = FALSE;
+    $page['display_options']['arguments'] = $configured['display_options']['arguments'];
+    $displays[$id] = $page;
+  }
+  foreach (['page_1', 'page_cancelled', 'page_archive'] as $id) {
+    unset($displays[$id]['display_options']['filters']['request_status']);
+  }
+  $view->set('display', $displays)->save();
+  return t('New, Cancelled and Archive requests have separate tabbed pages. Existing requests are unchanged.');
 }

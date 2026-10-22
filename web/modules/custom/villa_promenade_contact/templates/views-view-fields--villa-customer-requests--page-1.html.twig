@@ -1,0 +1,46 @@
+{# Keep Views field output intact, including VBO controls and field access. #}
+<div class="request-tile__header">
+  <div class="request-tile__identity">
+    <div class="request-tile__select">{{ fields.views_bulk_operations_bulk_form.content }}</div>
+    <div>
+      <span class="request-tile__label">{{ 'ID'|t }}</span>
+      <span class="request-tile__id">#{{ fields.id.content }}</span>
+    </div>
+  </div>
+  <div class="request-tile__metadata">
+    <span class="request-tile__label">{{ 'Event'|t }}</span>
+    <span class="request-tile__badge request-tile__badge--event">{{ fields.event.content }}</span>
+  </div>
+</div>
+
+<h2 class="request-tile__name">{{ fields.name.content }}</h2>
+<div class="request-tile__email">{{ fields.email.content }}</div>
+
+{% if request_detail_rows %}
+  <div class="request-tile__description">
+    {% for detail in request_detail_rows %}
+      <div{% if detail.is_planned_date %} class="request-tile__planned-date"{% endif %}>{% if detail.label %}<label>{{ detail.label }}</label> {% endif %}<span class="data">{{ detail.data }}</span></div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if fields.admin_notes.content|striptags|trim %}
+  <details class="request-tile__notes">
+    <summary>{{ 'Internal notes'|t }}</summary>
+    <div>{{ fields.admin_notes.content }}</div>
+  </details>
+{% endif %}
+
+<div class="request-tile__dates">
+  <div>
+    <span class="request-tile__label">{{ 'Submitted'|t }}</span>
+    <span class="request-tile__badge request-tile__badge--date">{{ fields.created.content }}</span>
+  </div>
+</div>
+
+{{ request_state_actions }}
+
+<div class="request-tile__footer">
+  <span class="request-tile__badge request-tile__badge--source">{{ fields.is_demo.content }}</span>
+  <div class="request-tile__operations">{{ fields.operations.content }}</div>
+</div>

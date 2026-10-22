@@ -6,6 +6,7 @@ use Drupal\Core\Entity\Attribute\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityViewBuilder;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
@@ -13,6 +14,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\villa_promenade_contact\CustomerRequestViewsData;
 use Drupal\villa_promenade_contact\EventQuestions;
+use Drupal\villa_promenade_contact\PlannedDate;
 use Drupal\villa_promenade_contact\Form\CustomerRequestForm;
 use Drupal\villa_promenade_contact\Form\CustomerRequestDeleteForm;
 
@@ -50,6 +52,14 @@ final class CustomerRequest extends ContentEntityBase {
   /**
    * {@inheritdoc}
    */
+  public function preSave(EntityStorageInterface $storage) {
+    parent::preSave($storage);
+    $this->set('planned_date_sort', PlannedDate::sortKey((string) $this->get('details')->value));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields['name'] = BaseFieldDefinition::create('string')
@@ -66,7 +76,7 @@ final class CustomerRequest extends ContentEntityBase {
     $fields['event'] = BaseFieldDefinition::create('list_string')
       ->setLabel(t('Event'))
       ->setRequired(TRUE)
-      ->setSetting('allowed_values', EventQuestions::eventOptions() + ['event3' => 'event3 (legacy)', 'event4' => 'event4 (legacy)', 'event5' => 'event5 (legacy)'])
+      ->setSetting('allowed_values', EventQuestions::eventOptions())
       ->setDisplayOptions('form', ['type' => 'options_select', 'weight' => 2])
       ->setDisplayOptions('view', ['type' => 'list_default', 'label' => 'above', 'weight' => 2]);
     $fields['request_status'] = BaseFieldDefinition::create('list_string')
@@ -78,6 +88,7 @@ final class CustomerRequest extends ContentEntityBase {
         'in_progress' => 'In progress',
         'completed' => 'Completed',
         'cancelled' => 'Cancelled',
+        'archive' => 'Archive',
       ])
       ->setDisplayOptions('form', ['type' => 'options_select', 'weight' => 3])
       ->setDisplayOptions('view', ['type' => 'list_default', 'label' => 'above', 'weight' => 3]);
@@ -85,6 +96,12 @@ final class CustomerRequest extends ContentEntityBase {
       ->setLabel(t('Event details'))
       ->setDisplayOptions('form', ['type' => 'string_textarea', 'weight' => 4])
       ->setDisplayOptions('view', ['type' => 'basic_string', 'label' => 'above', 'weight' => 4]);
+    $fields['planned_date_sort'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Tervezett dátum'))
+      ->setDescription(t('Internal chronological key derived from the event details. Undated requests sort last.'))
+      ->setSetting('unsigned', TRUE)
+      ->setDefaultValue(PlannedDate::UNKNOWN)
+      ->setReadOnly(TRUE);
     $fields['admin_notes'] = BaseFieldDefinition::create('string_long')
       ->setLabel(t('Internal notes'))
       ->setDescription(t('Only request managers can access these notes.'))

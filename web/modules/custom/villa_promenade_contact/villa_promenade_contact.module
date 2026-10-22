@@ -6,6 +6,101 @@
  */
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Render\ViewsRenderPipelineMarkup;
+use Drupal\villa_promenade_contact\Form\RequestStateActions;
+
+/**
+ * Implements hook_theme().
+ */
+function villa_promenade_contact_theme($existing, $type, $theme, $path): array {
+  $hooks = [];
+  foreach (RequestStateActions::DISPLAYS as $display) {
+    foreach (['unformatted', 'fields'] as $type) {
+      $hooks['views_view_' . $type . '__villa_customer_requests__' . $display] = [
+        'base hook' => 'views_view_' . $type,
+        'template' => 'views-view-' . $type . '--villa-customer-requests--page-1',
+        'path' => $path . '/templates',
+      ];
+    }
+  }
+  return $hooks;
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function villa_promenade_contact_views_pre_render(ViewExecutable $view): void {
+  if ($view->id() === 'villa_customer_requests' && in_array($view->current_display, RequestStateActions::DISPLAYS, TRUE)) {
+    $view->element['#attached']['library'][] = 'villa_promenade_contact/request-tiles';
+  }
+}
+
+/**
+ * Implements hook_form_views_exposed_form_alter().
+ */
+function villa_promenade_contact_form_views_exposed_form_alter(array &$form, FormStateInterface $form_state): void {
+  $view = $form_state->get('view');
+  if (!$view || $view->id() !== 'villa_customer_requests' || !in_array($view->current_display, RequestStateActions::DISPLAYS, TRUE) || !isset($form['event'])) {
+    return;
+  }
+  $form['event']['#type'] = 'checkboxes';
+  $form['event']['#title'] = t('Event type');
+  $form['event']['#description'] = t('Select one or more event types. Leave all unchecked to show all.');
+  $form['event']['#attributes']['data-request-event-filter'] = 'true';
+  $form['event']['#wrapper_attributes']['class'][] = 'request-event-filter';
+  unset($form['event']['#options']['All'], $form['event']['#multiple'], $form['event']['#size']);
+  $form['event']['#default_value'] = array_diff((array) ($form['event']['#default_value'] ?? []), ['All']);
+  // Preserve existing bookmarked URLs that used the single-select filter.
+  $input = $form_state->getUserInput();
+  if (isset($input['event']) && is_string($input['event'])) {
+    $input['event'] = $input['event'] === 'All' ? [] : [$input['event'] => $input['event']];
+    $form_state->setUserInput($input);
+  }
+  $form['#attributes']['data-request-filters'] = 'true';
+  $form['#attached']['library'][] = 'villa_promenade_contact/request-filters';
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function villa_promenade_contact_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
+  if (str_starts_with($form_id, 'views_form_villa_customer_requests_')) {
+    RequestStateActions::build($form, $form_state);
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ */
+function villa_promenade_contact_preprocess_views_view_fields(array &$variables): void {
+  $view = $variables['view'];
+  if ($view->id() !== 'villa_customer_requests' || !in_array($view->current_display, RequestStateActions::DISPLAYS, TRUE)) {
+    return;
+  }
+  $variables['request_state_actions'] = ViewsRenderPipelineMarkup::create('<!--form-item-request_state--' . $variables['row']->index . '-->');
+  $variables['request_detail_rows'] = [];
+  if (empty($variables['fields']['details']->content)) {
+    return;
+  }
+  // Parse the access-checked plain-text formatter output, not raw entity data.
+  // Decode its escaping once; Twig escapes each label and value on output.
+  $text = Html::decodeEntities(strip_tags((string) $variables['fields']['details']->content));
+  foreach (preg_split('/\R/u', $text) as $line) {
+    $line = trim($line);
+    if ($line === '') {
+      continue;
+    }
+    $parts = explode(':', $line, 2);
+    $has_label = count($parts) === 2 && trim($parts[0]) !== '';
+    $variables['request_detail_rows'][] = [
+      'label' => $has_label ? trim($parts[0]) . ':' : '',
+      'data' => $has_label ? trim($parts[1]) : $line,
+      'is_planned_date' => $has_label && in_array(mb_strtolower(trim($parts[0]), 'UTF-8'), ['tervezett dátum', 'mikor ünnepeltek?'], TRUE),
+    ];
+  }
+}
 
 /**
  * Implements hook_preprocess_form_element().

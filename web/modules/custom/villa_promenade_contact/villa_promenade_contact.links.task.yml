@@ -1,0 +1,15 @@
+villa_promenade_contact.requests_new:
+  title: New
+  route_name: view.villa_customer_requests.page_1
+  base_route: view.villa_customer_requests.page_1
+  weight: 0
+villa_promenade_contact.requests_cancelled:
+  title: Cancelled
+  route_name: view.villa_customer_requests.page_cancelled
+  base_route: view.villa_customer_requests.page_1
+  weight: 1
+villa_promenade_contact.requests_archive:
+  title: Archive
+  route_name: view.villa_customer_requests.page_archive
+  base_route: view.villa_customer_requests.page_1
+  weight: 2

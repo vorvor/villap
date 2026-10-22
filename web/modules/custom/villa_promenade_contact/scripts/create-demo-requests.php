@@ -7,7 +7,8 @@
 
 $storage = \Drupal::entityTypeManager()->getStorage('villa_customer_request');
 $names = ['Anna Demo', 'Balazs Demo', 'Csilla Demo', 'David Demo', 'Eszter Demo', 'Ferenc Demo', 'Gabriella Demo', 'Henrik Demo', 'Ilona Demo', 'Janos Demo'];
-$statuses = ['new', 'in_progress', 'completed', 'cancelled'];
+
+$events = array_keys(\Drupal\villa_promenade_contact\EventQuestions::eventOptions());
 $details = [
   "Preferred date: 2027-05-15\nNumber of guests: 80",
   "Company name: Example Company\nRoom arrangement: Boardroom",
@@ -30,8 +31,8 @@ try {
     $request = $storage->create([
       'name' => $name,
       'email' => $email,
-      'event' => 'event' . ($index % 5 + 1),
-      'request_status' => $statuses[$index % count($statuses)],
+      'event' => $events[$index % count($events)],
+      'request_status' => 'new',
       'details' => $details[$index % 5],
       'admin_notes' => 'Fictional demo data. Safe to delete after reviewing the admin surface.',
       'is_demo' => TRUE,
