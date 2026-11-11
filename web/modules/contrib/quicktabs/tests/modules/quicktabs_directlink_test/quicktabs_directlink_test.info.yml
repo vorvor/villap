@@ -1,0 +1,6 @@
+name: 'Quick Tabs direct link test'
+type: module
+description: 'Provides a routed Quick Tabs instance for testing direct linking.'
+package: Testing
+dependencies:
+  - quicktabs:quicktabs

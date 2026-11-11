@@ -1,0 +1,6 @@
+name: 'Quick Tabs test block'
+type: module
+description: 'Provides a block with a special character in its admin label for testing.'
+package: Testing
+dependencies:
+  - drupal:block

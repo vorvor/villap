@@ -1,0 +1,6 @@
+name: 'Admin Dialogs'
+description: 'Provides UI to configure opening administrative page forms in an interactive modals and off-canvas.'
+package: Administration
+type: module
+configure: entity.admin_dialog_group.list
+core_version_requirement: ^10.3 || ^11

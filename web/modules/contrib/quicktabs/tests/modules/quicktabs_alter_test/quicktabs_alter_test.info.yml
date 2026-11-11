@@ -1,0 +1,6 @@
+name: 'QuickTabs alter test'
+type: module
+description: 'Tests hook_quicktabs_instance_alter() invocation.'
+package: Testing
+dependencies:
+  - quicktabs:quicktabs

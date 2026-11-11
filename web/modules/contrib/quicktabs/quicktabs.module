@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Render content with tabs and other display styles.
+ */
+
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\quicktabs\Hook\QuicktabsHooks;
+use Drupal\quicktabs\Hook\QuicktabsThemeHooks;
+
+/**
+ * Implements hook_help().
+ */
+#[LegacyHook]
+function quicktabs_help($route_name, RouteMatchInterface $route_match) {
+  return \Drupal::service(QuicktabsHooks::class)->help($route_name, $route_match);
+}
+
+/**
+ * Implements hook_theme().
+ */
+#[LegacyHook]
+function quicktabs_theme($existing, $type, $theme, $path): array {
+  return \Drupal::service(QuicktabsHooks::class)->theme($existing, $type, $theme, $path);
+}
+
+/**
+ * Prepares variables for quicktabs view template.
+ *
+ * Default template: quicktabs-view-quicktabs.html.twig.
+ *
+ * Create a tabbed view
+ *
+ * @param array $variables
+ *   An associative array.
+ */
+function template_preprocess_quicktabs_view_quicktabs(array &$variables): void {
+  QuicktabsThemeHooks::preprocessQuicktabsViewQuicktabs($variables);
+}

@@ -1,0 +1,7 @@
+name: Quick Tabs
+description: "Render content with tabs and other display styles"
+type: module
+core_version_requirement: ^10.3 || ^11 || ^12
+configure: quicktabs.admin
+dependencies:
+  - drupal:block
