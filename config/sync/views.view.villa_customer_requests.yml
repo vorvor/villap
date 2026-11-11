@@ -335,55 +335,6 @@ display:
             remember: false
             multiple: true
           reduce_duplicates: false
-        is_demo:
-          id: is_demo
-          table: node__is_demo
-          field: is_demo_value
-          relationship: none
-          group_type: group
-          entity_type: node
-          entity_field: is_demo
-          plugin_id: boolean
-          operator: '='
-          value: All
-          exposed: true
-          expose:
-            operator_id: is_demo_op
-            label: 'Demo requests'
-            description: ''
-            use_operator: false
-            operator: is_demo_op
-            identifier: is_demo
-            required: false
-            remember: false
-            multiple: false
-          accept_null: false
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          relationship: none
-          group_type: group
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          operator: '>='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          exposed: true
-          expose:
-            operator_id: created_op
-            label: 'Submitted on or after'
-            description: ''
-            use_operator: false
-            operator: created_op
-            identifier: created
-            required: false
-            remember: false
-            multiple: false
         type:
           id: type
           table: node_field_data

@@ -1,0 +1,21 @@
+uuid: 3e6d174d-cbc8-4676-822c-597d4b0dc0b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - masquerade
+  theme:
+    - villa_promenade
+id: villa_promenade_masquerade
+theme: villa_promenade
+region: footer
+weight: 0
+provider: null
+plugin: masquerade
+settings:
+  id: masquerade
+  label: Masquerade
+  label_display: visible
+  provider: masquerade
+  show_unmasquerade_link: true
+visibility: {  }
