@@ -4,6 +4,10 @@ description: 'Event contact form with honeypot protection and private customer r
 package: Villa Promenade
 core_version_requirement: ^11
 dependencies:
+  - drupal:node
+  - drupal:field
+  - drupal:field_ui
+  - drupal:datetime
   - drupal:views
   - drupal:options
   - views_bulk_operations:views_bulk_operations

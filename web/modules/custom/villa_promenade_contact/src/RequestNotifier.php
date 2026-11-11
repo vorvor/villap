@@ -7,7 +7,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Mail\MailManagerInterface;
-use Drupal\villa_promenade_contact\Entity\CustomerRequest;
+use Drupal\node\NodeInterface;
 
 /**
  * Notifies configured staff after a public request has been saved.
@@ -31,7 +31,7 @@ final class RequestNotifier {
    * @return array
    *   Numbers of notifications accepted by the mail backend and failed.
    */
-  public function notify(CustomerRequest $request): array {
+  public function notify(NodeInterface $request): array {
     $result = ['sent' => 0, 'failed' => 0];
     $config = $this->configFactory->get('villa_promenade_contact.settings');
     if (!$config->get('notifications_enabled') || $request->isNew() || $request->get('is_demo')->value) {
@@ -41,7 +41,7 @@ final class RequestNotifier {
       'A new Villa Promenade customer request has been received.',
       '',
       'Request ID: ' . $request->id(),
-      'Customer name: ' . $request->get('name')->value,
+      'Customer name: ' . $request->label(),
       'Customer email: ' . $request->get('email')->value,
       'Event: ' . (EventQuestions::eventOptions()[$request->get('event')->value] ?? $request->get('event')->value),
       'Submitted (UTC): ' . gmdate('Y-m-d H:i:s', (int) $request->get('created')->value),

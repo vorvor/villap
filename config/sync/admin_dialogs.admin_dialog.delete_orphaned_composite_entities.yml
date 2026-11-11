@@ -1,0 +1,16 @@
+uuid: 9d5462e8-f85f-40cc-9ada-cd15d8b6e2c1
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: WSJeV4gVJ1766C324GL5SaGjIxcl5bHMkvJJ-vXSKoc
+id: delete_orphaned_composite_entities
+label: 'Delete orphaned composite entities'
+type: paths
+dialog_group: administrative
+dialog_type: modal
+dialog_width: '550'
+dialog_title_override: ''
+selection_criteria:
+  paths:
+    - '/admin/config/system/delete-orphans*'

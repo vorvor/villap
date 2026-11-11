@@ -1,0 +1,81 @@
+uuid: dd0910b5-5e39-45e1-b29e-8534c4c98a0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.expense.field_expense_amount
+    - field.field.node.expense.field_expense_category
+    - field.field.node.expense.field_expense_currency
+    - field.field.node.expense.field_expense_date
+    - field.field.node.expense.field_expense_description
+    - field.field.node.expense.field_expense_notes
+    - field.field.node.expense.field_expense_user
+    - node.type.expense
+  module:
+    - datetime
+    - options
+    - user
+id: node.expense.default
+targetEntityType: node
+bundle: expense
+mode: default
+content:
+  field_expense_amount:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_expense_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_expense_currency:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_expense_date:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: Y-m-d
+    third_party_settings: {  }
+    weight: -1
+    region: content
+  field_expense_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_expense_notes:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_expense_user:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+hidden:
+  links: true

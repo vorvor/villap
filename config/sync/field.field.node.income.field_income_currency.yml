@@ -1,0 +1,23 @@
+uuid: 492f2e6e-1744-437c-9565-6ddc6d739f1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_income_currency
+    - node.type.income
+  module:
+    - options
+id: node.income.field_income_currency
+field_name: field_income_currency
+entity_type: node
+bundle: income
+label: Currency
+description: 'Select the currency of the amount.'
+required: true
+translatable: true
+default_value:
+  -
+    value: HUF
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -7,45 +7,26 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Entity\EntityViewBuilder;
-use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\villa_promenade_contact\CustomerRequestViewsData;
 use Drupal\villa_promenade_contact\EventQuestions;
 use Drupal\villa_promenade_contact\PlannedDate;
-use Drupal\villa_promenade_contact\Form\CustomerRequestForm;
-use Drupal\villa_promenade_contact\Form\CustomerRequestDeleteForm;
 
 /**
- * Stores private customer enquiries submitted through the event contact form.
+ * Retains the retired schema without exposing old records or management routes.
  */
 #[ContentEntityType(
   id: 'villa_customer_request',
-  label: new TranslatableMarkup('Customer request'),
-  label_collection: new TranslatableMarkup('Customer requests'),
+  label: new TranslatableMarkup('Legacy customer request'),
+  label_collection: new TranslatableMarkup('Legacy customer requests'),
   label_singular: new TranslatableMarkup('customer request'),
   label_plural: new TranslatableMarkup('customer requests'),
   base_table: 'villa_customer_request',
   entity_keys: ['id' => 'id', 'uuid' => 'uuid', 'label' => 'name'],
   handlers: [
     'access' => EntityAccessControlHandler::class,
-    'view_builder' => EntityViewBuilder::class,
-    'views_data' => CustomerRequestViewsData::class,
-    'list_builder' => EntityListBuilder::class,
-    'form' => [
-      'edit' => CustomerRequestForm::class,
-      'delete' => CustomerRequestDeleteForm::class,
-    ],
-    'route_provider' => ['html' => AdminHtmlRouteProvider::class],
   ],
   admin_permission: 'manage villa customer requests',
-  links: [
-    'canonical' => '/admin/content/customer-requests/{villa_customer_request}',
-    'edit-form' => '/admin/content/customer-requests/{villa_customer_request}/edit',
-    'delete-form' => '/admin/content/customer-requests/{villa_customer_request}/delete',
-  ],
 )]
 final class CustomerRequest extends ContentEntityBase {
 
@@ -53,8 +34,7 @@ final class CustomerRequest extends ContentEntityBase {
    * {@inheritdoc}
    */
   public function preSave(EntityStorageInterface $storage) {
-    parent::preSave($storage);
-    $this->set('planned_date_sort', PlannedDate::sortKey((string) $this->get('details')->value));
+    throw new \LogicException('Legacy customer request storage is retired. Use customer_request nodes.');
   }
 
   /**
@@ -85,6 +65,7 @@ final class CustomerRequest extends ContentEntityBase {
       ->setDefaultValue('new')
       ->setSetting('allowed_values', [
         'new' => 'New',
+        'approved' => 'Approved',
         'in_progress' => 'In progress',
         'completed' => 'Completed',
         'cancelled' => 'Cancelled',

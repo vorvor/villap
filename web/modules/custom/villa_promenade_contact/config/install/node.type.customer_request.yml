@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Customer request'
+type: customer_request
+description: 'Private customer enquiries managed from the Dashboard.'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

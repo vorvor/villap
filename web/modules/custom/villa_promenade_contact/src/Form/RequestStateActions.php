@@ -12,6 +12,9 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Controller\ViewAjaxController;
 use Drupal\views\Views;
+use Drupal\views\ViewExecutable;
+use Drupal\Core\Url;
+use Drupal\Component\Serialization\Json;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -22,12 +25,13 @@ final class RequestStateActions {
   /**
    * Page displays sharing the request tiles and their state controls.
    */
-  public const DISPLAYS = ['page_1', 'page_cancelled', 'page_archive'];
+  public const DISPLAYS = ['page_all', 'page_1', 'page_cancelled', 'page_archive', 'page_approved'];
 
   /**
    * States available directly on a request tile.
    */
   public const STATES = [
+    'approved' => 'Approved',
     'cancelled' => 'Cancelled',
     'archive' => 'Archive',
     'new' => 'New',
@@ -67,12 +71,13 @@ final class RequestStateActions {
       foreach (self::STATES as $state => $label) {
         $form['request_state'][$index][$state] = [
           '#type' => 'submit',
-          '#value' => t($label),
+          '#value' => $state === 'approved' && $current !== $state ? t('Approve') : t($label),
           '#name' => 'request-state-' . $request->id() . '-' . $state,
           '#request_id' => $request->id(),
           '#request_state' => $state,
           '#disabled' => $current === $state,
           '#attributes' => [
+            'data-request-id' => $request->id(),
             'class' => array_filter(['button--small', 'request-tile__state-button', 'request-tile__state-button--' . $state, $current === $state ? 'is-current' : NULL]),
             'aria-pressed' => $current === $state ? 'true' : 'false',
             'aria-label' => $current === $state
@@ -91,6 +96,33 @@ final class RequestStateActions {
             'progress' => ['type' => 'throbber'],
           ],
         ];
+        if ($state === 'approved' && $current !== $state) {
+          $form['request_state'][$index][$state] = [
+            '#type' => 'link',
+            '#title' => t('Approve'),
+            '#url' => Url::fromRoute('villa_promenade_contact.approve_request', ['node' => $request->id()], [
+              'query' => [
+                'view_display_id' => $view->current_display,
+                'view_dom_id' => $view->dom_id,
+                'view_args' => $view->args,
+                'filters' => array_diff_key($view->getExposedInput(), array_flip(ViewAjaxController::FILTERED_QUERY_PARAMETERS)),
+                'page' => $view->getCurrentPage(),
+              ],
+            ]),
+            '#attributes' => [
+              'class' => ['button', 'button--small', 'request-tile__state-button', 'request-tile__state-button--approved', 'use-ajax'],
+              'data-dialog-type' => 'modal',
+              'data-dialog-options' => Json::encode(['width' => 'min(640px, 94vw)']),
+              'data-request-id' => $request->id(),
+              'aria-pressed' => 'false',
+              'aria-label' => t('Approve request #@id', ['@id' => $request->id()]),
+            ],
+            '#access' => $request->get('real_date')->access('edit', NULL, TRUE)
+              ->andIf($request->get('real_date')->access('view', NULL, TRUE))
+              ->andIf($request->get('approve_note')->access('edit', NULL, TRUE))
+              ->andIf($request->get('approve_note')->access('view', NULL, TRUE)),
+          ];
+        }
       }
       $form['#substitutions']['#value'][] = [
         'placeholder' => '<!--form-item-request_state--' . $index . '-->',
@@ -107,17 +139,17 @@ final class RequestStateActions {
     $form_state->set('request_state_updated', FALSE);
     $trigger = $form_state->getTriggeringElement();
     $state = $trigger['#request_state'] ?? '';
-    if (!isset(self::STATES[$state])) {
+    if (!isset(self::STATES[$state]) || $state === 'approved') {
       throw new AccessDeniedHttpException();
     }
-    $storage = \Drupal::entityTypeManager()->getStorage('villa_customer_request');
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
     $id = $trigger['#request_id'] ?? NULL;
     if (!$id) {
       throw new AccessDeniedHttpException();
     }
     $storage->resetCache([$id]);
     $request = $storage->load($id);
-    if (!$request || !$request->access('update') || !$request->get('request_status')->access('edit')) {
+    if (!$request || $request->bundle() !== 'customer_request' || !$request->access('update') || !$request->get('request_status')->access('edit')) {
       throw new AccessDeniedHttpException();
     }
     $request->set('request_status', $state);
@@ -145,6 +177,13 @@ final class RequestStateActions {
    */
   public static function ajax(array &$form, FormStateInterface $form_state): AjaxResponse {
     $original = $form_state->getBuildInfo()['args'][0];
+    return self::refresh($original, (bool) $form_state->get('request_state_updated'), $form_state->getTriggeringElement());
+  }
+
+  /**
+   * Refreshes the originating request View after a state change or approval.
+   */
+  public static function refresh(ViewExecutable $original, bool $updated, array $trigger): AjaxResponse {
     // Exposed input also contains AJAX transport parameters on real requests.
     // Do not let ajax_form turn fresh GET forms into broken POST submissions.
     $input = array_diff_key($original->getExposedInput(), array_flip(ViewAjaxController::FILTERED_QUERY_PARAMETERS));
@@ -166,16 +205,15 @@ final class RequestStateActions {
     \Drupal::requestStack()->push($request);
     try {
       $response = new AjaxResponse();
-      if ($form_state->get('request_state_updated')) {
-        $trigger = $form_state->getTriggeringElement();
+      if ($updated) {
         // Remove the moved tile only after saving, even if its View DOM ID
         // changed while Drupal rebuilt the submitted form.
-        $tile = '.view-villa-customer-requests .request-tile:has([name="request-state-' . (int) $trigger['#request_id'] . '-' . $trigger['#request_state'] . '"])';
+        $tile = '.view-villa-customer-requests .request-tile:has([data-request-id="' . (int) $trigger['#request_id'] . '"])';
         $response->addCommand(new RemoveCommand($tile));
       }
       $response->addCommand(new ReplaceCommand($selector, $view->buildRenderable($original->current_display)));
       $response->addCommand(new PrependCommand($selector, ['#type' => 'status_messages']));
-      if ($form_state->get('request_state_updated')) {
+      if ($updated) {
         $response->addCommand(new AnnounceCommand(t('Request state updated.')));
       }
       return $response;

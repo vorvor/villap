@@ -1,0 +1,11 @@
+uuid: 99521e2f-d397-415c-866d-1a7304b7c0eb
+langcode: en
+status: true
+dependencies: {  }
+name: Expense
+type: expense
+description: 'Record a business expense, its amount, description, notes, and category.'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

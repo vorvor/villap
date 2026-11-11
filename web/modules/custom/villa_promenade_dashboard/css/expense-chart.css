@@ -1,0 +1,79 @@
+.expense-charts {
+  margin-block: 1.5rem 2rem;
+}
+
+.expense-charts > h2 {
+  margin-block: 0 0.5rem;
+}
+
+.expense-charts > p {
+  color: #545560;
+  margin-block: 0 1.25rem;
+}
+
+.expense-charts__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.expense-chart {
+  min-width: 0;
+  padding: 1.25rem;
+  background: #fff;
+  border: 1px solid #d3d4d9;
+  border-radius: 0.5rem;
+}
+
+.expense-chart > h3 {
+  margin-block: 0 0.75rem;
+}
+
+.expense-chart__visual {
+  position: relative;
+  height: 18rem;
+  max-width: 26rem;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+}
+
+.expense-chart__visual[hidden] {
+  display: none;
+}
+
+.expense-chart__legend {
+  width: 100%;
+  margin-block: 0;
+}
+
+.expense-chart__legend th,
+.expense-chart__legend td {
+  padding: 0.6rem;
+}
+
+.expense-chart__legend th:last-child,
+.expense-chart__legend td:last-child {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.expense-chart__legend tbody tr[style] td:first-child::before {
+  content: '';
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-inline-end: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--expense-slice-color);
+}
+
+@media (max-width: 480px) {
+  .expense-chart {
+    padding: 0.75rem;
+  }
+
+  .expense-chart__visual {
+    height: 15rem;
+  }
+}

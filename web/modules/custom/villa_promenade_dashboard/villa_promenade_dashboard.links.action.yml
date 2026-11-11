@@ -1,0 +1,49 @@
+villa_promenade_dashboard.dashboard_income:
+  route_name: node.add
+  route_parameters:
+    node_type: income
+  title: 'Add income'
+  weight: 0
+  options:
+    query:
+      villa_dashboard_dialog: 1
+      destination: /admin/dashboard
+  appears_on:
+    - villa_promenade_dashboard.page
+
+villa_promenade_dashboard.dashboard_expense:
+  route_name: node.add
+  route_parameters:
+    node_type: expense
+  title: 'Add expense'
+  weight: 1
+  options:
+    query:
+      villa_dashboard_dialog: 1
+      destination: /admin/dashboard
+  appears_on:
+    - villa_promenade_dashboard.page
+
+villa_promenade_dashboard.add_expense:
+  route_name: node.add
+  route_parameters:
+    node_type: expense
+  title: 'Add expense'
+  options:
+    query:
+      destination: /admin/content/expenses
+  appears_on:
+    - view.expenses.page_1
+    - view.balance.page_1
+
+villa_promenade_dashboard.add_income:
+  route_name: node.add
+  route_parameters:
+    node_type: income
+  title: 'Add income'
+  options:
+    query:
+      destination: /admin/content/income
+  appears_on:
+    - view.income.page_1
+    - view.balance.page_1

@@ -46,6 +46,21 @@
   margin-bottom: 0;
 }
 
+.image-text-block--text-only .image-text-block__text {
+  grid-column: 1 / -1;
+}
+
+.image-text-block__text {
+  text-align: left;
+}
+
+@media (max-width: 47.99rem) {
+  .image-text-block__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+
 .image-text-block__gallery {
   display: grid;
   grid-column: 1 / -1;
@@ -61,22 +76,128 @@
   object-fit: cover;
 }
 
-.image-text-block--text-only .image-text-block__text {
-  grid-column: 1 / -1;
+.image-text-block__pager {
+  display: none;
 }
 
-.image-text-block__text {
-  text-align: left;
+.gallery-sections,
+.image-text-block--gallery {
+  color: #fff;
+  background: #555c43 url("../../images/vp-green.jpg") center / cover no-repeat;
+}
+
+.gallery-sections > .image-text-block--gallery {
+  background: none;
+}
+
+/* Match this breakpoint in image-text-block.js. Desktop keeps the original layout. */
+@media (max-width: 63.99rem) {
+  .image-text-block--gallery {
+    /* Scale the 1604px reference: 16px per unit, with a 976px image. */
+    --image-text-unit: clamp(0.5rem, 0.997506vw, 1rem);
+    padding: calc(8 * var(--image-text-unit)) clamp(1.25rem, 19.57606vw, 19.625rem);
+    font-size: calc(2 * var(--image-text-unit));
+    line-height: 1.25;
+  }
+
+  .image-text-block--gallery .image-text-block__inner {
+    display: flex;
+    flex-direction: column;
+    max-width: 61rem;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .image-text-block--gallery .image-text-block__text,
+  .image-text-block--gallery .image-text-block__gallery {
+    display: contents;
+  }
+
+  .image-text-block--gallery .image-text-block__title {
+    order: 0;
+    margin: 0 0 calc(4.25 * var(--image-text-unit));
+    font-size: calc(4.5 * var(--image-text-unit));
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .image-text-block--gallery .image-text-block__image,
+  .image-text-block--gallery .image-text-block__gallery-item {
+    order: 1;
+    min-width: 0;
+  }
+
+  .image-text-block--gallery .image-text-block__image[hidden],
+  .image-text-block--gallery .image-text-block__gallery-item[hidden] {
+    display: none;
+  }
+
+  .image-text-block--gallery .image-text-block__image img,
+  .image-text-block--gallery .image-text-block__gallery-item img {
+    aspect-ratio: 976 / 668;
+  }
+
+  .image-text-block__pager {
+    order: 2;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: calc(3 * var(--image-text-unit));
+  }
+
+  .image-text-block__dot {
+    display: grid;
+    place-items: center;
+    width: calc(2.75 * var(--image-text-unit));
+    height: calc(2.75 * var(--image-text-unit));
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .image-text-block__dot::before {
+    width: calc(1.375 * var(--image-text-unit));
+    height: calc(1.375 * var(--image-text-unit));
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.65;
+    content: "";
+  }
+
+  .image-text-block__dot[aria-current="true"]::before,
+  .image-text-block__dot:hover::before {
+    opacity: 1;
+  }
+
+  .image-text-block__dot:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+
+  .image-text-block--gallery .image-text-block__text > .field {
+    order: 3;
+    margin-top: calc(2.375 * var(--image-text-unit));
+    text-align: center;
+  }
 }
 
 @media (max-width: 47.99rem) {
-  .image-text-block__inner {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
+  .image-text-block--gallery {
+    padding-inline: 1.25rem;
   }
 
   .image-text-block__gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Keep compact dots inside nonoverlapping, touch-friendly buttons. */
+  .image-text-block__dot {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
   }
 }
 

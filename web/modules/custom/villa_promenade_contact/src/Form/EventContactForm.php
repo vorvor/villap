@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\PrivateKey;
 use Drupal\Core\Site\Settings;
 use Drupal\villa_promenade_contact\EventQuestions;
+use Drupal\villa_promenade_contact\CustomerRequestAnswers;
 use Drupal\villa_promenade_contact\RequestNotifier;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -217,7 +218,7 @@ final class EventContactForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $event = $form_state->getValue('event');
-    $details = [];
+    $answers = [];
     // Whitelist only fields from the selected event; ignore hidden sections.
     foreach ($this->eventFields()[$event] as $key => $definition) {
       if (isset($definition['#other_for']) && !$this->hasOther($form_state->getValue([$event, $definition['#other_for']]))) {
@@ -227,26 +228,32 @@ final class EventContactForm extends FormBase {
       if (is_array($value) && $definition['#type'] === 'checkboxes') {
         $selected = array_intersect_key($definition['#options'], array_filter($value));
         if ($selected) {
-          $details[] = $definition['#title'] . ': ' . implode(', ', $selected);
+          $answers[CustomerRequestAnswers::fieldName($key)] = array_map(static fn($option, $label) => ['value' => CustomerRequestAnswers::optionKey($label, $option === 'other')], array_keys($selected), array_values($selected));
         }
         continue;
       }
       if (is_scalar($value) && (string) $value !== '') {
-        $label = (string) $definition['#title'];
-        $display_value = $definition['#options'][$value] ?? $value;
-        $details[] = $label . ': ' . (string) $display_value;
+        if ($definition['#type'] === 'radios') {
+          $value = CustomerRequestAnswers::optionKey($definition['#options'][$value], $value === 'other');
+        }
+        $answers[CustomerRequestAnswers::fieldName($key)] = ['value' => (string) $value];
       }
     }
     try {
-      $request = $this->entityTypeManager->getStorage('villa_customer_request')->create([
-        'name' => $form_state->getValue('name'),
+      $request = $this->entityTypeManager->getStorage('node')->create([
+        'type' => 'customer_request',
+        'title' => $form_state->getValue('name'),
+        'langcode' => \Drupal::languageManager()->getDefaultLanguage()->getId(),
+        'uid' => 0,
+        'status' => 0,
+        'promote' => 0,
         'email' => $form_state->getValue('email'),
         'event' => $event,
-        'details' => implode("\n", $details),
         'request_status' => 'new',
         'admin_notes' => '',
         'is_demo' => FALSE,
-      ]);
+      ] + $answers);
+      CustomerRequestAnswers::synchronize($request);
       if ($request->validate()->count()) {
         throw new \UnexpectedValueException('Invalid customer request.');
       }

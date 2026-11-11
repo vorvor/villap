@@ -1,0 +1,9 @@
+villa_promenade_dashboard.page:
+  path: '/admin/dashboard'
+  defaults:
+    _controller: '\Drupal\villa_promenade_dashboard\Controller\DashboardController::build'
+    _title: 'Dashboard'
+  requirements:
+    _permission: 'access villa dashboard,view villa financial reports'
+  options:
+    _admin_route: TRUE

@@ -16,6 +16,21 @@ villa_promenade_contact.thank_you:
   requirements:
     _access: 'TRUE'
 
+villa_promenade_contact.approve_request:
+  path: '/admin/content/customer-requests/{node}/approve'
+  defaults:
+    _form: '\Drupal\villa_promenade_contact\Form\RequestApprovalForm'
+    _title: 'Approve customer request'
+  requirements:
+    _permission: 'manage villa customer requests'
+    _entity_access: 'node.update'
+    node: '\d+'
+  options:
+    _admin_route: TRUE
+    parameters:
+      node:
+        type: entity:node
+
 villa_promenade_contact.settings:
   path: '/admin/config/system/villa-promenade-contact'
   defaults:

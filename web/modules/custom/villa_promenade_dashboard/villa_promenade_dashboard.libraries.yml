@@ -1,0 +1,68 @@
+dashboard:
+  css:
+    component:
+      css/dashboard.css: {}
+  dependencies:
+    - core/drupal.dialog.ajax
+
+request-tabs:
+  css:
+    theme:
+      css/request-tabs.css: {}
+  dependencies:
+    - quicktabs/quicktabs
+    - villa_promenade_contact/request-status-colors
+
+expense-form:
+  css:
+    component:
+      css/expense-form.css: {}
+
+balance:
+  css:
+    component:
+      css/balance.css: {}
+
+chartjs:
+  remote: https://www.chartjs.org/
+  version: 4.6.1
+  license:
+    name: MIT
+    url: https://github.com/chartjs/Chart.js/blob/v4.6.1/LICENSE.md
+    gpl-compatible: true
+  js:
+    libraries/chartjs/chart.umd.min.js: { minified: true }
+
+expense-chart:
+  css:
+    component:
+      css/expense-chart.css: {}
+  js:
+    js/expense-chart.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - villa_promenade_dashboard/chartjs-datalabels
+
+balance-charts:
+  css:
+    component:
+      css/balance-charts.css: {}
+  js:
+    js/balance-charts.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - villa_promenade_dashboard/chartjs-datalabels
+
+chartjs-datalabels:
+  remote: https://github.com/chartjs/chartjs-plugin-datalabels
+  version: 2.2.0
+  license:
+    name: MIT
+    url: https://github.com/chartjs/chartjs-plugin-datalabels/blob/v2.2.0/LICENSE.md
+    gpl-compatible: true
+  js:
+    libraries/chartjs-plugin-datalabels/chartjs-plugin-datalabels.min.js: { minified: true }
+  dependencies:
+    - villa_promenade_dashboard/chartjs

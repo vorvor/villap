@@ -1,0 +1,22 @@
+uuid: 9e0c6fd3-e76c-4d0b-acef-abde66d9631f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.expense
+id: node.expense.status
+field_name: status
+entity_type: node
+bundle: expense
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

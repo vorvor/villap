@@ -6,6 +6,26 @@
   background: #f6f6ef url("../../images/paper-texture.png") repeat;
 }
 
+.about-team {
+  color: #fff;
+  background: #40101c url("../../images/vp-red.jpg") center top / cover no-repeat;
+}
+
+.about-team > #rolunk,
+.about-team > .team-members {
+  color: inherit;
+  background: none;
+}
+
+#rolunk .image-separator__image {
+  display: none;
+}
+
+#rolunk .image-separator__description {
+  color: inherit;
+  background: none;
+}
+
 /* Halve both spacing sources between the team banner and its first profile. */
 #rolunk .image-separator__description {
   padding-block: clamp(1.25rem, 3vw, 2.5rem);
@@ -79,18 +99,87 @@
 }
 
 @media (max-width: 47.99rem) {
+  #rolunk {
+    display: block;
+    padding: 2.5rem 1rem 2rem;
+  }
+
+
+  #rolunk .image-separator__title {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    font-size: clamp(1.25rem, 5.1vw, 2rem);
+    line-height: 1.2;
+    text-shadow: none;
+  }
+
+  #rolunk .image-separator__description {
+    padding: 1rem 0 0;
+  }
+
+  #rolunk .image-separator__description:not(:has(.field__item)) {
+    display: none;
+  }
+
+  #rolunk + .team-members {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem clamp(1.25rem, 8vw, 3.5rem);
+    padding: 1rem clamp(1.25rem, 8vw, 3.5rem) 3rem;
+    background-position: center bottom;
+  }
+
   .team-member {
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+    min-width: 0;
+    align-content: start;
   }
 
   .team-member__portrait {
+    grid-area: 1 / 1;
+    align-self: start;
     width: 100%;
-    max-width: 24rem;
-    margin-inline: auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  .team-member__text {
+    display: contents;
+  }
+
+  .team-member__title,
+  .team-member__titulus {
+    z-index: 1;
+    grid-area: 1 / 1;
+    align-self: start;
+    margin-inline: 0.5rem;
+    color: #fff;
+    text-shadow: 0 1px 4px #000;
+  }
+
+  .team-member__title {
+    margin-block: 0.5rem 0;
+    font-size: clamp(0.875rem, 2.8vw, 1.25rem);
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .team-member__titulus {
+    margin-top: clamp(1.625rem, 5vw, 2rem);
+    font-family: var(--villa-font-h2);
+    font-size: clamp(0.75rem, 2.3vw, 1rem);
+    line-height: 1.25;
+    letter-spacing: 0.06em;
   }
 
   .team-member__description {
-    margin-top: 1.5rem;
+    grid-area: 2 / 1;
+    margin: 0;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    line-height: 1.45;
+    overflow-wrap: break-word;
+    text-align: left;
   }
 }

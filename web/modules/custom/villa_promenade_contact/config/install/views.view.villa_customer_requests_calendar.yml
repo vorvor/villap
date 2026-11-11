@@ -1,0 +1,151 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_guest_count
+    - field.storage.node.event
+    - node.type.customer_request
+  module:
+    - node
+    - options
+    - user
+    - villa_promenade_contact
+  enforced:
+    module:
+      - villa_promenade_contact
+id: villa_customer_requests_calendar
+label: 'Customer request calendar'
+module: views
+description: 'Monthly calendar of new and approved customer requests.'
+tag: administration
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Customer request calendar'
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: Customer
+          type: string
+          settings:
+            link_to_entity: true
+        event:
+          id: event
+          table: node__event
+          field: event
+          relationship: none
+          entity_type: node
+          entity_field: event
+          plugin_id: field
+          label: Event
+          type: list_default
+        cr_guest_count:
+          id: cr_guest_count
+          table: node__cr_guest_count
+          field: cr_guest_count
+          relationship: none
+          entity_type: node
+          entity_field: cr_guest_count
+          plugin_id: field
+          label: 'Várható létszám'
+          type: number_integer
+      pager:
+        type: none
+        options:
+          offset: 0
+      exposed_form:
+        type: basic
+        options: {  }
+      access:
+        type: perm
+        options:
+          perm: 'manage villa customer requests'
+      cache:
+        type: none
+        options: {  }
+      empty: {  }
+      sorts:
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          entity_type: node
+          entity_field: nid
+          plugin_id: standard
+          order: ASC
+      arguments: {  }
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            customer_request: customer_request
+          exposed: false
+        request_status:
+          id: request_status
+          table: node__request_status
+          field: request_status_value
+          entity_type: node
+          entity_field: request_status
+          plugin_id: list_field
+          operator: or
+          value:
+            new: new
+            approved: approved
+          exposed: false
+      style:
+        type: villa_request_calendar
+        options: {  }
+      row:
+        type: fields
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: true
+          distinct: true
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.cr_guest_count'
+        - 'config:field.storage.node.event'
+  page_calendar:
+    id: page_calendar
+    display_title: Calendar
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: admin/content/customer-requests/calendar
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.cr_guest_count'
+        - 'config:field.storage.node.event'

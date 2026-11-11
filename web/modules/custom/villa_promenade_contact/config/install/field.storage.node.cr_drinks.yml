@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_drinks
+field_name: cr_drinks
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_512ae5f9699e4ce5b7b3
+      label: 'Borpárosítás a vacsorához'
+    -
+      value: choice_c24895737e1fc19d9be8
+      label: 'Bor + sommelier által vezetett borpárosítás'
+    -
+      value: choice_98651fa375b371c02f3c
+      label: Koktélcsomag
+    -
+      value: choice_f664c4459753012d7545
+      label: 'Alkoholmentes italcsomag'
+    -
+      value: choice_4721188547d42d75d77d
+      label: 'Korlátlan italcsomag'
+    -
+      value: choice_e9b2cc86491eea87eed7
+      label: 'Egyedi italkínálatot szeretnénk'
+    -
+      value: choice_8f2310e09cb8b3b72c1d
+      label: 'Kávé, tea, üdítők'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

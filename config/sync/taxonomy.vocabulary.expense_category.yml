@@ -1,0 +1,9 @@
+uuid: 64263d37-6f38-4f6c-aa62-33af21a0c2db
+langcode: en
+status: true
+dependencies: {  }
+name: 'Expense categories'
+vid: expense_category
+description: 'Categories for recording business expenses.'
+weight: 0
+new_revision: false

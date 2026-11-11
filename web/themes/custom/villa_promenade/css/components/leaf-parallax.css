@@ -1,0 +1,84 @@
+.botanical-section {
+  position: relative;
+  isolation: isolate;
+  --botanical-texture: url("../../images/vp-green.jpg");
+  --botanical-left: url("../../images/leaf-1.webp");
+  --botanical-right: url("../../images/leaf-3.webp");
+}
+
+.about-team.botanical-section {
+  --botanical-texture: url("../../images/vp-red.jpg");
+  --botanical-left: url("../../images/leaf-2.webp");
+  --botanical-right: url("../../images/leaf-1.webp");
+}
+
+.botanical-layers {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.botanical-layers__texture {
+  position: absolute;
+  inset: -5rem 0;
+  background: var(--botanical-texture) center / cover no-repeat;
+  transform: translate3d(0, var(--botanical-texture-y, 0px), 0);
+}
+
+.botanical-layers__left,
+.botanical-layers__right {
+  position: absolute;
+  /* Overscan beyond the strongest leaf displacement to keep edges covered. */
+  top: -360px;
+  bottom: -360px;
+  width: clamp(6rem, 19vw, 23rem);
+  background-position: center;
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+  opacity: 0.22;
+}
+
+.botanical-layers__left {
+  left: -4vw;
+  background-image: var(--botanical-left);
+  transform: translate3d(0, var(--botanical-left-y, 0px), 0);
+}
+
+.botanical-layers__right {
+  right: -4vw;
+  background-image: var(--botanical-right);
+  transform: translate3d(0, var(--botanical-right-y, 0px), 0) scaleX(-1);
+}
+
+@media (max-width: 47.99rem) {
+  .botanical-layers__left,
+  .botanical-layers__right {
+    width: 7rem;
+    opacity: 0.14;
+  }
+
+  .botanical-layers__left {
+    left: -3rem;
+  }
+
+  .botanical-layers__right {
+    right: -3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botanical-layers__texture {
+    transform: none;
+  }
+
+  .botanical-layers__left {
+    transform: none;
+  }
+
+  .botanical-layers__right {
+    transform: scaleX(-1);
+  }
+}

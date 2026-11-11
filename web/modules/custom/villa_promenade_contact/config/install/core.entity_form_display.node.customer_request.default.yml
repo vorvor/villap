@@ -1,0 +1,208 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.customer_request.admin_notes
+    - field.field.node.customer_request.approve_note
+    - field.field.node.customer_request.cr_arrival_time
+    - field.field.node.customer_request.cr_catering
+    - field.field.node.customer_request.cr_date_flexibility
+    - field.field.node.customer_request.cr_decoration
+    - field.field.node.customer_request.cr_decoration_other
+    - field.field.node.customer_request.cr_description
+    - field.field.node.customer_request.cr_drinks
+    - field.field.node.customer_request.cr_duration
+    - field.field.node.customer_request.cr_guest_count
+    - field.field.node.customer_request.cr_music
+    - field.field.node.customer_request.cr_occasion
+    - field.field.node.customer_request.cr_occasion_other
+    - field.field.node.customer_request.cr_photography
+    - field.field.node.customer_request.cr_preferred_date
+    - field.field.node.customer_request.cr_programme
+    - field.field.node.customer_request.cr_requests
+    - field.field.node.customer_request.cr_technical
+    - field.field.node.customer_request.cr_technical_other
+    - field.field.node.customer_request.details
+    - field.field.node.customer_request.email
+    - field.field.node.customer_request.event
+    - field.field.node.customer_request.is_demo
+    - field.field.node.customer_request.planned_date_sort
+    - field.field.node.customer_request.real_date
+    - field.field.node.customer_request.request_status
+    - node.type.customer_request
+  module:
+    - path
+id: node.customer_request.default
+targetEntityType: node
+bundle: customer_request
+mode: default
+content:
+  admin_notes:
+    type: string_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  cr_arrival_time:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_catering:
+    type: options_buttons
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_date_flexibility:
+    type: options_buttons
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_decoration:
+    type: options_buttons
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_decoration_other:
+    type: string_textfield
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_description:
+    type: string_textarea
+    weight: 10
+    region: content
+    settings:
+      rows: 4
+    third_party_settings: {  }
+  cr_drinks:
+    type: options_buttons
+    weight: 16
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_duration:
+    type: options_buttons
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_guest_count:
+    type: number
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_music:
+    type: options_buttons
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_occasion:
+    type: options_buttons
+    weight: 24
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_occasion_other:
+    type: string_textfield
+    weight: 25
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_photography:
+    type: options_buttons
+    weight: 27
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_preferred_date:
+    type: datetime_default
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_programme:
+    type: options_buttons
+    weight: 22
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_requests:
+    type: string_textarea
+    weight: 23
+    region: content
+    settings:
+      rows: 4
+    third_party_settings: {  }
+  cr_technical:
+    type: options_buttons
+    weight: 18
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  cr_technical_other:
+    type: string_textfield
+    weight: 19
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  email:
+    type: email_default
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  event:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  is_demo:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  request_status:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  approve_note: true
+  created: true
+  details: true
+  planned_date_sort: true
+  promote: true
+  real_date: true
+  status: true
+  sticky: true
+  uid: true

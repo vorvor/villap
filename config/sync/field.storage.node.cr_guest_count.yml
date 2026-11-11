@@ -1,0 +1,20 @@
+uuid: c8c4df26-2e08-4ea1-8b55-7b36dfd9f066
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.cr_guest_count
+field_name: cr_guest_count
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

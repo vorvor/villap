@@ -1,0 +1,16 @@
+uuid: 48751226-dccd-405a-8e29-bfe24f7f595d
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: dAPxnGQYiI_D6oRkx3x7jq9VTFgfklCM5cZq1cCwux4
+id: edit_menu_link
+label: 'Edit Menu Link'
+type: selectors
+dialog_group: administrative
+dialog_type: modal
+dialog_width: '650'
+dialog_title_override: ''
+selection_criteria:
+  selectors:
+    - '#menu-overview li.edit a'

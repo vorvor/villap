@@ -1,0 +1,28 @@
+uuid: 0710e6e0-b0f1-489a-8aa0-2801190fba8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_income_user
+    - node.type.income
+id: node.income.field_income_user
+field_name: field_income_user
+entity_type: node
+bundle: income
+label: 'Income user'
+description: 'The user this income belongs to. Defaults to your account unless you are admin; select another user as needed. The admin account is excluded.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: 'Drupal\villa_promenade_dashboard\Plugin\EntityReferenceSelection\ExpenseUserSelection::defaultValue'
+settings:
+  handler: villa_expense_user
+  handler_settings:
+    sort:
+      field: name
+      direction: ASC
+    auto_create: false
+    filter:
+      type: _none
+    include_anonymous: false
+field_type: entity_reference

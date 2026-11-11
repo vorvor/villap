@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.details
+    - node.type.customer_request
+id: node.customer_request.details
+field_name: details
+entity_type: node
+bundle: customer_request
+label: 'Event details'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

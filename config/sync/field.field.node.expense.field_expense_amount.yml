@@ -1,0 +1,23 @@
+uuid: e00a112f-5f20-40a5-868c-b5e8c4885e4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_expense_amount
+    - node.type.expense
+id: node.expense.field_expense_amount
+field_name: field_expense_amount
+entity_type: node
+bundle: expense
+label: Amount
+description: 'Enter a non-negative amount with up to two decimal places.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0.0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

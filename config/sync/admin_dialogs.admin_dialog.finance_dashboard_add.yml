@@ -1,0 +1,17 @@
+uuid: 1599a868-c95f-4f8d-acb3-1e4bf1b4d65a
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: tdE3TOJcx2xVnE6kD6dTAVjFdkMHfZHAbuswOAvZR_k
+id: finance_dashboard_add
+label: 'Add income or expense'
+type: actions
+dialog_group: finance_dashboard
+dialog_type: modal
+dialog_width: 'min(760px, 94vw)'
+dialog_title_override: ''
+selection_criteria:
+  routes:
+    - villa_promenade_dashboard.dashboard_income
+    - villa_promenade_dashboard.dashboard_expense

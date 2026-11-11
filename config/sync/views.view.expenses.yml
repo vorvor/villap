@@ -1,0 +1,526 @@
+uuid: 283f575c-4b9d-4b0e-8152-48cd41e01670
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_expense_amount
+    - field.storage.node.field_expense_category
+    - field.storage.node.field_expense_currency
+    - field.storage.node.field_expense_date
+    - field.storage.node.field_expense_description
+    - field.storage.node.field_expense_notes
+    - field.storage.node.field_expense_user
+    - node.type.expense
+  module:
+    - datetime
+    - node
+    - options
+    - user
+    - villa_promenade_dashboard
+id: expenses
+label: Expenses
+module: views
+description: 'All expense records with separate totals per currency, including unpublished expenses.'
+tag: Administration
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: Expenses
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: Expense
+          type: string
+          settings:
+            link_to_entity: true
+        field_expense_date:
+          id: field_expense_date
+          table: node__field_expense_date
+          field: field_expense_date
+          entity_type: node
+          entity_field: field_expense_date
+          plugin_id: field
+          label: 'Expense date'
+          click_sort_column: value
+          type: datetime_custom
+          settings:
+            timezone_override: ''
+            date_format: Y-m-d
+        field_expense_amount:
+          id: field_expense_amount
+          table: node__field_expense_amount
+          field: field_expense_amount
+          entity_type: node
+          entity_field: field_expense_amount
+          plugin_id: field
+          label: Amount
+          click_sort_column: value
+          type: number_decimal
+          settings:
+            thousand_separator: ','
+            decimal_separator: .
+            scale: 2
+            prefix_suffix: false
+        field_expense_currency:
+          id: field_expense_currency
+          table: node__field_expense_currency
+          field: field_expense_currency
+          relationship: none
+          group_type: group
+          entity_type: node
+          entity_field: field_expense_currency
+          plugin_id: field
+          label: Currency
+          empty: 'Unspecified currency'
+          hide_empty: false
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+        field_expense_description:
+          id: field_expense_description
+          table: node__field_expense_description
+          field: field_expense_description
+          entity_type: node
+          entity_field: field_expense_description
+          plugin_id: field
+          label: Description
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+        field_expense_notes:
+          id: field_expense_notes
+          table: node__field_expense_notes
+          field: field_expense_notes
+          entity_type: node
+          entity_field: field_expense_notes
+          plugin_id: field
+          label: Notes
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+        field_expense_category:
+          id: field_expense_category
+          table: node__field_expense_category
+          field: field_expense_category
+          entity_type: node
+          entity_field: field_expense_category
+          plugin_id: field
+          label: 'Expense category'
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+        field_expense_user:
+          id: field_expense_user
+          table: node__field_expense_user
+          field: field_expense_user
+          entity_type: node
+          entity_field: field_expense_user
+          plugin_id: field
+          label: 'Expense user'
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+        uid:
+          id: uid
+          table: node_field_data
+          field: uid
+          entity_type: node
+          entity_field: uid
+          plugin_id: field
+          label: 'Created by'
+          type: author
+          settings:
+            link: false
+        operations:
+          id: operations
+          table: node
+          field: operations
+          entity_type: node
+          plugin_id: entity_operations
+          label: Operations
+      pager:
+        type: none
+        options:
+          offset: 0
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'view villa financial reports'
+      cache:
+        type: none
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
+          empty: true
+          content: 'No expenses have been recorded.'
+      sorts:
+        field_expense_date_value:
+          id: field_expense_date_value
+          table: node__field_expense_date
+          field: field_expense_date_value
+          plugin_id: standard
+          order: DESC
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          entity_type: node
+          entity_field: nid
+          plugin_id: standard
+          order: DESC
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            expense: expense
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          value: '1'
+        date_from:
+          id: date_from
+          table: node__field_expense_date
+          field: field_expense_date_value
+          relationship: none
+          group_type: group
+          admin_label: 'Date from'
+          plugin_id: villa_expense_date
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: date_from_op
+            label: 'Date from'
+            description: 'Expense date; includes the selected day.'
+            use_operator: false
+            operator: date_from_op
+            identifier: date_from
+            required: false
+            remember: false
+            multiple: false
+          is_grouped: false
+        date_to:
+          id: date_to
+          table: node__field_expense_date
+          field: field_expense_date_value
+          relationship: none
+          group_type: group
+          admin_label: 'Date to'
+          plugin_id: villa_expense_date
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: date_to_op
+            label: 'Date to'
+            description: 'Expense date; includes the selected day.'
+            use_operator: false
+            operator: date_to_op
+            identifier: date_to
+            required: false
+            remember: false
+            multiple: false
+          is_grouped: false
+        field_expense_user_target_id:
+          id: field_expense_user_target_id
+          table: node__field_expense_user
+          field: field_expense_user_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: entity_reference
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: expense_user_op
+            label: 'Expense user'
+            description: 'Select the user the expenses belong to.'
+            use_operator: false
+            operator: expense_user_op
+            identifier: expense_user
+            required: false
+            remember: false
+            multiple: false
+            reduce: false
+          is_grouped: false
+          reduce_duplicates: false
+          sub_handler: villa_expense_user
+          widget: autocomplete
+          sub_handler_settings:
+            sort:
+              field: name
+              direction: ASC
+            auto_create: false
+            filter:
+              type: _none
+            include_anonymous: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: table
+        options:
+          columns:
+            title: title
+            field_expense_date: field_expense_date
+            field_expense_amount: field_expense_amount
+            field_expense_description: field_expense_description
+            field_expense_notes: field_expense_notes
+            field_expense_category: field_expense_category
+            field_expense_user: field_expense_user
+            uid: uid
+            operations: operations
+            field_expense_currency: field_expense_currency
+          default: '-1'
+          info:
+            title:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_expense_date:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_expense_amount:
+              align: views-align-right
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_expense_description:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_expense_notes:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_expense_category:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_expense_user:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            uid:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            operations:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_expense_currency:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          empty_table: false
+      row:
+        type: fields
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: true
+          distinct: false
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_expense_amount'
+        - 'config:field.storage.node.field_expense_category'
+        - 'config:field.storage.node.field_expense_currency'
+        - 'config:field.storage.node.field_expense_date'
+        - 'config:field.storage.node.field_expense_description'
+        - 'config:field.storage.node.field_expense_notes'
+        - 'config:field.storage.node.field_expense_user'
+  attachment_1:
+    id: attachment_1
+    display_title: 'Total expenses'
+    display_plugin: attachment
+    position: 2
+    display_options:
+      title: ''
+      fields:
+        field_expense_amount:
+          id: field_expense_amount
+          table: node__field_expense_amount
+          field: field_expense_amount
+          group_type: sum
+          entity_type: node
+          entity_field: field_expense_amount
+          plugin_id: field
+          label: 'Total expenses'
+          element_label_colon: true
+          empty: '0.00'
+          hide_empty: false
+          empty_zero: false
+          click_sort_column: value
+          type: number_decimal
+          settings:
+            thousand_separator: ','
+            decimal_separator: .
+            scale: 2
+            prefix_suffix: false
+        field_expense_currency:
+          id: field_expense_currency
+          table: node__field_expense_currency
+          field: field_expense_currency
+          relationship: none
+          group_type: group
+          entity_type: node
+          entity_field: field_expense_currency
+          plugin_id: field
+          label: ''
+          empty: 'Unspecified currency'
+          hide_empty: false
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
+          empty: true
+          content: 'No expenses have been recorded.'
+      sorts: {  }
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: expense-total
+          default_row_class: true
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline:
+            field_expense_amount: field_expense_amount
+            field_expense_currency: field_expense_currency
+          separator: ' '
+          hide_empty: false
+      defaults:
+        empty: false
+        title: false
+        group_by: false
+        style: false
+        row: false
+        fields: false
+        sorts: false
+        filters: true
+      group_by: true
+      display_extenders: {  }
+      displays:
+        page_1: page_1
+      attachment_position: after
+      inherit_arguments: false
+      inherit_exposed_filters: true
+      inherit_pager: false
+      render_pager: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_expense_currency'
+  page_1:
+    id: page_1
+    display_title: Expenses
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: admin/content/expenses
+      menu:
+        type: tab
+        title: Expenses
+        description: 'List all expenses and their total amount.'
+        weight: 5
+        menu_name: admin
+        parent: system.admin_content
+        context: '0'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_expense_amount'
+        - 'config:field.storage.node.field_expense_category'
+        - 'config:field.storage.node.field_expense_currency'
+        - 'config:field.storage.node.field_expense_date'
+        - 'config:field.storage.node.field_expense_description'
+        - 'config:field.storage.node.field_expense_notes'
+        - 'config:field.storage.node.field_expense_user'

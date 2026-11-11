@@ -11,6 +11,14 @@ use Drupal\villa_promenade_contact\EventQuestions;
 use Drupal\villa_promenade_contact\PlannedDate;
 
 /**
+ * Implements hook_install().
+ */
+function villa_promenade_contact_install(): void {
+  // Do not leave a universal grant in place when private request nodes exist.
+  node_access_rebuild(FALSE);
+}
+
+/**
  * Adds private customer request storage and the administration View.
  */
 function villa_promenade_contact_update_11001() {
@@ -273,4 +281,159 @@ function villa_promenade_contact_update_11012() {
   }
   $view->set('display', $displays)->save();
   return t('New, Cancelled and Archive requests have separate tabbed pages. Existing requests are unchanged.');
+}
+
+/**
+ * Adds request approval and a matching Approved tab without changing records.
+ */
+function villa_promenade_contact_update_11013() {
+  $updates = \Drupal::entityDefinitionUpdateManager();
+  $field = $updates->getFieldStorageDefinition('request_status', 'villa_customer_request');
+  if ($field) {
+    $field->setSetting('allowed_values', $field->getSetting('allowed_values') + ['approved' => 'Approved']);
+    $updates->updateFieldStorageDefinition($field);
+  }
+  $view = View::load('villa_customer_requests');
+  if (!$view) {
+    throw new \RuntimeException('The customer requests View could not be found.');
+  }
+  $displays = $view->get('display');
+  if (!isset($displays['page_approved'])) {
+    $page = $displays['page_archive'];
+    $page['id'] = 'page_approved';
+    $page['display_title'] = 'Approved requests';
+    $page['position'] = 4;
+    $page['display_options']['path'] = 'admin/content/customer-requests/approved';
+    $page['display_options']['defaults']['arguments'] = FALSE;
+    $page['display_options']['arguments']['request_status']['default_argument_options']['argument'] = 'approved';
+    $displays['page_approved'] = $page;
+    $view->getExecutable()->destroy();
+    $view->set('display', $displays)->save();
+  }
+  return t('Approve is available on request tiles, and Approved requests have their own tab. Existing requests are unchanged.');
+}
+
+/**
+ * Installs a private, fieldable Customer request content type without data.
+ */
+function villa_promenade_contact_update_11014() {
+  \Drupal\villa_promenade_contact\CustomerRequestSetup::configure();
+  \Drupal\villa_promenade_contact\CustomerRequestSetup::configureView();
+  // Register private grants without retaining the universal nid=0 grant.
+  node_access_rebuild(FALSE);
+  return t('Customer request is now a private content type with UI-configurable fields. No content is copied.');
+}
+
+/**
+ * Removes the discarded data-copy scaffolding, keeping the new architecture.
+ */
+function villa_promenade_contact_update_11015() {
+  $map = \Drupal::keyValue('villa_promenade_contact.request_migration');
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  $deleted = 0;
+  foreach ($map->getAll() as $legacy_id => $node_id) {
+    $node = $storage->load($node_id);
+    if ($node && $node->bundle() === 'customer_request' && $node->hasField('legacy_request_id') && (int) $node->get('legacy_request_id')->value === (int) $legacy_id) {
+      $node->delete();
+      $deleted++;
+    }
+  }
+  $field = \Drupal\field\Entity\FieldConfig::loadByName('node', 'customer_request', 'legacy_request_id');
+  if ($field) {
+    $field->delete();
+  }
+  $field = \Drupal\field\Entity\FieldStorageConfig::loadByName('node', 'legacy_request_id');
+  if ($field && !$field->getBundles()) {
+    $field->delete();
+  }
+  $map->deleteAll();
+  \Drupal::state()->delete('villa_promenade_contact.node_migration_complete');
+  return t('Removed @count previously copied sample records and data-migration scaffolding. Original legacy records remain untouched.', ['@count' => $deleted]);
+}
+
+/**
+ * Adds approval date and note fields without changing existing requests.
+ */
+function villa_promenade_contact_update_11016() {
+  \Drupal::service('module_installer')->install(['datetime']);
+  \Drupal\villa_promenade_contact\CustomerRequestSetup::configure();
+  $manager = \Drupal::entityTypeManager();
+  $form = $manager->getStorage('entity_form_display')->load('node.customer_request.default');
+  if ($form) {
+    if (!$form->getComponent('real_date')) {
+      $form->setComponent('real_date', ['type' => 'datetime_default', 'weight' => 8, 'settings' => []]);
+    }
+    if (!$form->getComponent('approve_note')) {
+      $form->setComponent('approve_note', ['type' => 'string_textarea', 'weight' => 9, 'settings' => ['rows' => 4, 'placeholder' => '']]);
+    }
+    $form->save();
+  }
+  $display = $manager->getStorage('entity_view_display')->load('node.customer_request.default');
+  if ($display) {
+    if (!$display->getComponent('real_date')) {
+      $display->setComponent('real_date', ['type' => 'datetime_custom', 'label' => 'above', 'weight' => 8, 'settings' => ['date_format' => 'Y-m-d', 'timezone_override' => '']]);
+    }
+    if (!$display->getComponent('approve_note')) {
+      $display->setComponent('approve_note', ['type' => 'basic_string', 'label' => 'above', 'weight' => 9, 'settings' => []]);
+    }
+    $display->save();
+  }
+  return t('Real date and Approve note are available on customer requests. Approval now collects these details before changing state.');
+}
+
+/**
+ * Adds an All requests tab sharing the existing listing and controls.
+ */
+function villa_promenade_contact_update_11017() {
+  $view = View::load('villa_customer_requests');
+  if (!$view) {
+    throw new \RuntimeException('The customer requests View could not be found.');
+  }
+  $displays = $view->get('display');
+  if (!isset($displays['page_all'])) {
+    $page = $displays['page_1'];
+    $page['id'] = 'page_all';
+    $page['display_title'] = 'All requests';
+    $page['position'] = 0;
+    $page['display_options']['path'] = 'admin/content/customer-requests/all';
+    $page['display_options']['defaults']['arguments'] = FALSE;
+    $page['display_options']['arguments'] = [];
+    $displays['page_all'] = $page;
+    $view->getExecutable()->destroy();
+    $view->set('display', $displays)->save();
+  }
+  return t('Added an All requests tab without a request-status restriction. Existing requests are unchanged.');
+}
+
+/**
+ * Adds native fields for every event question without copying any content.
+ */
+function villa_promenade_contact_update_11018() {
+  \Drupal\villa_promenade_contact\CustomerRequestAnswers::configure();
+  return t('Every public event question now has its own Customer request field. No existing answers have been imported or migrated.');
+}
+
+/**
+ * Replaces empty event-specific answer fields with shared question fields.
+ */
+function villa_promenade_contact_update_11019() {
+  \Drupal\villa_promenade_contact\CustomerRequestAnswers::removeEventFields();
+  \Drupal\villa_promenade_contact\CustomerRequestAnswers::configure();
+  return t('Customer request questions now share storage across event types.');
+}
+
+/**
+ * Adds the monthly calendar View without changing the existing request lists.
+ */
+function villa_promenade_contact_update_11020() {
+  if (!View::load('villa_customer_requests_calendar')) {
+    $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_contact');
+    $source = new \Drupal\Core\Config\FileStorage($path . '/config/install');
+    $data = $source->read('views.view.villa_customer_requests_calendar');
+    if (!$data) {
+      throw new \RuntimeException('Missing customer request calendar configuration.');
+    }
+    View::create($data)->save();
+  }
+  return t('Added the customer request calendar for New and Approved requests.');
 }

@@ -1,3 +1,13 @@
+request-status-colors:
+  css:
+    theme:
+      css/request-status-colors.css: {}
+request-calendar:
+  css:
+    theme:
+      css/request-calendar.css: {}
+  dependencies:
+    - villa_promenade_contact/request-status-colors
 request-filters:
   js:
     js/request-filters.js: {}
@@ -9,6 +19,9 @@ request-tiles:
   css:
     theme:
       css/request-tiles.css: {}
+  dependencies:
+    - core/drupal.dialog.ajax
+    - villa_promenade_contact/request-status-colors
 form:
   css:
     component:

@@ -1,0 +1,20 @@
+uuid: 4362f194-c593-4e83-8085-9ec10c68ebf4
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.cr_preferred_date
+field_name: cr_preferred_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

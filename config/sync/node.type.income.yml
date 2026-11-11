@@ -1,0 +1,11 @@
+uuid: ee4020e0-eeaa-417b-b9a8-deb984d00b1a
+langcode: en
+status: true
+dependencies: {  }
+name: Income
+type: income
+description: 'Record a business income, its amount, description, notes, and category.'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

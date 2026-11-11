@@ -5,7 +5,7 @@
  * Creates clearly marked fictional requests. Run with drush php:script.
  */
 
-$storage = \Drupal::entityTypeManager()->getStorage('villa_customer_request');
+$storage = \Drupal::entityTypeManager()->getStorage('node');
 $names = ['Anna Demo', 'Balazs Demo', 'Csilla Demo', 'David Demo', 'Eszter Demo', 'Ferenc Demo', 'Gabriella Demo', 'Henrik Demo', 'Ilona Demo', 'Janos Demo'];
 
 $events = array_keys(\Drupal\villa_promenade_contact\EventQuestions::eventOptions());
@@ -22,6 +22,7 @@ try {
   foreach ($names as $index => $name) {
     $email = 'demo-request-' . ($index + 1) . '@example.com';
     $existing = $storage->getQuery()->accessCheck(FALSE)
+      ->condition('type', 'customer_request')
       ->condition('email', $email)
       ->condition('is_demo', TRUE)
       ->execute();
@@ -29,7 +30,12 @@ try {
       continue;
     }
     $request = $storage->create([
-      'name' => $name,
+      'type' => 'customer_request',
+      'title' => $name,
+      'langcode' => 'en',
+      'status' => 0,
+      'promote' => 0,
+      'uid' => 0,
       'email' => $email,
       'event' => $events[$index % count($events)],
       'request_status' => 'new',

@@ -1,0 +1,16 @@
+uuid: a7a6a8ad-4e51-4e24-bac2-c7e1bcbfcb1c
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: iKdXb6P4Pa-DclmCou4CPdCdEhZ6U6_04h3508fdZjA
+id: add_menu_link
+label: 'Add Menu Link'
+type: actions
+dialog_group: administrative
+dialog_type: modal
+dialog_width: '650'
+dialog_title_override: ''
+selection_criteria:
+  routes:
+    - entity.menu.add_link_form

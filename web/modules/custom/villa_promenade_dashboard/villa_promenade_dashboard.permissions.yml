@@ -1,0 +1,9 @@
+access villa dashboard:
+  title: 'Access the Villa Promenade dashboard'
+  description: 'Open the financial administration dashboard.'
+  restrict access: true
+
+view villa financial reports:
+  title: 'View Villa Promenade financial reports'
+  description: 'View income, expense and balance listings, charts and totals, including unpublished financial records.'
+  restrict access: true

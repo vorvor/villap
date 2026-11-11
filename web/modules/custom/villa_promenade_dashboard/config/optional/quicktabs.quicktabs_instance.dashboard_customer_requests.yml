@@ -1,0 +1,79 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.villa_customer_requests
+    - views.view.villa_customer_requests_calendar
+  module:
+    - quicktabs
+    - villa_promenade_contact
+  enforced:
+    module:
+      - villa_promenade_dashboard
+id: dashboard_customer_requests
+label: 'Dashboard customer requests'
+renderer: quick_tabs
+options:
+  quick_tabs:
+    ajax: true
+    class: ''
+    style: ''
+    direct_linking: true
+hide_empty_tabs: false
+remember_last_clicked_tab: false
+default_tab: 0
+configuration_data:
+  - title: All
+    weight: 0
+    type: view_content
+    content:
+      view_content:
+        options:
+          vid: villa_customer_requests
+          display: page_all
+          args: ''
+  - title: New
+    weight: 1
+    type: view_content
+    content:
+      view_content:
+        options:
+          vid: villa_customer_requests
+          display: page_1
+          args: new
+  - title: Approved
+    weight: 2
+    type: view_content
+    content:
+      view_content:
+        options:
+          vid: villa_customer_requests
+          display: page_approved
+          args: approved
+  - title: Cancelled
+    weight: 3
+    type: view_content
+    content:
+      view_content:
+        options:
+          vid: villa_customer_requests
+          display: page_cancelled
+          args: cancelled
+  - title: Archive
+    weight: 4
+    type: view_content
+    content:
+      view_content:
+        options:
+          vid: villa_customer_requests
+          display: page_archive
+          args: archive
+  - title: Calendar
+    weight: 5
+    type: view_content
+    content:
+      view_content:
+        options:
+          vid: villa_customer_requests_calendar
+          display: page_calendar
+          args: ''

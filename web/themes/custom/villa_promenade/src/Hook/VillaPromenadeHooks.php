@@ -144,16 +144,21 @@ class VillaPromenadeHooks {
       }
       $this->addNodeEditLink($build[$id], $node);
       if (mb_strtolower(trim($node->label()), 'UTF-8') === 'a ház' && !isset($build['image_text_8'])) {
+        // Adjacent gallery sections share one uninterrupted green surface.
+        $build['image_text_8'] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['gallery-sections']],
+          '#attached' => ['library' => ['villa_promenade/image-text-block']],
+        ];
         foreach ([8, 9, 10] as $image_text_id) {
           $cache->addCacheTags(['node:' . $image_text_id]);
-          $build['image_text_' . $image_text_id] = [];
           if ($image_text = $storage->load($image_text_id)) {
             $image_text = \Drupal::service('entity.repository')->getTranslationFromContext($image_text);
             $image_text_access = $image_text->access('view', NULL, TRUE);
             $cache->addCacheableDependency($image_text);
             $cache->addCacheableDependency($image_text_access);
             if ($image_text_access->isAllowed()) {
-              $build['image_text_' . $image_text_id] = $this->buildImageTextBlock($image_text);
+              $build['image_text_8']['image_text_' . $image_text_id] = $this->buildImageTextBlock($image_text);
             }
           }
         }
@@ -170,12 +175,11 @@ class VillaPromenadeHooks {
             $cache->addCacheableDependency($block);
             $cache->addCacheableDependency($block_access);
             if ($block_access->isAllowed()) {
-              $row = $this->buildImageTextBlock($block);
+              $row = $this->buildImageTextBlock($block, FALSE);
               $row['#attributes']['class'][] = 'four-block-layout__row';
               if (in_array($block_id, [12, 14], TRUE)) {
                 $row['#attributes']['class'][] = 'four-block-layout__row--reversed';
               }
-              unset($row['inner']['gallery']);
               $build['four_blocks'][$block_id] = $row;
             }
           }
@@ -243,6 +247,14 @@ class VillaPromenadeHooks {
             }
           }
         }
+        // One continuous texture and parallax surface spans both sections.
+        $build['team_members'] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['about-team']],
+          'intro' => $build[$id],
+          'members' => $build['team_members'],
+        ];
+        unset($build[$id]);
       }
     }
     $cache->applyTo($build);
@@ -252,7 +264,7 @@ class VillaPromenadeHooks {
   /**
    * Builds the front-page image/text block using the node's configured fields.
    */
-  private function buildImageTextBlock(\Drupal\node\NodeInterface $node): array {
+  private function buildImageTextBlock(\Drupal\node\NodeInterface $node, bool $gallery = TRUE): array {
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $build = [
       '#type' => 'html_tag',
@@ -290,6 +302,9 @@ class VillaPromenadeHooks {
         $build['inner']['text'][$field_name] = $view_builder->viewField($items, ['label' => 'hidden']);
       }
     }
+    if ($gallery) {
+      $build['#attributes']['class'][] = 'image-text-block--gallery';
+    }
     if ($images) {
       $build['inner']['image'] = [
         '#type' => 'container',
@@ -297,7 +312,7 @@ class VillaPromenadeHooks {
         '#weight' => -10,
         'image' => array_shift($images),
       ];
-      if ($images) {
+      if ($images && $gallery) {
         $build['inner']['gallery'] = [
           '#type' => 'container',
           '#attributes' => ['class' => ['image-text-block__gallery']],

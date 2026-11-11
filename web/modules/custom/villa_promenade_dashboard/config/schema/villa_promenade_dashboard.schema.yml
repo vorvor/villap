@@ -1,0 +1,39 @@
+views.filter.villa_expense_date:
+  type: views.filter.date
+  label: 'Expense calendar date filter'
+
+views.filter_value.villa_expense_date:
+  type: views.filter_value.date
+  label: 'Expense calendar date value'
+
+entity_reference_selection.villa_expense_user:
+  type: entity_reference_selection.default:user
+  label: 'Expense user selection excluding admin'
+
+views.area.villa_balance:
+  type: views_area
+  label: 'Income and expenses balance summary'
+
+views.field.villa_financial_field:
+  type: views_field
+  label: 'Combined income and expense field'
+
+views.filter.villa_balance_date:
+  type: views.filter.date
+  label: 'Financial calendar date filter'
+
+views.filter_value.villa_balance_date:
+  type: views.filter_value.date
+  label: 'Financial calendar date value'
+
+views.filter.villa_balance_user:
+  type: views.filter.entity_reference
+  label: 'Financial user filter'
+
+views.filter_value.villa_balance_user:
+  type: views.filter_value.in_operator
+  label: 'Financial user filter value'
+
+views.sort.villa_financial_date:
+  type: views_sort
+  label: 'Combined income and expense date sort'

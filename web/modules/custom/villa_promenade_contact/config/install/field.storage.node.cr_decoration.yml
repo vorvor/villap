@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_decoration
+field_name: cr_decoration
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_78c9fc158a79331925eb
+      label: 'Teljes hangulatot szeretnénk ha megterveznétek'
+    -
+      value: choice_96c87dfe923834b98b74
+      label: 'Mi szeretnénk dekorálni'
+    -
+      value: choice_ef6d28372fcae80d0af2
+      label: 'Nem szeretnénk dekorációt'
+    -
+      value: other
+      label: Egyéb
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

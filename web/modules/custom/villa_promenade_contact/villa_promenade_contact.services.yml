@@ -7,3 +7,4 @@ services:
       - '@email.validator'
       - '@language_manager'
       - '@logger.factory'
+

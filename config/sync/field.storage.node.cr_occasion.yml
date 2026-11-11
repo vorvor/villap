@@ -1,0 +1,33 @@
+uuid: 271a8866-84e8-4c79-8a62-6cecf6fb8e87
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_occasion
+field_name: cr_occasion
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_57e29f57875431930f8b
+      label: 'Céges vacsora'
+    -
+      value: choice_c0086f23dcddcdda8b10
+      label: Workshop
+    -
+      value: choice_2e3a06743179d388b819
+      label: 'Konferencia / Meeting'
+    -
+      value: other
+      label: Egyéb
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

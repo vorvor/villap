@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_drinks
+    - node.type.customer_request
+  module:
+    - options
+id: node.customer_request.cr_drinks
+field_name: cr_drinks
+entity_type: node
+bundle: customer_request
+label: 'Milyen italélményt képzeltetek el?'
+description: 'Privát események, Céges események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,23 @@
+uuid: 74095801-2f1b-4ffb-9d80-a077f9da1f8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_guest_count
+    - node.type.customer_request
+id: node.customer_request.cr_guest_count
+field_name: cr_guest_count
+entity_type: node
+bundle: customer_request
+label: 'Várható létszám:'
+description: 'Privát események, Céges események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

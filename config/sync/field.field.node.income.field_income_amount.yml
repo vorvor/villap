@@ -1,0 +1,23 @@
+uuid: ebd742d9-2a9f-4aef-92b9-ca527eaf5b69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_income_amount
+    - node.type.income
+id: node.income.field_income_amount
+field_name: field_income_amount
+entity_type: node
+bundle: income
+label: Amount
+description: 'Enter a non-negative amount with up to two decimal places.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0.0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

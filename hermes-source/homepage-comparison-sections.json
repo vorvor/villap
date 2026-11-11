@@ -1,0 +1,302 @@
+{
+  "desktop": {
+    "width": 1440,
+    "height": 17801,
+    "blocks": [
+      {
+        "label": "Hero / navigation",
+        "class": "front-hero",
+        "y": 0,
+        "end": 814
+      },
+      {
+        "label": "Egy régi ház új történetei.",
+        "class": "front-intro image-separator__description front-editable",
+        "y": 814,
+        "end": 1354
+      },
+      {
+        "label": "Admin status message",
+        "class": "region region-highlighted",
+        "y": 1354,
+        "end": 1405
+      },
+      {
+        "label": "A múlt",
+        "class": "image-separator image-separator--grayscale front-editable",
+        "y": 1405,
+        "end": 2487
+      },
+      {
+        "label": "A ház",
+        "class": "image-separator front-editable",
+        "y": 2487,
+        "end": 3569
+      },
+      {
+        "label": "Kert",
+        "class": "image-text-block image-text-block--gallery front-editable",
+        "y": 3569,
+        "end": 4441
+      },
+      {
+        "label": "Pince",
+        "class": "image-text-block image-text-block--gallery front-editable",
+        "y": 4441,
+        "end": 5313
+      },
+      {
+        "label": "Szoba",
+        "class": "image-text-block image-text-block--gallery front-editable",
+        "y": 5313,
+        "end": 6248
+      },
+      {
+        "label": "Gasztronómia",
+        "class": "image-text-block front-editable four-block-layout__row",
+        "y": 6248,
+        "end": 6719
+      },
+      {
+        "label": "Catering",
+        "class": "image-text-block front-editable four-block-layout__row four-block-layout__row--reversed",
+        "y": 6719,
+        "end": 7123
+      },
+      {
+        "label": "Sommelier",
+        "class": "image-text-block front-editable four-block-layout__row",
+        "y": 7123,
+        "end": 7521
+      },
+      {
+        "label": "Zene",
+        "class": "image-text-block front-editable four-block-layout__row four-block-layout__row--reversed",
+        "y": 7521,
+        "end": 7911
+      },
+      {
+        "label": "Szolgáltatásaink",
+        "class": "image-separator front-editable",
+        "y": 7911,
+        "end": 8993
+      },
+      {
+        "label": "Galéria",
+        "class": "image-separator front-editable",
+        "y": 8993,
+        "end": 9550
+      },
+      {
+        "label": "Photo gallery",
+        "class": "photo-gallery front-editable",
+        "y": 9550,
+        "end": 11512
+      },
+      {
+        "label": "Ismerj meg minket",
+        "class": "image-separator front-editable",
+        "y": 11512,
+        "end": 12181
+      },
+      {
+        "label": "Doro",
+        "class": "team-member front-editable",
+        "y": 12181,
+        "end": 12958
+      },
+      {
+        "label": "Simon",
+        "class": "team-member front-editable",
+        "y": 12958,
+        "end": 13734
+      },
+      {
+        "label": "Robi",
+        "class": "team-member front-editable",
+        "y": 13734,
+        "end": 14511
+      },
+      {
+        "label": "Máté",
+        "class": "team-member front-editable",
+        "y": 14511,
+        "end": 15288
+      },
+      {
+        "label": "Klaudia",
+        "class": "team-member front-editable",
+        "y": 15288,
+        "end": 16056
+      },
+      {
+        "label": "Tervezzünk együtt",
+        "class": "image-separator front-editable",
+        "y": 16056,
+        "end": 16613
+      },
+      {
+        "label": "Minden esemény más. Kezdjük az alapoknál.",
+        "class": "front-event-contact",
+        "y": 16613,
+        "end": 17194
+      },
+      {
+        "label": "Footer",
+        "class": "front-footer",
+        "y": 17194,
+        "end": 17801
+      }
+    ]
+  },
+  "mobile": {
+    "width": 390,
+    "height": 15226,
+    "blocks": [
+      {
+        "label": "Hero / navigation",
+        "class": "front-hero",
+        "y": 49,
+        "end": 593
+      },
+      {
+        "label": "Egy régi ház új történetei.",
+        "class": "front-intro image-separator__description front-editable",
+        "y": 593,
+        "end": 1070
+      },
+      {
+        "label": "Admin status message",
+        "class": "region region-highlighted",
+        "y": 1070,
+        "end": 1120
+      },
+      {
+        "label": "A múlt",
+        "class": "image-separator image-separator--grayscale front-editable",
+        "y": 1120,
+        "end": 1990
+      },
+      {
+        "label": "A ház",
+        "class": "image-separator front-editable",
+        "y": 1990,
+        "end": 2860
+      },
+      {
+        "label": "Kert",
+        "class": "image-text-block image-text-block--gallery front-editable",
+        "y": 2860,
+        "end": 3532
+      },
+      {
+        "label": "Pince",
+        "class": "image-text-block image-text-block--gallery front-editable",
+        "y": 3532,
+        "end": 4204
+      },
+      {
+        "label": "Szoba",
+        "class": "image-text-block image-text-block--gallery front-editable",
+        "y": 4204,
+        "end": 4916
+      },
+      {
+        "label": "Gasztronómia",
+        "class": "image-text-block front-editable four-block-layout__row",
+        "y": 4916,
+        "end": 5403
+      },
+      {
+        "label": "Catering",
+        "class": "image-text-block front-editable four-block-layout__row four-block-layout__row--reversed",
+        "y": 5403,
+        "end": 5868
+      },
+      {
+        "label": "Sommelier",
+        "class": "image-text-block front-editable four-block-layout__row",
+        "y": 5868,
+        "end": 6244
+      },
+      {
+        "label": "Zene",
+        "class": "image-text-block front-editable four-block-layout__row four-block-layout__row--reversed",
+        "y": 6244,
+        "end": 6642
+      },
+      {
+        "label": "Szolgáltatásaink",
+        "class": "image-separator front-editable",
+        "y": 6642,
+        "end": 7512
+      },
+      {
+        "label": "Galéria",
+        "class": "image-separator front-editable",
+        "y": 7512,
+        "end": 7832
+      },
+      {
+        "label": "Photo gallery",
+        "class": "photo-gallery front-editable",
+        "y": 7832,
+        "end": 8648
+      },
+      {
+        "label": "Ismerj meg minket",
+        "class": "image-separator front-editable",
+        "y": 8648,
+        "end": 9024
+      },
+      {
+        "label": "Doro",
+        "class": "team-member front-editable",
+        "y": 9024,
+        "end": 9945
+      },
+      {
+        "label": "Simon",
+        "class": "team-member front-editable",
+        "y": 9945,
+        "end": 10866
+      },
+      {
+        "label": "Robi",
+        "class": "team-member front-editable",
+        "y": 10866,
+        "end": 11787
+      },
+      {
+        "label": "Máté",
+        "class": "team-member front-editable",
+        "y": 11787,
+        "end": 12708
+      },
+      {
+        "label": "Klaudia",
+        "class": "team-member front-editable",
+        "y": 12708,
+        "end": 13629
+      },
+      {
+        "label": "Tervezzünk együtt",
+        "class": "image-separator front-editable",
+        "y": 13629,
+        "end": 13949
+      },
+      {
+        "label": "Minden esemény más. Kezdjük az alapoknál.",
+        "class": "front-event-contact",
+        "y": 13949,
+        "end": 14599
+      },
+      {
+        "label": "Footer",
+        "class": "front-footer",
+        "y": 14599,
+        "end": 15226
+      }
+    ]
+  }
+}

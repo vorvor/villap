@@ -1,0 +1,20 @@
+uuid: 1446051e-5dec-4395-9214-b07ba3f97aeb
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.expense
+    - node.type.income
+  module:
+    - navigation
+    - node
+    - system
+id: employee
+label: Employee
+weight: 5
+is_admin: false
+permissions:
+  - 'access navigation'
+  - 'create expense content'
+  - 'create income content'
+  - 'view the administration theme'

@@ -1,3 +1,18 @@
+@font-face{
+  font-family:'Amoresa';
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+  src:url('../../fonts/amoresa/Amoresa-Regular.woff2') format('woff2')
+}
+
+@font-face{
+  font-family:'Amoresa Aged';
+  font-weight:400;font-style:normal;
+  font-display:swap;
+  src:url('../../fonts/amoresa/Amoresa-Aged.woff2') format('woff2')
+}
+
 @font-face {
   font-family: "Neue Einstellung";
   src: url("../../fonts/neue-einstellung/NeueEinstellung-Thin.woff2") format("woff2");
@@ -92,6 +107,7 @@
   --villa-font-title: "Cormorant Garamond", serif;
   --villa-font-h2: "Times New Roman MT", "Times New Roman", Times, serif;
   --villa-font-text: "Outfit", "Manrope", sans-serif;
+  --villa-font-handwritten: "Amoresa", "Times New Roman", Times, serif;
 }
 
 /* Body text uses Outfit Thin; headings retain the existing serif family. */

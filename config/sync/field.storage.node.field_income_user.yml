@@ -1,0 +1,20 @@
+uuid: 0a071973-972b-46ad-9c47-fd3a7452e780
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - user
+id: node.field_income_user
+field_name: field_income_user
+entity_type: node
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

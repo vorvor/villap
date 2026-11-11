@@ -1,0 +1,36 @@
+uuid: e8ac13b8-fcd1-478e-966f-5153970c04fe
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_photography
+field_name: cr_photography
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_135f9295916958943516
+      label: 'Fotóst szeretnénk'
+    -
+      value: choice_3b3761d31c5b0fa96943
+      label: 'Videóst szeretnénk'
+    -
+      value: choice_8696fcef8e372bfa1500
+      label: 'Fotó + videó csomagot szeretnénk'
+    -
+      value: choice_4074d816e7099eec4f71
+      label: 'Még nem tudjuk – szívesen kérünk ajánlást'
+    -
+      value: choice_124f8ea39af1ba72a17a
+      label: 'Nem lesz rá szükségünk'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,8 @@
+/* Shared business-status palette for request actions, badges and calendars. */
+:root {
+  --villa-request-new: color-mix(in srgb, #5578B5 40%, white);
+  --villa-request-cancelled: color-mix(in srgb, #AD6973 40%, white);
+  --villa-request-archive: color-mix(in srgb, #737B83 40%, white);
+  --villa-request-approved: color-mix(in srgb, #64866A 40%, white);
+  --villa-request-status-text: #101418;
+}

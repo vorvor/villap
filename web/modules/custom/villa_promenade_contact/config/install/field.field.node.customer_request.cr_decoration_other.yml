@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_decoration_other
+    - node.type.customer_request
+id: node.customer_request.cr_decoration_other
+field_name: cr_decoration_other
+entity_type: node
+bundle: customer_request
+label: 'Mennyire szeretnétek, hogy a Villa segítsen a rendezvény hangulatának kialakításában? – Egyéb'
+description: 'Privát események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

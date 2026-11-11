@@ -1,0 +1,21 @@
+uuid: fac18423-1625-4289-b518-f6fde499a388
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.real_date
+    - node.type.customer_request
+  module:
+    - datetime
+id: node.customer_request.real_date
+field_name: real_date
+entity_type: node
+bundle: customer_request
+label: 'Real date'
+description: 'Internal approval information for request managers.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

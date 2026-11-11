@@ -1,0 +1,57 @@
+uuid: d33af352-8f2c-4096-89c5-08cc91fe36fc
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_programme
+field_name: cr_programme
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_c7e44704b1f7bf910b1a
+      label: 'Vezetett borkóstoló'
+    -
+      value: choice_6222a0d28f72790671e5
+      label: 'Kreatív workshop'
+    -
+      value: choice_a61c6bd1422c5f4f17cb
+      label: Gasztroélmény
+    -
+      value: choice_426b58880d705372de8a
+      label: 'Élő műsor / előadó'
+    -
+      value: choice_21ff18376f3dd4b0ec7b
+      label: Fotózás
+    -
+      value: choice_167fb8c9e9672a0a6781
+      label: 'Egyedi programot szeretnénk'
+    -
+      value: choice_95162f5b898eed3a59b1
+      label: 'Nem szeretnénk semmilyen programot'
+    -
+      value: choice_cbb4b209bfd6fed9fe27
+      label: 'Csapatépítő program'
+    -
+      value: choice_c0f977a78988bccea1aa
+      label: Élőzene
+    -
+      value: choice_6792a7378ad3efaa577a
+      label: DJ
+    -
+      value: choice_de33e89cccccad1d5858
+      label: 'Helyi művész / előadó'
+    -
+      value: choice_bbdb2ff32168f83e8353
+      label: 'Nem szeretnénk extra programot'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

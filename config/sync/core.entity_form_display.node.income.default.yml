@@ -1,0 +1,97 @@
+uuid: 5d191c23-9682-4c28-8767-7d05e20e024b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.income.field_income_amount
+    - field.field.node.income.field_income_category
+    - field.field.node.income.field_income_currency
+    - field.field.node.income.field_income_date
+    - field.field.node.income.field_income_description
+    - field.field.node.income.field_income_notes
+    - field.field.node.income.field_income_user
+    - node.type.income
+  module:
+    - datetime
+    - path
+id: node.income.default
+targetEntityType: node
+bundle: income
+mode: default
+content:
+  field_income_amount:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_income_category:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_income_currency:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_income_date:
+    type: datetime_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_income_description:
+    type: string_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 4
+      placeholder: ''
+    third_party_settings: {  }
+  field_income_notes:
+    type: string_textarea
+    weight: 5
+    region: content
+    settings:
+      rows: 4
+      placeholder: ''
+    third_party_settings: {  }
+  field_income_user:
+    type: options_buttons
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 31
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 8
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  promote: true
+  status: true
+  sticky: true

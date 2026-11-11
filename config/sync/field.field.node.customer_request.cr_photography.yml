@@ -1,0 +1,21 @@
+uuid: 4f4bc7af-0f1c-40e4-a6c2-8dfa6ed44577
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_photography
+    - node.type.customer_request
+  module:
+    - options
+id: node.customer_request.cr_photography
+field_name: cr_photography
+entity_type: node
+bundle: customer_request
+label: 'Szeretnétek megörökíteni az eseményt?'
+description: 'Céges események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

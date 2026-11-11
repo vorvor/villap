@@ -1,0 +1,19 @@
+uuid: 2ab2afba-e51c-440f-9a6c-6e6243f69a7e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_expense_description
+    - node.type.expense
+id: node.expense.field_expense_description
+field_name: field_expense_description
+entity_type: node
+bundle: expense
+label: Description
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

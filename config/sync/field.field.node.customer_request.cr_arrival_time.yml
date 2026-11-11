@@ -1,0 +1,19 @@
+uuid: 80d11b7c-7557-4c9f-9d06-71806844a406
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_arrival_time
+    - node.type.customer_request
+id: node.customer_request.cr_arrival_time
+field_name: cr_arrival_time
+entity_type: node
+bundle: customer_request
+label: 'Hány órakkór szeretnétek érkezni?'
+description: 'Privát események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

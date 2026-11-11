@@ -1,0 +1,77 @@
+.financial-balance {
+  width: 100%;
+}
+
+.financial-balance caption {
+  padding-block: 1rem;
+  text-align: start;
+  font-weight: 600;
+}
+
+.financial-balance th:not(:first-child),
+.financial-balance .financial-balance__amount {
+  text-align: end;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.financial-balance td:last-child {
+  font-weight: 700;
+}
+
+.financial-balance__negative {
+  color: #a51b00;
+}
+
+.financial-balance__positive {
+  color: #186237;
+}
+
+.view-balance .view-empty {
+  overflow-x: auto;
+}
+
+.financial-row--income {
+  --financial-row-color: #118AB2;
+}
+
+.financial-row--expense {
+  --financial-row-color: #FF7F50;
+}
+
+table tbody tr:is(.financial-row--income, .financial-row--expense) > td {
+  background-color: color-mix(in srgb, var(--financial-row-color) 12%, white);
+}
+
+table tbody tr:is(.financial-row--income, .financial-row--expense):is(:hover, :focus-within) > td {
+  background-color: color-mix(in srgb, var(--financial-row-color) 20%, white);
+}
+
+table tbody tr:is(.financial-row--income, .financial-row--expense) > td:first-child {
+  border-inline-start: 3px solid var(--financial-row-color);
+}
+
+.view-balance tr:is(.financial-row--income, .financial-row--expense) .views-field.views-field-title a {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--financial-row-color);
+  border-radius: 0.3rem;
+  background: var(--financial-row-color);
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.view-balance tr:is(.financial-row--income, .financial-row--expense) .views-field.views-field-title a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.view-balance tr:is(.financial-row--income, .financial-row--expense) .views-field.views-field-title a:focus-visible {
+  outline: 2px solid #101820;
+  outline-offset: 3px;
+}

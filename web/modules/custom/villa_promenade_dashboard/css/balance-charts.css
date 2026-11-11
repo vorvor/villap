@@ -1,0 +1,143 @@
+.balance-charts {
+  margin-block: 1.5rem 2rem;
+}
+
+.balance-charts > h2 {
+  margin-block: 0 0.5rem;
+}
+
+.balance-charts > p,
+.balance-charts__panel > p {
+  color: #545560;
+  max-width: 85ch;
+}
+
+.balance-charts__currency {
+  margin-top: 1.5rem;
+}
+
+.balance-charts__currency > h3 {
+  margin-block: 0 0.75rem;
+}
+
+.balance-charts__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.balance-charts__metric {
+  padding: 1rem 1.25rem;
+  background: #fff;
+  border: 1px solid #d3d4d9;
+  border-top: 3px solid #3466a5;
+  border-radius: 0.4rem;
+}
+
+.balance-charts__metric span {
+  display: block;
+  color: #545560;
+  margin-bottom: 0.5rem;
+}
+
+.balance-charts__metric strong {
+  display: block;
+  color: #244e86;
+  font-size: clamp(1.1rem, 2vw, 1.65rem);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.balance-charts__metric--total_income {
+  border-top-color: #118AB2;
+}
+
+.balance-charts__metric--total_income strong {
+  color: #096680;
+}
+
+.balance-charts__metric--total_expense,
+.balance-charts__metric.is-negative {
+  border-top-color: #FF7F50;
+}
+
+.balance-charts__metric--total_expense strong,
+.balance-charts__metric.is-negative strong {
+  color: #9c3e1c;
+}
+
+.balance-charts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.balance-charts__panel {
+  min-width: 0;
+  padding: 1.25rem;
+  background: #fff;
+  border: 1px solid #d3d4d9;
+  border-radius: 0.5rem;
+}
+
+.balance-charts__panel > h4 {
+  font-size: 1.15rem;
+  margin-block: 0 0.5rem;
+}
+
+.balance-charts__panel > p {
+  margin-block: 0 1rem;
+  min-height: 4.5em;
+}
+
+.balance-charts__visual {
+  position: relative;
+  height: 19rem;
+}
+
+.balance-charts__visual[hidden] {
+  display: none;
+}
+
+.balance-charts__panel details {
+  margin-block: 0.75rem 0;
+}
+
+.balance-charts__panel .details-wrapper {
+  overflow-x: auto;
+}
+
+.balance-charts__panel table th:not(:first-child),
+.balance-charts__panel table td:not(:first-child) {
+  text-align: end;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1000px) {
+  .balance-charts__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .balance-charts__panel > p {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .balance-charts__metrics {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .balance-charts__metric,
+  .balance-charts__panel {
+    padding: 0.9rem;
+  }
+
+  .balance-charts__visual {
+    height: 16rem;
+  }
+}

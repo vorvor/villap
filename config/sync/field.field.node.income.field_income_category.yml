@@ -1,0 +1,28 @@
+uuid: b23717e6-9e2d-4a57-b2ca-bcdbbf0099c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_income_category
+    - node.type.income
+    - taxonomy.vocabulary.income_category
+id: node.income.field_income_category
+field_name: field_income_category
+entity_type: node
+bundle: income
+label: 'Income category'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      income_category: income_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+field_type: entity_reference

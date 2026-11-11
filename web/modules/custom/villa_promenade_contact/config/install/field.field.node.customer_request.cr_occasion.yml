@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_occasion
+    - node.type.customer_request
+  module:
+    - options
+id: node.customer_request.cr_occasion
+field_name: cr_occasion
+entity_type: node
+bundle: customer_request
+label: 'Milyen eseményt terveztek?'
+description: 'Céges események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

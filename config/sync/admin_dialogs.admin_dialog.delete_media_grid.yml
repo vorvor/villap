@@ -1,0 +1,16 @@
+uuid: 5a77a30d-afe3-4aa2-8669-45e14e317cc1
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: w_bRNq44jLdQ1sM_RskNt5Kxt9kFYC_TWdDLFtG-VQk
+id: delete_media_grid
+label: 'Delete Media (grid)'
+type: selectors
+dialog_group: administrative
+dialog_type: modal
+dialog_width: '550'
+dialog_title_override: ''
+selection_criteria:
+  selectors:
+    - a.media-library-item__remove

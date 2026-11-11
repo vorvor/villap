@@ -1,0 +1,48 @@
+uuid: 2f48dc6c-8556-4557-b24a-1b7b45135782
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_catering
+field_name: cr_catering
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_6e303ce4716e61254da6
+      label: 'Ültetett vacsora – 2 fogás'
+    -
+      value: choice_ce5d9e37e53dea728389
+      label: 'Ültetett vacsora – 3 fogás'
+    -
+      value: choice_a1b0521823271a1c4d95
+      label: 'Ültetett vacsora – 4 fogás'
+    -
+      value: choice_4556d17fda2978542b1c
+      label: 'Állófogadás / falatkák'
+    -
+      value: choice_fa5f3fd16e90bd0c324f
+      label: 'Még nem tudjuk, segítsetek választani'
+    -
+      value: choice_e7b7c5c225ea6d5df0fb
+      label: Reggeli
+    -
+      value: choice_d2fc34b15c5178e20155
+      label: 'Kávészünet – frissítőkkel és falatokkal'
+    -
+      value: choice_eb09bcf165920aef61ef
+      label: 'Ültetett ebéd - 2 fogás'
+    -
+      value: choice_ff5fdb8cba15d7404b0c
+      label: 'Többféle megoldást is szeretnénk kombinálni'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

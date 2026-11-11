@@ -1,0 +1,36 @@
+uuid: dc2e9a17-3c23-4130-b9fe-68cd13629ff6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_technical
+field_name: cr_technical
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_207bce08f8143ec4548d
+      label: 'Projektor + vetítővászon'
+    -
+      value: choice_303d5cc736fbee24280b
+      label: Mikrofon
+    -
+      value: choice_eb84a7ba73d780dab066
+      label: Hangosítás
+    -
+      value: choice_124f8ea39af1ba72a17a
+      label: 'Nem lesz rá szükségünk'
+    -
+      value: other
+      label: Egyéb
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,35 @@
+.expense-money {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(7rem, 9rem);
+  align-items: start;
+  gap: 0 1rem;
+  max-width: 36rem;
+  margin-block: 1.5rem;
+}
+
+.expense-money > .field {
+  min-width: 0;
+}
+
+.expense-money .form-item {
+  margin-block: 0;
+}
+
+.expense-money input[type="number"],
+.expense-money select {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-height: 3rem;
+}
+
+.expense-money input[type="number"] {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 360px) {
+  .expense-money {
+    grid-template-columns: minmax(0, 1fr) 6.5rem;
+    column-gap: 0.5rem;
+  }
+}

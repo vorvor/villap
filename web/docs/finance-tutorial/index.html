@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Income &amp; expenses — quick user guide</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #24332e; background: #f3f5f2; line-height: 1.6; }
+    body { max-width: 1080px; margin: auto; padding: 32px 24px 56px; }
+    header, section, aside { background: white; border: 1px solid #dbe2dc; border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+    h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.15; margin: 8px 0 16px; }
+    h2 { font-size: 1.5rem; margin-top: 0; }
+    h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    p { margin: 8px 0 16px; }
+    .eyebrow { color: #536859; font-size: .8rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+    a { color: #215b43; text-underline-offset: 3px; }
+    nav a { padding: 8px 16px; border: 1px solid #b8cec0; border-radius: 24px; text-decoration: none; }
+    .journey { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+    ol { padding-left: 24px; margin-top: 0; }
+    li { margin-bottom: 12px; }
+    table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 16px 0; }
+    th, td { padding: 9px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e0e6e1; }
+    th { background: #f0f5f1; }
+    figure { margin: 0; }
+    img { display: block; width: 100%; height: auto; border: 1px solid #dbe2dc; border-radius: 8px; box-sizing: border-box; }
+    figcaption, .small { font-size: .85rem; color: #57665e; margin-top: 10px; }
+    .note { padding: 12px 16px; background: #eff6f0; border-left: 3px solid #49835f; }
+    footer { text-align: center; font-size: .85rem; color: #57665e; }
+    @media (max-width: 760px) { body { padding: 16px 12px; } header, section, aside { padding: 20px; } .journey { grid-template-columns: 1fr; } }
+    @media print { body { padding: 0; background: white; } nav { display: none; } header, section, aside { border-radius: 0; } section { break-before: page; } .journey { grid-template-columns: 1fr 1fr; } a { color: inherit; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Villa Promenade · Quick user guide</div>
+    <h1>Record money in.<br>Record money out.</h1>
+    <p>Use <strong>Income</strong> for money received and <strong>Expense</strong> for money spent. Both forms follow the same steps: open, fill in the details, then save.</p>
+    <nav aria-label="Guide sections"><a href="#start">Start here</a><a href="#income">Create income</a><a href="#expense">Create an expense</a><a href="#after-saving">After saving</a><a href="#customer-requests">Customer requests</a><a href="#request-calendar">Request calendar</a></nav>
+  </header>
+
+  <section id="start">
+    <h2>1. Sign in and open the form</h2>
+    <p>Sign in with your staff account. If you have reporting access, open <strong>Dashboard</strong> at <a href="https://villapromenade.lndo.site/admin/dashboard">/admin/dashboard</a> and choose <strong>Add income</strong> or <strong>Add expense</strong>.</p>
+    <figure><a href="images/01-dashboard-actions.png"><img src="images/01-dashboard-actions.png" alt="Dashboard buttons: Add income and Add expense."></a><figcaption>The two buttons open the corresponding entry form.</figcaption></figure>
+    <p class="note">No Dashboard access? Use the sidebar <strong>Create → Income</strong> or <strong>Create → Expense</strong>. You can also open <a href="https://villapromenade.lndo.site/node/add/income">/node/add/income</a> or <a href="https://villapromenade.lndo.site/node/add/expense">/node/add/expense</a>. Your account needs permission to create that type of record.</p>
+  </section>
+
+  <section id="income">
+    <h2>2. Create income — money received</h2>
+    <div class="journey">
+      <div>
+        <ol>
+          <li>Choose <strong>Add income</strong> on the Dashboard, or <strong>Create → Income</strong>.</li>
+          <li>Complete the required fields marked with a red asterisk. Use the example below as a guide.</li>
+          <li>Check the date, amount, currency and selected user. Click <strong>Save</strong> once.</li>
+        </ol>
+        <table>
+          <caption class="small">Example: a venue booking payment</caption>
+          <thead><tr><th scope="col">Field</th><th scope="col">What to enter</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Title</th><td>Venue booking payment</td></tr>
+            <tr><th scope="row">Income date</th><td>The day you received the money, e.g. 11 November 2026. Use the calendar picker.</td></tr>
+            <tr><th scope="row">Amount / Currency</th><td>25000 / HUF</td></tr>
+            <tr><th scope="row">Description</th><td>Payment received for a venue booking.</td></tr>
+            <tr><th scope="row">Notes</th><td>Optional invoice or booking reference.</td></tr>
+            <tr><th scope="row">Income category</th><td>Choose the relevant available category. The screenshot uses “Demo income”; your choices may differ.</td></tr>
+            <tr><th scope="row">Income user</th><td>Select the person this income belongs to. Check any preselected account.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure><a href="images/02-create-income.png"><img src="images/02-create-income.png" alt="Create Income dialog with an example booking payment, income date, amount of 25000 HUF, description, optional notes, category, user and Save button." loading="lazy"></a><figcaption>Actual form, filled with an unsaved example. Click the image to enlarge.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="expense">
+    <h2>3. Create an expense — money spent</h2>
+    <div class="journey">
+      <div>
+        <ol>
+          <li>Choose <strong>Add expense</strong> on the Dashboard, or <strong>Create → Expense</strong>.</li>
+          <li>Complete the required fields. Enter a <strong>positive amount</strong> for the expense; do not add a minus sign.</li>
+          <li>Check the details and selected user, then click <strong>Save</strong> once.</li>
+        </ol>
+        <table>
+          <caption class="small">Example: supplies bought for the venue</caption>
+          <thead><tr><th scope="col">Field</th><th scope="col">What to enter</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Title</th><td>Cleaning supplies</td></tr>
+            <tr><th scope="row">Expense date</th><td>The day you spent the money, e.g. 11 November 2026. Use the calendar picker.</td></tr>
+            <tr><th scope="row">Amount / Currency</th><td>5000 / HUF</td></tr>
+            <tr><th scope="row">Description</th><td>Cleaning supplies purchased for the venue.</td></tr>
+            <tr><th scope="row">Notes</th><td>Optional receipt or supplier reference.</td></tr>
+            <tr><th scope="row">Expense category</th><td>Choose the relevant available category. The screenshot uses “Office supplies”.</td></tr>
+            <tr><th scope="row">Expense user</th><td>Select the person this expense belongs to. Check any preselected account.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure><a href="images/03-create-expense.png"><img src="images/03-create-expense.png" alt="Create Expense dialog with cleaning supplies, expense date, amount of 5000 HUF, description, optional notes, Office supplies category, user and Save button." loading="lazy"></a><figcaption>Actual form, filled with an unsaved example. Click the image to enlarge.</figcaption></figure>
+    </div>
+  </section>
+
+  <aside id="after-saving">
+    <h2>4. After saving</h2>
+    <p>From the Dashboard dialog, a successful save closes the form and refreshes the Dashboard. With reporting access, look for your entry in the ledger. If it is hidden, check the <strong>Date from</strong>, <strong>Date to</strong> and <strong>User</strong> filters.</p>
+    <p>If an error appears, correct the highlighted fields and save again. Closing the dialog with <strong>×</strong> without saving discards the entry.</p>
+    <h3>Remember</h3>
+    <ul>
+      <li><strong>Amount:</strong> enter a non-negative number, with up to two decimal places. The record type determines whether it is income or an expense.</li>
+      <li><strong>Currency:</strong> choose HUF or EUR. Reports keep these currencies separate.</li>
+      <li><strong>Date:</strong> use the transaction date, not necessarily the day you enter it.</li>
+      <li><strong>User:</strong> the person the transaction belongs to, not the administrative author of the record.</li>
+      <li><strong>Extra administrator settings:</strong> leave revision, menu, URL alias and authoring settings unchanged for ordinary entries.</li>
+    </ul>
+    <p class="small">Screenshots were captured using an administrator account. Your account may show fewer controls or different user/category options. These examples were not saved, and the final save journey was not exercised.</p>
+  </aside>
+  <section id="customer-requests">
+    <h2>5. Manage customer requests</h2>
+    <p>Customer enquiries submitted through the event enquiry form are stored as private customer requests with <strong>New</strong> status. Use the request lists to review the details, approve an event or organise requests by status.</p>
+    <ol>
+      <li>Open <strong>Dashboard → Customer requests</strong>, or go directly to <a href="https://villapromenade.lndo.site/admin/content/customer-requests">/admin/content/customer-requests</a>.</li>
+      <li>If you already use the financial Dashboard, scroll down to its <strong>Customer requests</strong> area. The same request lists are available there as tabs.</li>
+      <li>Choose <strong>New</strong> to review incoming enquiries, or <strong>All</strong> for an overview across statuses.</li>
+    </ol>
+    <p class="note">Request management requires the separate <strong>Manage Villa Promenade customer requests</strong> permission. Access to income, expenses or the financial Dashboard does not automatically grant access to customer requests. Ask your administrator if this area is missing.</p>
+    <figure><a href="images/04-request-tabs.png"><img src="images/04-request-tabs.png" alt="Customer requests page with All, New, Cancelled, Archive, Approved and Calendar tabs." loading="lazy"></a><figcaption>Switch between the request lists. The standalone page opens on New; the Dashboard request area opens on All.</figcaption></figure>
+    <table>
+      <thead><tr><th scope="col">Tab</th><th scope="col">When to use it</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">All</th><td>See requests across statuses.</td></tr>
+        <tr><th scope="row">New</th><td>Review incoming requests that still need attention.</td></tr>
+        <tr><th scope="row">Approved</th><td>Find requests that have been approved.</td></tr>
+        <tr><th scope="row">Cancelled</th><td>Find requests marked as cancelled.</td></tr>
+        <tr><th scope="row">Archive</th><td>Keep requests out of the active workflow without deleting their data.</td></tr>
+        <tr><th scope="row">Calendar</th><td>Plan the month using New and Approved requests.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="review-requests">
+    <h2>6. Find a request and review the details</h2>
+    <ol>
+      <li>Choose the relevant status tab.</li>
+      <li>Enter a <strong>Customer name</strong> or <strong>Email</strong>, and optionally select one or more <strong>Event</strong> types. Leave all event checkboxes unchecked to include every event type.</li>
+      <li>Click <strong>Filter</strong>. To broaden the results again, clear the text fields and event selections, then click Filter again.</li>
+    </ol>
+    <figure><a href="images/05-request-filters.png"><img src="images/05-request-filters.png" alt="Request filters for customer name, email and event type, with a Filter button." loading="lazy"></a><figcaption>Search within the selected list. If a request seems to be missing, check both the status tab and the filters.</figcaption></figure>
+    <div class="journey">
+      <div>
+        <h3>Read the request card</h3>
+        <p>Each card shows the request ID, customer name, email, event type, submitted answers and submission date. Review the planned event date, guest count and special requirements before approving.</p>
+        <p>Expand <strong>Internal notes</strong> when available. The <strong>Demo</strong> marker identifies demonstration data, not a live customer enquiry.</p>
+        <p>Lists are ordered by planned event date, with undated requests last. Use the page controls below the list when more requests are available.</p>
+        <h3>Update details or add an internal note</h3>
+        <p>Open a request using its customer-name link in the Calendar, then use the native <strong>Edit</strong> tab if your account has permission. Update the relevant contact or event fields, or add an internal note, then click <strong>Save</strong>. For approval, use the dedicated Approve workflow below.</p>
+        <p class="note">Customer requests are private staff records, not public website content. Keep customer contact details and internal notes within the authorised team.</p>
+      </div>
+      <figure><a href="images/06-request-card.png"><img src="images/06-request-card.png" alt="An existing demonstration request card showing customer details, event answers, planned date, internal notes, submission date and status controls." loading="lazy"></a><figcaption>An existing demonstration request. Click the image to enlarge the details and status controls.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="approve-requests">
+    <h2>7. Approve a request or change its status</h2>
+    <div class="journey">
+      <div>
+        <h3>Approve an event</h3>
+        <ol>
+          <li>On the correct request card, click <strong>Approve</strong>. This opens a dialog; opening it alone does not approve the request.</li>
+          <li>Enter the agreed event date in <strong>Real date</strong>. This field is required.</li>
+          <li>Optionally add an <strong>Approve note</strong>, for example a brief summary of the agreement.</li>
+          <li>Check the customer name and date, then click <strong>Save and approve</strong>. After a successful save, the dialog closes and the list refreshes. Find the request under <strong>Approved</strong>.</li>
+        </ol>
+        <p>To leave the request unchanged, choose <strong>Cancel</strong> in the dialog or close it with <strong>×</strong>. This Cancel button dismisses the dialog; it does not set the request to Cancelled.</p>
+        <h3>Other status controls</h3>
+        <p>The card also offers <strong>Cancelled</strong>, <strong>Archive</strong> and <strong>New</strong> controls. Unlike Approve, these save the selected status immediately. The current status is highlighted and its control is disabled.</p>
+        <p>After a status change, a request can disappear from the current status-specific list. Open its new status tab or All to find it again.</p>
+        <p class="note"><strong>Archive is not Delete.</strong> Archiving keeps the request and its data. If you use an available delete or bulk-delete action, check the selected requests and the confirmation carefully: deletion permanently removes them.</p>
+      </div>
+      <figure><a href="images/07-request-approval.png"><img src="images/07-request-approval.png" alt="Approve customer request dialog with required Real date, optional Approve note, Save and approve and Cancel controls." loading="lazy"></a><figcaption>Approval dialog filled with an unsaved example. The screenshot's maintenance-mode notice is an environment message, not a request-management step.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="request-calendar">
+    <h2>8. Plan events in the calendar</h2>
+    <ol>
+      <li>Choose the <strong>Calendar</strong> tab, or open <a href="https://villapromenade.lndo.site/admin/content/customer-requests/calendar">/admin/content/customer-requests/calendar</a>.</li>
+      <li>Use <strong>Previous month</strong>, <strong>Current month</strong> or <strong>Next month</strong>. To jump to a specific month, use the <strong>Month</strong> picker and click <strong>Go</strong>.</li>
+      <li>Review each day's customer names, event types and guest counts. Click a customer name to open the full request.</li>
+    </ol>
+    <p>The calendar includes <strong>New</strong> and <strong>Approved</strong> requests only. New requests use the preferred event date. Approved requests use <strong>Real date</strong>, falling back to the preferred date if no confirmed date is stored. Requests without a date appear separately below the calendar. Cancelled and archived requests remain available in their list tabs, not in this calendar.</p>
+    <figure><a href="images/08-request-calendar.png"><img src="images/08-request-calendar.png" alt="Monthly customer request calendar with month navigation and demonstration events on their planned dates." loading="lazy"></a><figcaption>Monthly planning view using existing demonstration requests. Click to enlarge.</figcaption></figure>
+    <p class="small">Request screenshots use an administrator account and existing demonstration data. No requests were created, approved, edited, moved or deleted for this guide. The approval example was closed without saving; saving, status changes and deletion were not exercised.</p>
+  </section>
+  <footer>Keep this page and its images folder together when sharing. Use your browser’s Print command to save a PDF.</footer>
+</body>
+</html>

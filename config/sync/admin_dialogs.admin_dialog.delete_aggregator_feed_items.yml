@@ -1,0 +1,16 @@
+uuid: b3d7c88a-13c2-493d-9511-2a811b176872
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: XHGvvhfswh8vAeUinAENv_j5FcPuIQXlyqfr1AiNRWU
+id: delete_aggregator_feed_items
+label: 'Delete Aggregator Feed Items'
+type: paths
+dialog_group: contrib_modules
+dialog_type: modal
+dialog_width: '550'
+dialog_title_override: ''
+selection_criteria:
+  paths:
+    - '/admin/config/services/aggregator/delete/*'

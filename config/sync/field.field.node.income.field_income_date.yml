@@ -1,0 +1,21 @@
+uuid: 6e2be114-dff6-4fe2-9adc-92fd3d911110
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_income_date
+    - node.type.income
+  module:
+    - datetime
+id: node.income.field_income_date
+field_name: field_income_date
+entity_type: node
+bundle: income
+label: 'Income date'
+description: 'The date the income occurred, independently of when this record was created.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_preferred_date
+    - node.type.customer_request
+  module:
+    - datetime
+id: node.customer_request.cr_preferred_date
+field_name: cr_preferred_date
+entity_type: node
+bundle: customer_request
+label: 'Mikor ünnepeltek?'
+description: 'Privát események, Céges események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

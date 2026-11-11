@@ -2,11 +2,19 @@ uuid: b2c35030-cb82-490b-a5b7-01fcc4917e95
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.node.admin_notes
+    - field.storage.node.details
+    - field.storage.node.email
+    - field.storage.node.event
+    - field.storage.node.is_demo
+    - field.storage.node.request_status
+    - node.type.customer_request
   module:
+    - node
     - options
     - user
     - views_bulk_operations
-    - villa_promenade_contact
   enforced:
     module:
       - villa_promenade_contact
@@ -15,8 +23,8 @@ label: 'Villa Promenade customer requests'
 module: views
 description: 'Private event enquiries with filtering, sorting and management actions.'
 tag: administration
-base_table: villa_customer_request
-base_field: id
+base_table: node_field_data
+base_field: nid
 display:
   default:
     id: default
@@ -53,12 +61,12 @@ display:
                 message_override: ''
         id:
           id: id
-          table: villa_customer_request
-          field: id
+          table: node_field_data
+          field: nid
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
-          entity_field: id
+          entity_type: node
+          entity_field: nid
           plugin_id: field
           label: 'Request ID'
           type: number_integer
@@ -66,12 +74,12 @@ display:
             link_to_entity: false
         name:
           id: name
-          table: villa_customer_request
-          field: name
+          table: node_field_data
+          field: title
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
-          entity_field: name
+          entity_type: node
+          entity_field: title
           plugin_id: field
           label: Customer
           type: string
@@ -79,11 +87,11 @@ display:
             link_to_entity: true
         email:
           id: email
-          table: villa_customer_request
+          table: node__email
           field: email
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: email
           plugin_id: field
           label: Email
@@ -92,11 +100,11 @@ display:
             link_to_entity: false
         event:
           id: event
-          table: villa_customer_request
+          table: node__event
           field: event
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: event
           plugin_id: field
           label: Event
@@ -105,11 +113,11 @@ display:
             link_to_entity: false
         request_status:
           id: request_status
-          table: villa_customer_request
+          table: node__request_status
           field: request_status
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: request_status
           plugin_id: field
           label: Status
@@ -118,11 +126,11 @@ display:
             link_to_entity: false
         is_demo:
           id: is_demo
-          table: villa_customer_request
+          table: node__is_demo
           field: is_demo
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: is_demo
           plugin_id: field
           label: Demo
@@ -133,11 +141,11 @@ display:
             format_custom_true: Demo
         created:
           id: created
-          table: villa_customer_request
+          table: node_field_data
           field: created
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: created
           plugin_id: field
           label: Submitted
@@ -148,20 +156,20 @@ display:
             timezone: ''
         operations:
           id: operations
-          table: villa_customer_request
+          table: node
           field: operations
           relationship: none
-          entity_type: villa_customer_request
+          entity_type: node
           plugin_id: entity_operations
           label: Actions
           destination: true
         details:
           id: details
-          table: villa_customer_request
+          table: node__details
           field: details
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: details
           plugin_id: field
           label: 'Request details'
@@ -170,11 +178,11 @@ display:
             link_to_entity: false
         admin_notes:
           id: admin_notes
-          table: villa_customer_request
+          table: node__admin_notes
           field: admin_notes
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: admin_notes
           plugin_id: field
           label: 'Internal notes'
@@ -183,11 +191,11 @@ display:
             link_to_entity: false
         changed:
           id: changed
-          table: villa_customer_request
+          table: node_field_data
           field: changed
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: changed
           plugin_id: field
           label: Updated
@@ -233,26 +241,26 @@ display:
       sorts:
         planned_date_sort:
           id: planned_date_sort
-          table: villa_customer_request
-          field: planned_date_sort
-          entity_type: villa_customer_request
+          table: node__planned_date_sort
+          field: planned_date_sort_value
+          entity_type: node
           entity_field: planned_date_sort
           plugin_id: standard
           order: ASC
         id:
           id: id
-          table: villa_customer_request
-          field: id
-          entity_type: villa_customer_request
-          entity_field: id
+          table: node_field_data
+          field: nid
+          entity_type: node
+          entity_field: nid
           plugin_id: standard
           order: ASC
       arguments:
         request_status:
           id: request_status
-          table: villa_customer_request
-          field: request_status
-          entity_type: villa_customer_request
+          table: node__request_status
+          field: request_status_value
+          entity_type: node
           entity_field: request_status
           plugin_id: string
           default_action: default
@@ -262,12 +270,12 @@ display:
       filters:
         name:
           id: name
-          table: villa_customer_request
-          field: name
+          table: node_field_data
+          field: title
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
-          entity_field: name
+          entity_type: node
+          entity_field: title
           plugin_id: string
           operator: contains
           value: ''
@@ -284,11 +292,11 @@ display:
             multiple: false
         email:
           id: email
-          table: villa_customer_request
-          field: email
+          table: node__email
+          field: email_value
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: email
           plugin_id: string
           operator: contains
@@ -306,11 +314,11 @@ display:
             multiple: false
         event:
           id: event
-          table: villa_customer_request
-          field: event
+          table: node__event
+          field: event_value
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: event
           plugin_id: list_field
           operator: or
@@ -329,11 +337,11 @@ display:
           reduce_duplicates: false
         is_demo:
           id: is_demo
-          table: villa_customer_request
-          field: is_demo
+          table: node__is_demo
+          field: is_demo_value
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: is_demo
           plugin_id: boolean
           operator: '='
@@ -352,11 +360,11 @@ display:
           accept_null: false
         created:
           id: created
-          table: villa_customer_request
+          table: node_field_data
           field: created
           relationship: none
           group_type: group
-          entity_type: villa_customer_request
+          entity_type: node
           entity_field: created
           plugin_id: date
           operator: '>='
@@ -376,6 +384,24 @@ display:
             required: false
             remember: false
             multiple: false
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            customer_request: customer_request
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          value: '1'
       filter_groups:
         operator: AND
         groups:
@@ -471,7 +497,7 @@ display:
       query:
         type: views_query
         options:
-          disable_sql_rewrite: false
+          disable_sql_rewrite: true
           distinct: false
       display_extenders: {  }
     cache_metadata:
@@ -481,8 +507,15 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.admin_notes'
+        - 'config:field.storage.node.details'
+        - 'config:field.storage.node.email'
+        - 'config:field.storage.node.event'
+        - 'config:field.storage.node.is_demo'
+        - 'config:field.storage.node.request_status'
   page_1:
     id: page_1
     display_title: 'New requests'
@@ -509,8 +542,98 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.admin_notes'
+        - 'config:field.storage.node.details'
+        - 'config:field.storage.node.email'
+        - 'config:field.storage.node.event'
+        - 'config:field.storage.node.is_demo'
+        - 'config:field.storage.node.request_status'
+  page_all:
+    id: page_all
+    display_title: 'All requests'
+    display_plugin: page
+    position: 0
+    display_options:
+      arguments: {  }
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      defaults:
+        use_ajax: false
+        style: false
+        arguments: false
+      use_ajax: true
+      display_extenders: {  }
+      path: admin/content/customer-requests/all
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.admin_notes'
+        - 'config:field.storage.node.details'
+        - 'config:field.storage.node.email'
+        - 'config:field.storage.node.event'
+        - 'config:field.storage.node.is_demo'
+        - 'config:field.storage.node.request_status'
+  page_approved:
+    id: page_approved
+    display_title: 'Approved requests'
+    display_plugin: page
+    position: 4
+    display_options:
+      arguments:
+        request_status:
+          id: request_status
+          table: node__request_status
+          field: request_status_value
+          entity_type: node
+          entity_field: request_status
+          plugin_id: string
+          default_action: default
+          default_argument_type: fixed
+          default_argument_options:
+            argument: approved
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      defaults:
+        use_ajax: false
+        style: false
+        arguments: false
+      use_ajax: true
+      display_extenders: {  }
+      path: admin/content/customer-requests/approved
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.admin_notes'
+        - 'config:field.storage.node.details'
+        - 'config:field.storage.node.email'
+        - 'config:field.storage.node.event'
+        - 'config:field.storage.node.is_demo'
+        - 'config:field.storage.node.request_status'
   page_archive:
     id: page_archive
     display_title: 'Archived requests'
@@ -520,9 +643,9 @@ display:
       arguments:
         request_status:
           id: request_status
-          table: villa_customer_request
-          field: request_status
-          entity_type: villa_customer_request
+          table: node__request_status
+          field: request_status_value
+          entity_type: node
           entity_field: request_status
           plugin_id: string
           default_action: default
@@ -549,8 +672,15 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.admin_notes'
+        - 'config:field.storage.node.details'
+        - 'config:field.storage.node.email'
+        - 'config:field.storage.node.event'
+        - 'config:field.storage.node.is_demo'
+        - 'config:field.storage.node.request_status'
   page_cancelled:
     id: page_cancelled
     display_title: 'Cancelled requests'
@@ -560,9 +690,9 @@ display:
       arguments:
         request_status:
           id: request_status
-          table: villa_customer_request
-          field: request_status
-          entity_type: villa_customer_request
+          table: node__request_status
+          field: request_status_value
+          entity_type: node
           entity_field: request_status
           plugin_id: string
           default_action: default
@@ -589,5 +719,12 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.admin_notes'
+        - 'config:field.storage.node.details'
+        - 'config:field.storage.node.email'
+        - 'config:field.storage.node.event'
+        - 'config:field.storage.node.is_demo'
+        - 'config:field.storage.node.request_status'

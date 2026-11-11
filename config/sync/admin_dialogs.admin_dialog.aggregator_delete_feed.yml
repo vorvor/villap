@@ -1,0 +1,16 @@
+uuid: 482f10a7-559a-49cc-baa1-4dfd6929160e
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: VpbMNNMmRMPK8ivLMSAlfW-ni6AmceCvZTA8kVsp8Ps
+id: aggregator_delete_feed
+label: 'Aggregator Delete Feed'
+type: paths
+dialog_group: contrib_modules
+dialog_type: modal
+dialog_width: '550'
+dialog_title_override: ''
+selection_criteria:
+  paths:
+    - '/aggregator/sources/*/delete*'

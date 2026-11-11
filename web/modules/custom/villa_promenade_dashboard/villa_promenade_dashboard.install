@@ -1,0 +1,519 @@
+<?php
+
+/**
+ * @file
+ * Update hooks for the Villa Promenade dashboard.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Add HUF/EUR expense currency and separate expense totals by currency.
+ */
+function villa_promenade_dashboard_update_11001(): void {
+  if (!FieldStorageConfig::loadByName('node', 'field_expense_currency')) {
+    FieldStorageConfig::create([
+      'entity_type' => 'node',
+      'field_name' => 'field_expense_currency',
+      'type' => 'list_string',
+      'cardinality' => 1,
+      'settings' => [
+        'allowed_values' => [
+          'HUF' => 'HUF',
+          'EUR' => 'EUR',
+        ],
+      ],
+    ])->save();
+  }
+  if (!FieldConfig::loadByName('node', 'expense', 'field_expense_currency')) {
+    FieldConfig::create([
+      'entity_type' => 'node',
+      'bundle' => 'expense',
+      'field_name' => 'field_expense_currency',
+      'label' => 'Currency',
+      'description' => 'Select the currency of the amount.',
+      'required' => TRUE,
+      'translatable' => TRUE,
+      'default_value' => [['value' => 'HUF']],
+    ])->save();
+  }
+
+  $manager = \Drupal::entityTypeManager();
+  $form = $manager->getStorage('entity_form_display')->load('node.expense.default');
+  if ($form && !$form->getComponent('field_expense_currency')) {
+    foreach ($form->getComponents() as $name => $component) {
+      if ($name !== 'field_expense_currency' && ($component['weight'] ?? 0) > 2) {
+        $component['weight']++;
+        $form->setComponent($name, $component);
+      }
+    }
+    $form->setComponent('field_expense_currency', [
+      'type' => 'options_select',
+      'weight' => 3,
+      'settings' => [],
+    ])->save();
+  }
+  $display = $manager->getStorage('entity_view_display')->load('node.expense.default');
+  if ($display && !$display->getComponent('field_expense_currency')) {
+    foreach ($display->getComponents() as $name => $component) {
+      if ($name !== 'field_expense_currency' && ($component['weight'] ?? 0) > 0) {
+        $component['weight']++;
+        $display->setComponent($name, $component);
+      }
+    }
+    $display->setComponent('field_expense_currency', [
+      'type' => 'list_default',
+      'label' => 'above',
+      'weight' => 1,
+      'settings' => [],
+    ])->save();
+  }
+
+  $view = $manager->getStorage('view')->load('expenses');
+  if (!$view) {
+    return;
+  }
+  $displays = $view->get('display');
+  $currency = [
+    'id' => 'field_expense_currency',
+    'table' => 'node__field_expense_currency',
+    'field' => 'field_expense_currency',
+    'relationship' => 'none',
+    'group_type' => 'group',
+    'entity_type' => 'node',
+    'entity_field' => 'field_expense_currency',
+    'plugin_id' => 'field',
+    'label' => 'Currency',
+    'type' => 'list_default',
+    'settings' => [],
+    'click_sort_column' => 'value',
+    'empty' => 'Unspecified currency',
+    'hide_empty' => FALSE,
+  ];
+  $options = &$displays['default']['display_options'];
+  $fields = [];
+  foreach ($options['fields'] as $id => $field) {
+    if ($id === 'field_expense_currency') {
+      continue;
+    }
+    $fields[$id] = $field;
+    if ($id === 'field_expense_amount') {
+      $fields['field_expense_currency'] = $currency;
+    }
+  }
+  $options['fields'] = $fields;
+  $options['style']['options']['columns']['field_expense_currency'] = 'field_expense_currency';
+  $options['style']['options']['info']['field_expense_currency'] = [
+    'align' => '',
+    'separator' => '',
+    'empty_column' => FALSE,
+    'responsive' => '',
+  ];
+  unset($options);
+  if (isset($displays['attachment_1'])) {
+    $totals = &$displays['attachment_1']['display_options'];
+    $currency['label'] = '';
+    $totals['fields']['field_expense_currency'] = $currency;
+    $totals['row']['options']['inline']['field_expense_currency'] = 'field_expense_currency';
+    $totals['row']['options']['separator'] = ' ';
+    $totals['empty']['area_text_custom']['content'] = 'No expenses have been recorded.';
+    unset($totals);
+  }
+  $view->set('description', 'All expense records with separate totals per currency, including unpublished expenses.');
+  $view->getExecutable()->destroy();
+  $view->set('display', $displays)->save();
+}
+
+/**
+ * Add income records, their listing and an all-time balance View.
+ */
+function villa_promenade_dashboard_update_11002(): void {
+  $manager = \Drupal::entityTypeManager();
+  // Reuse the expense setup while keeping income storage independent.
+  $convert = function ($value) use (&$convert) {
+    if (is_array($value)) {
+      $result = [];
+      foreach ($value as $key => $item) {
+        $result[is_string($key) ? $convert($key) : $key] = $convert($item);
+      }
+      return $result;
+    }
+    if (!is_string($value) || str_starts_with($value, 'Drupal\\') || in_array($value, ['villa_expense_date', 'villa_expense_user'], TRUE)) {
+      return $value;
+    }
+    return str_replace(['Expenses', 'Expense', 'expenses', 'expense'], ['Income', 'Income', 'income', 'income'], $value);
+  };
+  if (!$manager->getStorage('node_type')->load('income')) {
+    $data = $convert($manager->getStorage('node_type')->load('expense')->toArray());
+    unset($data['uuid']);
+    $manager->getStorage('node_type')->create($data)->save();
+  }
+  if (!$manager->getStorage('taxonomy_vocabulary')->load('income_category')) {
+    $manager->getStorage('taxonomy_vocabulary')->create([
+      'vid' => 'income_category',
+      'name' => 'Income category',
+      'description' => 'Categories for business income.',
+    ])->save();
+  }
+  foreach (['amount', 'currency', 'date', 'description', 'notes', 'category', 'user'] as $suffix) {
+    $name = 'field_income_' . $suffix;
+    if (!FieldStorageConfig::loadByName('node', $name)) {
+      $source = FieldStorageConfig::loadByName('node', 'field_expense_' . $suffix);
+      FieldStorageConfig::create([
+        'entity_type' => 'node',
+        'field_name' => $name,
+        'type' => $source->getType(),
+        'cardinality' => $source->getCardinality(),
+        'translatable' => $source->isTranslatable(),
+        'settings' => $source->getSettings(),
+      ])->save();
+    }
+    if (!FieldConfig::loadByName('node', 'income', $name)) {
+      $data = $convert(FieldConfig::loadByName('node', 'expense', 'field_expense_' . $suffix)->toArray());
+      unset($data['uuid']);
+      FieldConfig::create($data)->save();
+    }
+  }
+  foreach ([
+    'entity_form_display' => 'node.expense.default',
+    'entity_view_display' => 'node.expense.default',
+  ] as $entity_type => $source_id) {
+    $storage = $manager->getStorage($entity_type);
+    if (!$storage->load('node.income.default')) {
+      $data = $convert($storage->load($source_id)->toArray());
+      unset($data['uuid']);
+      $storage->create($data)->save();
+    }
+  }
+  foreach (['status', 'promote'] as $field) {
+    $storage = $manager->getStorage('base_field_override');
+    if (!$storage->load('node.income.' . $field)) {
+      $data = $convert($storage->load('node.expense.' . $field)->toArray());
+      unset($data['uuid']);
+      $storage->create($data)->save();
+    }
+  }
+
+  // Refresh field metadata before Views calculates plugin dependencies.
+  \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
+  \Drupal::service('views.views_data')->clear();
+  \Drupal::service('plugin.manager.views.area')->clearCachedDefinitions();
+  $views = $manager->getStorage('view');
+  if (!$views->load('income')) {
+    $data = $convert($views->load('expenses')->toArray());
+    unset($data['uuid']);
+    $data['id'] = 'income';
+    $data['label'] = 'Income';
+    $data['description'] = 'All income records with separate totals per currency, including unpublished income.';
+    $data['display']['page_1']['display_options']['menu']['weight'] = 6;
+    $data['display']['default']['display_options']['empty']['area_text_custom']['content'] = 'No income has been recorded.';
+    $data['display']['attachment_1']['display_options']['empty']['area_text_custom']['content'] = 'No income has been recorded.';
+    $views->create($data)->save();
+  }
+  if (!$views->load('balance')) {
+    $views->create([
+      'id' => 'balance',
+      'label' => 'Balance',
+      'module' => 'views',
+      'description' => 'All-time income minus expenses, summarized separately for each currency.',
+      'tag' => 'Administration',
+      'base_table' => 'node_field_data',
+      'base_field' => 'nid',
+      'display' => [
+        'default' => [
+          'id' => 'default',
+          'display_title' => 'Default',
+          'display_plugin' => 'default',
+          'position' => 0,
+          'display_options' => [
+            'title' => 'Balance',
+            'access' => ['type' => 'perm', 'options' => ['perm' => 'administer nodes']],
+            'cache' => ['type' => 'none'],
+            'pager' => ['type' => 'none', 'options' => ['offset' => 0]],
+            'fields' => [
+              'title' => [
+                'id' => 'title', 'table' => 'node_field_data', 'field' => 'title',
+                'entity_type' => 'node', 'entity_field' => 'title',
+                'plugin_id' => 'field', 'type' => 'string', 'exclude' => TRUE,
+              ],
+            ],
+            // The area handler renders the aggregate table, not individual nodes.
+            'filters' => [
+              'nid' => [
+                'id' => 'nid', 'table' => 'node_field_data', 'field' => 'nid',
+                'entity_type' => 'node', 'entity_field' => 'nid',
+                'plugin_id' => 'numeric', 'operator' => '=', 'value' => ['value' => 0],
+              ],
+            ],
+            'empty' => [
+              'villa_balance' => [
+                'id' => 'villa_balance', 'table' => 'views', 'field' => 'villa_balance',
+                'plugin_id' => 'villa_balance', 'empty' => TRUE,
+              ],
+            ],
+            'style' => ['type' => 'default'],
+            'row' => ['type' => 'fields'],
+          ],
+        ],
+        'page_1' => [
+          'id' => 'page_1',
+          'display_title' => 'Balance',
+          'display_plugin' => 'page',
+          'position' => 1,
+          'display_options' => [
+            'path' => 'admin/content/balance',
+            'menu' => [
+              'type' => 'tab', 'title' => 'Balance', 'description' => 'Income, expenses and net balance by currency.',
+              'weight' => 7, 'menu_name' => 'admin', 'parent' => 'system.admin_content', 'context' => '0',
+            ],
+          ],
+        ],
+      ],
+    ])->save();
+  }
+}
+
+/**
+ * Turn Balance into a combined, filterable income and expense ledger.
+ */
+function villa_promenade_dashboard_update_11003(): void {
+  foreach (['field', 'filter', 'sort', 'area'] as $type) {
+    \Drupal::service('plugin.manager.views.' . $type)->clearCachedDefinitions();
+  }
+  \Drupal::service('views.views_data')->clear();
+  $storage = \Drupal::entityTypeManager()->getStorage('view');
+  $view = $storage->load('balance');
+  $source = $storage->load('expenses')->get('display')['default']['display_options'];
+  $displays = $view->get('display');
+  $options = &$displays['default']['display_options'];
+  $options['fields'] = [
+    'title' => $source['fields']['title'],
+    'type' => [
+      'id' => 'type', 'table' => 'node_field_data', 'field' => 'type',
+      'entity_type' => 'node', 'entity_field' => 'type', 'plugin_id' => 'field',
+      'label' => 'Type', 'type' => 'entity_reference_label', 'settings' => ['link' => FALSE],
+    ],
+  ];
+  $options['fields']['title']['label'] = 'Record';
+  foreach (['date' => 'Date', 'amount' => 'Amount', 'currency' => 'Currency', 'description' => 'Description', 'notes' => 'Notes', 'category' => 'Category', 'user' => 'User'] as $suffix => $label) {
+    $id = 'financial_' . $suffix;
+    $options['fields'][$id] = [
+      'id' => $id, 'table' => 'node_field_data', 'field' => $id,
+      'plugin_id' => 'villa_financial_field', 'label' => $label,
+    ];
+  }
+  $options['fields']['uid'] = $source['fields']['uid'];
+  $options['fields']['operations'] = $source['fields']['operations'];
+  $options['filters'] = [
+    'type' => $source['filters']['type'],
+    'default_langcode' => $source['filters']['default_langcode'],
+  ];
+  $options['filters']['type']['value'] = ['expense' => 'expense', 'income' => 'income'];
+  foreach (['date_from', 'date_to'] as $id) {
+    $filter = $source['filters'][$id];
+    $filter['table'] = 'node_field_data';
+    $filter['field'] = 'financial_date';
+    $filter['plugin_id'] = 'villa_balance_date';
+    $filter['expose']['description'] = 'Income or expense date; includes the selected day.';
+    $options['filters'][$id] = $filter;
+  }
+  $user = $source['filters']['field_expense_user_target_id'];
+  $user['id'] = 'financial_user';
+  $user['table'] = 'node_field_data';
+  $user['field'] = 'financial_user';
+  $user['plugin_id'] = 'villa_balance_user';
+  $user['expose']['label'] = 'User';
+  $user['expose']['description'] = 'Select the user the income and expenses belong to.';
+  $options['filters']['financial_user'] = $user;
+  $options['filter_groups'] = $source['filter_groups'];
+  $options['exposed_form'] = $source['exposed_form'];
+  $options['sorts'] = [
+    'financial_date' => [
+      'id' => 'financial_date', 'table' => 'node_field_data', 'field' => 'financial_date',
+      'plugin_id' => 'villa_financial_date', 'order' => 'DESC',
+    ],
+    'nid' => $source['sorts']['nid'],
+  ];
+  $options['style'] = ['type' => 'table', 'options' => ['columns' => [], 'info' => [], 'default' => '-1', 'empty_table' => FALSE]];
+  foreach (array_keys($options['fields']) as $id) {
+    $options['style']['options']['columns'][$id] = $id;
+    $options['style']['options']['info'][$id] = [
+      'align' => $id === 'financial_amount' ? 'views-align-right' : '',
+      'separator' => '', 'empty_column' => FALSE, 'responsive' => '',
+    ];
+  }
+  $options['row'] = ['type' => 'fields'];
+  $options['query'] = $source['query'];
+  $options['empty'] = [
+    'area_text_custom' => [
+      'id' => 'area_text_custom', 'table' => 'views', 'field' => 'area_text_custom',
+      'plugin_id' => 'text_custom', 'empty' => TRUE,
+      'content' => 'No income or expenses match the selected filters.',
+    ],
+  ];
+  $options['footer'] = [
+    'villa_balance' => [
+      'id' => 'villa_balance', 'table' => 'views', 'field' => 'villa_balance',
+      'plugin_id' => 'villa_balance', 'empty' => TRUE,
+    ],
+  ];
+  unset($options);
+  $displays['page_1']['display_options']['menu']['description'] = 'List income and expenses with filtered balance totals.';
+  $view->getExecutable()->destroy();
+  $view->set('description', 'Combined income and expense ledger with inclusive date and user filters and per-currency balance totals.');
+  $view->set('display', $displays)->save();
+}
+
+/**
+ * Enable configurable dashboard dialogs for the native financial node forms.
+ */
+function villa_promenade_dashboard_update_11004(): void {
+  \Drupal::service('module_installer')->install(['admin_dialogs']);
+  $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_dashboard');
+  $source = new \Drupal\Core\Config\FileStorage($path . '/config/optional');
+  foreach ([
+    'admin_dialog_group' => 'finance_dashboard',
+    'admin_dialog' => 'finance_dashboard_add',
+  ] as $entity_type => $id) {
+    $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+    if (!$storage->load($id)) {
+      $storage->create($source->read('admin_dialogs.' . $entity_type . '.' . $id))->save();
+    }
+  }
+}
+
+/**
+ * Open financial record Edit operations in configurable native dialogs.
+ */
+function villa_promenade_dashboard_update_11005(): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('admin_dialog');
+  if (!$storage->load('finance_dashboard_edit')) {
+    $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_dashboard');
+    $source = new \Drupal\Core\Config\FileStorage($path . '/config/optional');
+    $storage->create($source->read('admin_dialogs.admin_dialog.finance_dashboard_edit'))->save();
+  }
+}
+
+/**
+ * Group the dashboard's Balance ledger by transaction month and year.
+ */
+function villa_promenade_dashboard_update_11006(): void {
+  \Drupal::service('views.views_data')->clear();
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('balance');
+  if (!$view) {
+    return;
+  }
+  $displays = $view->get('display');
+  $options = &$displays['default']['display_options'];
+  $options['fields']['financial_month'] = [
+    'id' => 'financial_month',
+    'table' => 'node_field_data',
+    'field' => 'financial_month',
+    'plugin_id' => 'villa_financial_field',
+    'label' => 'Month',
+    'exclude' => TRUE,
+  ];
+  $options['style']['options']['grouping'] = [[
+    'field' => 'financial_month',
+    'rendered' => TRUE,
+    'rendered_strip' => TRUE,
+  ]];
+  unset($options);
+  $view->getExecutable()->destroy();
+  $view->set('display', $displays)->save();
+}
+
+/**
+ * Installs the configurable customer-request Quick Tabs on the dashboard.
+ */
+function villa_promenade_dashboard_update_11007(): void {
+  \Drupal::service('module_installer')->install(['quicktabs']);
+  $storage = \Drupal::entityTypeManager()->getStorage('quicktabs_instance');
+  if (!$storage->load('dashboard_customer_requests')) {
+    $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_dashboard');
+    $source = new \Drupal\Core\Config\FileStorage($path . '/config/optional');
+    $storage->create($source->read('quicktabs.quicktabs_instance.dashboard_customer_requests'))->save();
+  }
+}
+
+/**
+ * Adds the shared calendar as the final dashboard tab and uses button styling.
+ */
+function villa_promenade_dashboard_update_11008(): void {
+  $tabs = \Drupal::entityTypeManager()->getStorage('quicktabs_instance')->load('dashboard_customer_requests');
+  if (!$tabs || !\Drupal\views\Entity\View::load('villa_customer_requests_calendar')) {
+    throw new \RuntimeException('The dashboard tabs and customer request calendar must be installed first.');
+  }
+  $data = $tabs->getConfigurationData();
+  $has_calendar = FALSE;
+  foreach ($data as $tab) {
+    if (($tab['content']['view_content']['options']['vid'] ?? '') === 'villa_customer_requests_calendar') {
+      $has_calendar = TRUE;
+    }
+  }
+  if (!$has_calendar) {
+    $data[] = [
+      'title' => 'Calendar',
+      'weight' => count($data),
+      'type' => 'view_content',
+      'content' => ['view_content' => ['options' => [
+        'vid' => 'villa_customer_requests_calendar',
+        'display' => 'page_calendar',
+        'args' => '',
+      ]]],
+    ];
+  }
+  $tabs->setConfigurationData($data);
+  $options = $tabs->getOptions();
+  $options['quick_tabs']['style'] = '';
+  $tabs->set('options', $options)->save();
+}
+
+/**
+ * Separates financial reporting from record creation and adds staff roles.
+ */
+function villa_promenade_dashboard_update_11009(): void {
+  $path = \Drupal::service('extension.list.module')->getPath('villa_promenade_dashboard');
+  $source = new \Drupal\Core\Config\FileStorage($path . '/config/optional');
+  foreach (['manager', 'employee'] as $id) {
+    if (!\Drupal\user\Entity\Role::load($id)) {
+      \Drupal\user\Entity\Role::create($source->read('user.role.' . $id))->save();
+    }
+  }
+  // Retain the reporting access of existing content administrators.
+  foreach (\Drupal\user\Entity\Role::loadMultiple() as $role) {
+    if (!$role->isAdmin() && $role->hasPermission('administer nodes')) {
+      $role->grantPermission('view villa financial reports');
+      if ($role->hasPermission('access administration pages')) {
+        $role->grantPermission('access villa dashboard');
+      }
+      $role->save();
+    }
+  }
+  foreach (['balance', 'income', 'expenses'] as $id) {
+    $view = \Drupal\views\Entity\View::load($id);
+    if (!$view) {
+      throw new \RuntimeException('Missing financial View: ' . $id);
+    }
+    $displays = $view->get('display');
+    foreach ($displays as $display_id => &$display) {
+      if ($display_id === 'default' || isset($display['display_options']['access'])) {
+        $display['display_options']['access'] = ['type' => 'perm', 'options' => ['perm' => 'view villa financial reports']];
+      }
+    }
+    unset($display);
+    $view->getExecutable()->destroy();
+    $view->set('display', $displays)->save();
+  }
+}
+
+/**
+ * Grants managers access to customer request management.
+ */
+function villa_promenade_dashboard_update_11010(): void {
+  $role = \Drupal\user\Entity\Role::load('manager');
+  if ($role && !$role->hasPermission('manage villa customer requests')) {
+    $role->grantPermission('manage villa customer requests')->save();
+  }
+}

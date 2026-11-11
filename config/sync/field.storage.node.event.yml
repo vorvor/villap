@@ -1,0 +1,30 @@
+uuid: 98b75617-a34e-45c2-be18-70bfdc4a1e6a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.event
+field_name: event
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: event1
+      label: 'Privát események'
+    -
+      value: event2
+      label: 'Céges események'
+    -
+      value: other
+      label: Egyéb
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

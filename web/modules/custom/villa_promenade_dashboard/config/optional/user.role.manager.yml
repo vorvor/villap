@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.expense
+    - node.type.income
+  module:
+    - navigation
+    - node
+    - system
+    - villa_promenade_contact
+    - villa_promenade_dashboard
+id: manager
+label: Manager
+weight: 4
+is_admin: false
+permissions:
+  - 'access administration pages'
+  - 'access navigation'
+  - 'access villa dashboard'
+  - 'create expense content'
+  - 'create income content'
+  - 'manage villa customer requests'
+  - 'view the administration theme'
+  - 'view villa financial reports'

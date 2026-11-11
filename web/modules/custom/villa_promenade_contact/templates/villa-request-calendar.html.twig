@@ -1,0 +1,43 @@
+{# All request values are access-checked render arrays from native formatters. #}
+<section class="request-calendar" aria-label="{{ 'Customer request calendar'|t }}">
+  <div class="request-calendar__toolbar">
+    <nav class="request-calendar__navigation" aria-label="{{ 'Calendar month navigation'|t }}">
+      {% if previous_url %}<a href="{{ previous_url }}" rel="prev">{{ 'Previous month'|t }}</a>{% endif %}
+      <a href="{{ today_url }}">{{ 'Current month'|t }}</a>
+      {% if next_url %}<a href="{{ next_url }}" rel="next">{{ 'Next month'|t }}</a>{% endif %}
+    </nav>
+    <form class="request-calendar__month-picker" method="get" action="{{ action_url }}">
+      <label for="request-calendar-month">{{ 'Month'|t }}</label>
+      <input id="request-calendar-month" type="month" name="month" value="{{ selected_month }}" min="1900-01" max="2199-12" required>
+      <button type="submit">{{ 'Go'|t }}</button>
+    </form>
+  </div>
+  <p class="request-calendar__help">{{ 'New requests use the preferred date. Approved requests use the confirmed real date, falling back to the preferred date.'|t }}</p>
+  <div class="request-calendar__scroll" tabindex="0" role="region" aria-label="{{ 'Monthly calendar, scroll horizontally on small screens'|t }}">
+    <table class="request-calendar__table">
+      <caption>{{ month_label }}</caption>
+      <thead>
+        <tr>{% for weekday in weekdays %}<th scope="col">{{ weekday }}</th>{% endfor %}</tr>
+      </thead>
+      <tbody>
+        {% for week in weeks %}
+          <tr>
+            {% for day in week %}
+              <td class="request-calendar__day{{ day.outside ? ' request-calendar__day--outside' : '' }}{{ day.today ? ' request-calendar__day--today' : '' }}">
+                <time datetime="{{ day.date }}"{% if day.today %} aria-current="date"{% endif %}>{{ day.number }}</time>
+                <div class="request-calendar__events">{{ day.events }}</div>
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if undated %}
+    <div class="request-calendar__undated">
+      <h2>{{ 'Requests without a date'|t }}</h2>
+      <p>{{ 'These requests cannot be placed in a day cell until a date is supplied.'|t }}</p>
+      <div class="request-calendar__undated-list">{{ undated }}</div>
+    </div>
+  {% endif %}
+</section>

@@ -11,3 +11,7 @@ villa_promenade_contact.settings:
       sequence:
         type: email
         label: 'Email address'
+
+views.style.villa_request_calendar:
+  type: views_style
+  label: 'Customer request calendar'

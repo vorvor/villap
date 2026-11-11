@@ -1,0 +1,17 @@
+uuid: 6f858d0b-ef81-4522-80ac-f99b227f5123
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: 7_c9sZJRzSonu13rO48Q3UhiBwF2VyJ8afCiFrZSzYI
+id: linkit_edit
+label: 'Linkit Edit'
+type: ops
+dialog_group: contrib_modules
+dialog_type: modal
+dialog_width: '550'
+dialog_title_override: ''
+selection_criteria:
+  entity_type: linkit_profile
+  key: edit
+  bundles: {  }

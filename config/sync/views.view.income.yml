@@ -1,0 +1,526 @@
+uuid: 2dfd1643-e438-4de6-9caa-76ad40abca1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_income_amount
+    - field.storage.node.field_income_category
+    - field.storage.node.field_income_currency
+    - field.storage.node.field_income_date
+    - field.storage.node.field_income_description
+    - field.storage.node.field_income_notes
+    - field.storage.node.field_income_user
+    - node.type.income
+  module:
+    - datetime
+    - node
+    - options
+    - user
+    - villa_promenade_dashboard
+id: income
+label: Income
+module: views
+description: 'All income records with separate totals per currency, including unpublished income.'
+tag: Administration
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: Income
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: Income
+          type: string
+          settings:
+            link_to_entity: true
+        field_income_date:
+          id: field_income_date
+          table: node__field_income_date
+          field: field_income_date
+          entity_type: node
+          entity_field: field_income_date
+          plugin_id: field
+          label: 'Income date'
+          click_sort_column: value
+          type: datetime_custom
+          settings:
+            timezone_override: ''
+            date_format: Y-m-d
+        field_income_amount:
+          id: field_income_amount
+          table: node__field_income_amount
+          field: field_income_amount
+          entity_type: node
+          entity_field: field_income_amount
+          plugin_id: field
+          label: Amount
+          click_sort_column: value
+          type: number_decimal
+          settings:
+            thousand_separator: ','
+            decimal_separator: .
+            scale: 2
+            prefix_suffix: false
+        field_income_currency:
+          id: field_income_currency
+          table: node__field_income_currency
+          field: field_income_currency
+          relationship: none
+          group_type: group
+          entity_type: node
+          entity_field: field_income_currency
+          plugin_id: field
+          label: Currency
+          empty: 'Unspecified currency'
+          hide_empty: false
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+        field_income_description:
+          id: field_income_description
+          table: node__field_income_description
+          field: field_income_description
+          entity_type: node
+          entity_field: field_income_description
+          plugin_id: field
+          label: Description
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+        field_income_notes:
+          id: field_income_notes
+          table: node__field_income_notes
+          field: field_income_notes
+          entity_type: node
+          entity_field: field_income_notes
+          plugin_id: field
+          label: Notes
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+        field_income_category:
+          id: field_income_category
+          table: node__field_income_category
+          field: field_income_category
+          entity_type: node
+          entity_field: field_income_category
+          plugin_id: field
+          label: 'Income category'
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+        field_income_user:
+          id: field_income_user
+          table: node__field_income_user
+          field: field_income_user
+          entity_type: node
+          entity_field: field_income_user
+          plugin_id: field
+          label: 'Income user'
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+        uid:
+          id: uid
+          table: node_field_data
+          field: uid
+          entity_type: node
+          entity_field: uid
+          plugin_id: field
+          label: 'Created by'
+          type: author
+          settings:
+            link: false
+        operations:
+          id: operations
+          table: node
+          field: operations
+          entity_type: node
+          plugin_id: entity_operations
+          label: Operations
+      pager:
+        type: none
+        options:
+          offset: 0
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'view villa financial reports'
+      cache:
+        type: none
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
+          empty: true
+          content: 'No income has been recorded.'
+      sorts:
+        field_income_date_value:
+          id: field_income_date_value
+          table: node__field_income_date
+          field: field_income_date_value
+          plugin_id: standard
+          order: DESC
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          entity_type: node
+          entity_field: nid
+          plugin_id: standard
+          order: DESC
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            income: income
+        default_langcode:
+          id: default_langcode
+          table: node_field_data
+          field: default_langcode
+          entity_type: node
+          entity_field: default_langcode
+          plugin_id: boolean
+          value: '1'
+        date_from:
+          id: date_from
+          table: node__field_income_date
+          field: field_income_date_value
+          relationship: none
+          group_type: group
+          admin_label: 'Date from'
+          plugin_id: villa_expense_date
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: date_from_op
+            label: 'Date from'
+            description: 'Income date; includes the selected day.'
+            use_operator: false
+            operator: date_from_op
+            identifier: date_from
+            required: false
+            remember: false
+            multiple: false
+          is_grouped: false
+        date_to:
+          id: date_to
+          table: node__field_income_date
+          field: field_income_date_value
+          relationship: none
+          group_type: group
+          admin_label: 'Date to'
+          plugin_id: villa_expense_date
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: date_to_op
+            label: 'Date to'
+            description: 'Income date; includes the selected day.'
+            use_operator: false
+            operator: date_to_op
+            identifier: date_to
+            required: false
+            remember: false
+            multiple: false
+          is_grouped: false
+        field_income_user_target_id:
+          id: field_income_user_target_id
+          table: node__field_income_user
+          field: field_income_user_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: entity_reference
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: income_user_op
+            label: 'Income user'
+            description: 'Select the user the income belong to.'
+            use_operator: false
+            operator: income_user_op
+            identifier: income_user
+            required: false
+            remember: false
+            multiple: false
+            reduce: false
+          is_grouped: false
+          reduce_duplicates: false
+          sub_handler: villa_expense_user
+          widget: autocomplete
+          sub_handler_settings:
+            sort:
+              field: name
+              direction: ASC
+            auto_create: false
+            filter:
+              type: _none
+            include_anonymous: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: table
+        options:
+          columns:
+            title: title
+            field_income_date: field_income_date
+            field_income_amount: field_income_amount
+            field_income_description: field_income_description
+            field_income_notes: field_income_notes
+            field_income_category: field_income_category
+            field_income_user: field_income_user
+            uid: uid
+            operations: operations
+            field_income_currency: field_income_currency
+          default: '-1'
+          info:
+            title:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_income_date:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_income_amount:
+              align: views-align-right
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_income_description:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_income_notes:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_income_category:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_income_user:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            uid:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            operations:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_income_currency:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          empty_table: false
+      row:
+        type: fields
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: true
+          distinct: false
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_income_amount'
+        - 'config:field.storage.node.field_income_category'
+        - 'config:field.storage.node.field_income_currency'
+        - 'config:field.storage.node.field_income_date'
+        - 'config:field.storage.node.field_income_description'
+        - 'config:field.storage.node.field_income_notes'
+        - 'config:field.storage.node.field_income_user'
+  attachment_1:
+    id: attachment_1
+    display_title: 'Total income'
+    display_plugin: attachment
+    position: 2
+    display_options:
+      title: ''
+      fields:
+        field_income_amount:
+          id: field_income_amount
+          table: node__field_income_amount
+          field: field_income_amount
+          group_type: sum
+          entity_type: node
+          entity_field: field_income_amount
+          plugin_id: field
+          label: 'Total income'
+          element_label_colon: true
+          empty: '0.00'
+          hide_empty: false
+          empty_zero: false
+          click_sort_column: value
+          type: number_decimal
+          settings:
+            thousand_separator: ','
+            decimal_separator: .
+            scale: 2
+            prefix_suffix: false
+        field_income_currency:
+          id: field_income_currency
+          table: node__field_income_currency
+          field: field_income_currency
+          relationship: none
+          group_type: group
+          entity_type: node
+          entity_field: field_income_currency
+          plugin_id: field
+          label: ''
+          empty: 'Unspecified currency'
+          hide_empty: false
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
+          empty: true
+          content: 'No income has been recorded.'
+      sorts: {  }
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: income-total
+          default_row_class: true
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline:
+            field_income_amount: field_income_amount
+            field_income_currency: field_income_currency
+          separator: ' '
+          hide_empty: false
+      defaults:
+        empty: false
+        title: false
+        group_by: false
+        style: false
+        row: false
+        fields: false
+        sorts: false
+        filters: true
+      group_by: true
+      display_extenders: {  }
+      displays:
+        page_1: page_1
+      attachment_position: after
+      inherit_arguments: false
+      inherit_exposed_filters: true
+      inherit_pager: false
+      render_pager: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_income_currency'
+  page_1:
+    id: page_1
+    display_title: Income
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: admin/content/income
+      menu:
+        type: tab
+        title: Income
+        description: 'List all income and their total amount.'
+        weight: 6
+        menu_name: admin
+        parent: system.admin_content
+        context: '0'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_income_amount'
+        - 'config:field.storage.node.field_income_category'
+        - 'config:field.storage.node.field_income_currency'
+        - 'config:field.storage.node.field_income_date'
+        - 'config:field.storage.node.field_income_description'
+        - 'config:field.storage.node.field_income_notes'
+        - 'config:field.storage.node.field_income_user'

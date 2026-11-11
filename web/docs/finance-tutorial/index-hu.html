@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bevételek és kiadások — rövid felhasználói útmutató</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #24332e; background: #f3f5f2; line-height: 1.6; }
+    body { max-width: 1080px; margin: auto; padding: 32px 24px 56px; }
+    header, section, aside { background: white; border: 1px solid #dbe2dc; border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+    h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.15; margin: 8px 0 16px; }
+    h2 { font-size: 1.5rem; margin-top: 0; }
+    h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    p { margin: 8px 0 16px; }
+    .eyebrow { color: #536859; font-size: .8rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    nav { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+    a { color: #215b43; text-underline-offset: 3px; }
+    nav a { padding: 8px 16px; border: 1px solid #b8cec0; border-radius: 24px; text-decoration: none; }
+    .journey { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+    ol { padding-left: 24px; margin-top: 0; }
+    li { margin-bottom: 12px; }
+    table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 16px 0; }
+    th, td { padding: 9px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid #e0e6e1; }
+    th { background: #f0f5f1; }
+    figure { margin: 0; }
+    img { display: block; width: 100%; height: auto; border: 1px solid #dbe2dc; border-radius: 8px; box-sizing: border-box; }
+    figcaption, .small { font-size: .85rem; color: #57665e; margin-top: 10px; }
+    .note { padding: 12px 16px; background: #eff6f0; border-left: 3px solid #49835f; }
+    footer { text-align: center; font-size: .85rem; color: #57665e; }
+    @media (max-width: 760px) { body { padding: 16px 12px; } header, section, aside { padding: 20px; } .journey { grid-template-columns: 1fr; } }
+    @media print { body { padding: 0; background: white; } nav { display: none; } header, section, aside { border-radius: 0; } section { break-before: page; } .journey { grid-template-columns: 1fr 1fr; } a { color: inherit; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Villa Promenade · Rövid felhasználói útmutató</div>
+    <h1>Rögzítsd a bevételeket.<br>Rögzítsd a kiadásokat.</h1>
+    <p>A beérkezett pénzt <strong>bevételként (Income)</strong>, az elköltött pénzt <strong>kiadásként (Expense)</strong> rögzítsd. Mindkét űrlapnál ugyanazokat a lépéseket kell követned: nyisd meg, töltsd ki az adatokat, majd mentsd el.</p>
+    <nav aria-label="Az útmutató fejezetei"><a href="#start">Kezdd itt</a><a href="#income">Bevétel rögzítése</a><a href="#expense">Kiadás rögzítése</a><a href="#after-saving">Mentés után</a><a href="#customer-requests">Ügyfélmegkeresések</a><a href="#request-calendar">Eseménynaptár</a></nav>
+  </header>
+
+  <section id="start">
+    <h2>1. Jelentkezz be, és nyisd meg az űrlapot</h2>
+    <p>Jelentkezz be a munkatársi fiókoddal. Ha van hozzáférésed a kimutatásokhoz, nyisd meg az <strong>irányítópultot (Dashboard)</strong> a <a href="https://villapromenade.lndo.site/admin/dashboard">/admin/dashboard</a> címen, majd válaszd a <strong>bevétel hozzáadása (Add income)</strong> vagy a <strong>kiadás hozzáadása (Add expense)</strong> gombot.</p>
+    <figure><a href="images/01-dashboard-actions.png"><img src="images/01-dashboard-actions.png" alt="Az irányítópult gombjai: Add income (bevétel hozzáadása) és Add expense (kiadás hozzáadása)."></a><figcaption>A két gomb a megfelelő rögzítési űrlapot nyitja meg.</figcaption></figure>
+    <p class="note">Nem férsz hozzá az irányítópulthoz? Az oldalsávban válaszd a <strong>Létrehozás → Bevétel (Create → Income)</strong> vagy a <strong>Létrehozás → Kiadás (Create → Expense)</strong> menüpontot. Közvetlenül is megnyithatod a <a href="https://villapromenade.lndo.site/node/add/income">/node/add/income</a> vagy a <a href="https://villapromenade.lndo.site/node/add/expense">/node/add/expense</a> oldalt. A fiókodnak jogosultsággal kell rendelkeznie az adott típusú bejegyzés létrehozásához.</p>
+  </section>
+
+  <section id="income">
+    <h2>2. Bevétel rögzítése — beérkezett pénz</h2>
+    <div class="journey">
+      <div>
+        <ol>
+          <li>Az irányítópulton válaszd a <strong>bevétel hozzáadása (Add income)</strong> gombot, vagy a <strong>Létrehozás → Bevétel (Create → Income)</strong> menüpontot.</li>
+          <li>Töltsd ki a piros csillaggal jelölt kötelező mezőket. Segítségként használd az alábbi példát.</li>
+          <li>Ellenőrizd a dátumot, az összeget, a pénznemet és a kiválasztott felhasználót. Kattints egyszer a <strong>Mentés (Save)</strong> gombra.</li>
+        </ol>
+        <table>
+          <caption class="small">Példa: helyszínfoglalás díjának beérkezése</caption>
+          <thead><tr><th scope="col">Mező</th><th scope="col">Mit adj meg?</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Cím (Title)</th><td>Helyszínfoglalás díja</td></tr>
+            <tr><th scope="row">Bevétel dátuma (Income date)</th><td>A pénz beérkezésének napját, például 2026. november 11-ét. Használd a naptárválasztót.</td></tr>
+            <tr><th scope="row">Összeg / Pénznem (Amount / Currency)</th><td>25000 / HUF</td></tr>
+            <tr><th scope="row">Leírás (Description)</th><td>Helyszínfoglalásra beérkezett befizetés.</td></tr>
+            <tr><th scope="row">Megjegyzések (Notes)</th><td>Opcionálisan a számla vagy a foglalás hivatkozási számát.</td></tr>
+            <tr><th scope="row">Bevételi kategória (Income category)</th><td>Válaszd ki a megfelelő kategóriát az elérhetők közül. A képernyőképen a „Demo income” (bemutató bevétel) szerepel; nálad más lehetőségek is megjelenhetnek.</td></tr>
+            <tr><th scope="row">Bevételhez tartozó felhasználó (Income user)</th><td>Válaszd ki azt a személyt, akihez a bevétel tartozik. Ellenőrizd az előre kiválasztott fiókot is.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure><a href="images/02-create-income.png"><img src="images/02-create-income.png" alt="Bevétel létrehozására szolgáló párbeszédablak egy foglalási díj példájával: bevételi dátum, 25000 HUF összeg, leírás, opcionális megjegyzések, kategória, felhasználó és Mentés gomb." loading="lazy"></a><figcaption>A tényleges űrlap egy el nem mentett példával kitöltve. A nagyításhoz kattints a képre.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="expense">
+    <h2>3. Kiadás rögzítése — elköltött pénz</h2>
+    <div class="journey">
+      <div>
+        <ol>
+          <li>Az irányítópulton válaszd a <strong>kiadás hozzáadása (Add expense)</strong> gombot, vagy a <strong>Létrehozás → Kiadás (Create → Expense)</strong> menüpontot.</li>
+          <li>Töltsd ki a kötelező mezőket. A kiadást <strong>pozitív összeggel</strong> add meg; ne írj elé mínuszjelet.</li>
+          <li>Ellenőrizd az adatokat és a kiválasztott felhasználót, majd kattints egyszer a <strong>Mentés (Save)</strong> gombra.</li>
+        </ol>
+        <table>
+          <caption class="small">Példa: a helyszínhez vásárolt kellékek</caption>
+          <thead><tr><th scope="col">Mező</th><th scope="col">Mit adj meg?</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Cím (Title)</th><td>Tisztítószerek</td></tr>
+            <tr><th scope="row">Kiadás dátuma (Expense date)</th><td>A pénz elköltésének napját, például 2026. november 11-ét. Használd a naptárválasztót.</td></tr>
+            <tr><th scope="row">Összeg / Pénznem (Amount / Currency)</th><td>5000 / HUF</td></tr>
+            <tr><th scope="row">Leírás (Description)</th><td>A helyszínhez vásárolt tisztítószerek.</td></tr>
+            <tr><th scope="row">Megjegyzések (Notes)</th><td>Opcionálisan a nyugta vagy a beszállító hivatkozási számát.</td></tr>
+            <tr><th scope="row">Kiadási kategória (Expense category)</th><td>Válaszd ki a megfelelő kategóriát az elérhetők közül. A képernyőképen az „Office supplies” (irodaszerek) szerepel.</td></tr>
+            <tr><th scope="row">Kiadáshoz tartozó felhasználó (Expense user)</th><td>Válaszd ki azt a személyt, akihez a kiadás tartozik. Ellenőrizd az előre kiválasztott fiókot is.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure><a href="images/03-create-expense.png"><img src="images/03-create-expense.png" alt="Kiadás létrehozására szolgáló párbeszédablak tisztítószerekkel: kiadási dátum, 5000 HUF összeg, leírás, opcionális megjegyzések, Office supplies kategória, felhasználó és Mentés gomb." loading="lazy"></a><figcaption>A tényleges űrlap egy el nem mentett példával kitöltve. A nagyításhoz kattints a képre.</figcaption></figure>
+    </div>
+  </section>
+
+  <aside id="after-saving">
+    <h2>4. Mentés után</h2>
+    <p>Az irányítópultról megnyitott párbeszédablak sikeres mentés után bezárul, és az irányítópult frissül. Ha van hozzáférésed a kimutatásokhoz, keresd meg a bejegyzésedet a tétellistában. Ha nem látható, ellenőrizd a <strong>Kezdő dátum (Date from)</strong>, a <strong>Záró dátum (Date to)</strong> és a <strong>Felhasználó (User)</strong> szűrőt.</p>
+    <p>Ha hibaüzenet jelenik meg, javítsd a kiemelt mezőket, majd ments újra. Ha mentés nélkül, a <strong>×</strong> gombbal zárod be a párbeszédablakot, a beírt adatok elvesznek.</p>
+    <h3>Ne feledd</h3>
+    <ul>
+      <li><strong>Összeg:</strong> nem negatív számot adj meg, legfeljebb két tizedesjeggyel. A bejegyzés típusa határozza meg, hogy bevételről vagy kiadásról van-e szó.</li>
+      <li><strong>Pénznem:</strong> válaszd a HUF vagy az EUR lehetőséget. A kimutatások külön kezelik ezeket a pénznemeket.</li>
+      <li><strong>Dátum:</strong> a pénzmozgás dátumát add meg, nem feltétlenül a rögzítés napját.</li>
+      <li><strong>Felhasználó:</strong> az a személy, akihez a pénzmozgás tartozik, nem pedig a bejegyzés adminisztratív szerzője.</li>
+      <li><strong>További adminisztrátori beállítások:</strong> szokásos bejegyzések rögzítésekor hagyd változatlanul a verziókövetési, menü-, URL-álnév- és szerzői beállításokat.</li>
+    </ul>
+    <p class="small">A képernyőképek adminisztrátori fiókkal készültek. A saját fiókodban kevesebb vezérlőelem, illetve más felhasználók vagy kategóriák jelenhetnek meg. A példákat nem mentettük el, és a végső mentési folyamatot nem próbáltuk ki.</p>
+  </aside>
+  <section id="customer-requests">
+    <h2>5. Ügyfélmegkeresések kezelése</h2>
+    <p>A rendezvényérdeklődési űrlapon beküldött megkereséseket a rendszer privát ügyfélmegkeresésként, <strong>Új (New)</strong> állapottal tárolja. A listákban áttekintheted a részleteket, jóváhagyhatod az eseményt, illetve állapot szerint rendszerezheted a megkereséseket.</p>
+    <ol>
+      <li>Nyisd meg az <strong>Irányítópult → Ügyfélmegkeresések (Dashboard → Customer requests)</strong> menüpontot, vagy lépj közvetlenül a <a href="https://villapromenade.lndo.site/admin/content/customer-requests">/admin/content/customer-requests</a> oldalra.</li>
+      <li>Ha már a pénzügyi irányítópultot használod, görgess le az <strong>Ügyfélmegkeresések (Customer requests)</strong> részhez. Ugyanezek a listák ott füleken érhetők el.</li>
+      <li>A beérkező érdeklődések áttekintéséhez válaszd az <strong>Új (New)</strong> fület, az összes állapot áttekintéséhez pedig az <strong>Összes (All)</strong> fület.</li>
+    </ol>
+    <p class="note">A megkeresések kezeléséhez külön <strong>Manage Villa Promenade customer requests</strong> jogosultság szükséges. A bevételekhez, kiadásokhoz vagy a pénzügyi irányítópulthoz való hozzáférés önmagában nem biztosít hozzáférést az ügyfélmegkeresésekhez. Ha nem látod ezt a részt, fordulj az adminisztrátorhoz.</p>
+    <figure><a href="images/04-request-tabs.png"><img src="images/04-request-tabs.png" alt="Az ügyfélmegkeresések oldala az All, New, Cancelled, Archive, Approved és Calendar fülekkel." loading="lazy"></a><figcaption>A fülekkel válthatsz a listák között. Az önálló oldal az Új (New), az irányítópult megkeresési része az Összes (All) füllel nyílik meg.</figcaption></figure>
+    <table>
+      <thead><tr><th scope="col">Fül</th><th scope="col">Mikor használd?</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Összes (All)</th><td>A különböző állapotú megkeresések áttekintéséhez.</td></tr>
+        <tr><th scope="row">Új (New)</th><td>A még feldolgozásra váró, beérkező megkeresésekhez.</td></tr>
+        <tr><th scope="row">Jóváhagyott (Approved)</th><td>A már jóváhagyott megkeresések megkereséséhez.</td></tr>
+        <tr><th scope="row">Lemondott (Cancelled)</th><td>A lemondottnak jelölt megkeresésekhez.</td></tr>
+        <tr><th scope="row">Archívum (Archive)</th><td>A megkeresések aktív munkafolyamatból való kivételéhez, adataik törlése nélkül.</td></tr>
+        <tr><th scope="row">Naptár (Calendar)</th><td>A hónap tervezéséhez az új és jóváhagyott megkeresések alapján.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="review-requests">
+    <h2>6. Megkeresés keresése és a részletek áttekintése</h2>
+    <ol>
+      <li>Válaszd ki a megfelelő állapotfület.</li>
+      <li>Add meg az <strong>ügyfél nevét (Customer name)</strong> vagy az <strong>e-mail-címét (Email)</strong>, és szükség esetén jelölj ki egy vagy több <strong>eseménytípust (Event)</strong>. Ha minden eseménytípust látni szeretnél, hagyd üresen az összes jelölőnégyzetet.</li>
+      <li>Kattints a <strong>Szűrés (Filter)</strong> gombra. A találatok ismételt bővítéséhez töröld a szöveges mezők tartalmát és az eseménytípusok kijelölését, majd kattints újra a Szűrés gombra.</li>
+    </ol>
+    <figure><a href="images/05-request-filters.png"><img src="images/05-request-filters.png" alt="Megkeresések szűrése ügyfélnév, e-mail-cím és eseménytípus alapján, a Filter gombbal." loading="lazy"></a><figcaption>A kiválasztott listán belül kereshetsz. Ha nem találsz egy megkeresést, ellenőrizd az állapotfület és a szűrőket is.</figcaption></figure>
+    <div class="journey">
+      <div>
+        <h3>A megkeresés kártyájának áttekintése</h3>
+        <p>A kártyákon látható a megkeresés azonosítója, az ügyfél neve, e-mail-címe, az esemény típusa, a beküldött válaszok és a beküldés dátuma. Jóváhagyás előtt ellenőrizd az esemény tervezett dátumát, a vendéglétszámot és a különleges igényeket.</p>
+        <p>Ha elérhető, nyisd le a <strong>Belső megjegyzések (Internal notes)</strong> részt. A <strong>Demo</strong> jelölés bemutatóadatot jelez, nem valódi ügyfélmegkeresést.</p>
+        <p>A listák a tervezett eseménydátum szerint rendezettek, a dátum nélküli megkeresések a végükön szerepelnek. Ha több megkeresés van, használd a lista alatti lapozót.</p>
+        <h3>Adatok módosítása vagy belső megjegyzés hozzáadása</h3>
+        <p>A Naptárban kattints az ügyfél nevére a megkeresés megnyitásához, majd válaszd a <strong>Szerkesztés (Edit)</strong> fület, ha van hozzá jogosultságod. Módosítsd a megfelelő kapcsolattartási vagy eseményadatokat, illetve adj hozzá belső megjegyzést, majd kattints a <strong>Mentés (Save)</strong> gombra. Jóváhagyáshoz az alább bemutatott külön folyamatot használd.</p>
+        <p class="note">Az ügyfélmegkeresések privát, munkatársaknak szánt bejegyzések, nem nyilvános weboldaltartalmak. Az ügyfelek elérhetőségeit és a belső megjegyzéseket csak a jogosult csapaton belül oszd meg.</p>
+      </div>
+      <figure><a href="images/06-request-card.png"><img src="images/06-request-card.png" alt="Egy meglévő bemutatómegkeresés kártyája ügyféladatokkal, eseményre adott válaszokkal, tervezett dátummal, belső megjegyzésekkel, beküldési dátummal és állapotvezérlőkkel." loading="lazy"></a><figcaption>Egy meglévő bemutatómegkeresés. A részletek és az állapotvezérlők nagyításához kattints a képre.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="approve-requests">
+    <h2>7. Megkeresés jóváhagyása vagy állapotának módosítása</h2>
+    <div class="journey">
+      <div>
+        <h3>Esemény jóváhagyása</h3>
+        <ol>
+          <li>A megfelelő megkeresés kártyáján kattints a <strong>Jóváhagyás (Approve)</strong> gombra. Ekkor megnyílik egy párbeszédablak; annak megnyitása önmagában még nem hagyja jóvá a megkeresést.</li>
+          <li>A <strong>Végleges dátum (Real date)</strong> mezőben add meg az esemény egyeztetett időpontját. Ez kötelező mező.</li>
+          <li>Opcionálisan adj meg egy <strong>jóváhagyási megjegyzést (Approve note)</strong>, például a megállapodás rövid összefoglalását.</li>
+          <li>Ellenőrizd az ügyfél nevét és a dátumot, majd kattints a <strong>Mentés és jóváhagyás (Save and approve)</strong> gombra. Sikeres mentés után a párbeszédablak bezárul, a lista pedig frissül. A megkeresést a <strong>Jóváhagyott (Approved)</strong> fülön találod.</li>
+        </ol>
+        <p>Ha nem szeretnél változtatni a megkeresésen, válaszd a párbeszédablak <strong>Mégse (Cancel)</strong> gombját, vagy zárd be a <strong>×</strong> gombbal. Ez a Cancel gomb csak bezárja az ablakot; nem állítja a megkeresést Lemondott állapotba.</p>
+        <h3>További állapotvezérlők</h3>
+        <p>A kártyán a <strong>Lemondott (Cancelled)</strong>, az <strong>Archívum (Archive)</strong> és az <strong>Új (New)</strong> vezérlő is elérhető. A Jóváhagyás gombbal ellentétben ezek azonnal elmentik a kiválasztott állapotot. Az aktuális állapot kiemelten jelenik meg, a hozzá tartozó vezérlő pedig inaktív.</p>
+        <p>Állapotváltás után a megkeresés eltűnhet az aktuális, állapot szerint szűrt listából. Az új állapot fülén vagy az Összes listában találod meg újra.</p>
+        <p class="note"><strong>Az archiválás nem törlés.</strong> Az archiválás megőrzi a megkeresést és az adatait. Ha elérhető törlési vagy tömeges törlési műveletet használsz, gondosan ellenőrizd a kijelölt megkereséseket és a megerősítő oldalt: a törlés véglegesen eltávolítja őket.</p>
+      </div>
+      <figure><a href="images/07-request-approval.png"><img src="images/07-request-approval.png" alt="Ügyfélmegkeresés jóváhagyási párbeszédablaka a kötelező Real date, az opcionális Approve note mezővel, valamint a Save and approve és Cancel gombbal." loading="lazy"></a><figcaption>A jóváhagyási párbeszédablak egy el nem mentett példával kitöltve. A képen látható karbantartási üzenet a környezet állapotát jelzi, nem része a megkeresés kezelésének.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="request-calendar">
+    <h2>8. Események tervezése a naptárban</h2>
+    <ol>
+      <li>Válaszd a <strong>Naptár (Calendar)</strong> fület, vagy nyisd meg a <a href="https://villapromenade.lndo.site/admin/content/customer-requests/calendar">/admin/content/customer-requests/calendar</a> oldalt.</li>
+      <li>Használd az <strong>Előző hónap (Previous month)</strong>, az <strong>Aktuális hónap (Current month)</strong> vagy a <strong>Következő hónap (Next month)</strong> gombot. Egy adott hónaphoz a <strong>Hónap (Month)</strong> választóval léphetsz, majd kattints az <strong>Ugrás (Go)</strong> gombra.</li>
+      <li>Tekintsd át az egyes napoknál az ügyfelek nevét, az eseménytípusokat és a vendéglétszámot. A teljes megkeresés megnyitásához kattints az ügyfél nevére.</li>
+    </ol>
+    <p>A naptárban csak az <strong>Új (New)</strong> és a <strong>Jóváhagyott (Approved)</strong> megkeresések jelennek meg. Az új megkeresések a kért eseménydátumot használják. A jóváhagyott megkeresések a <strong>Végleges dátum (Real date)</strong> alapján jelennek meg; ha nincs elmentett végleges dátum, a rendszer a kért dátumot használja. A dátum nélküli megkeresések külön, a naptár alatt szerepelnek. A lemondott és archivált megkeresések a saját listafülükön továbbra is elérhetők, ebben a naptárban viszont nem jelennek meg.</p>
+    <figure><a href="images/08-request-calendar.png"><img src="images/08-request-calendar.png" alt="Havi ügyfélmegkeresési naptár hónapváltó vezérlőkkel és a tervezett napokon megjelenő bemutatóeseményekkel." loading="lazy"></a><figcaption>Havi tervezési nézet meglévő bemutatómegkeresésekkel. A nagyításhoz kattints a képre.</figcaption></figure>
+    <p class="small">A megkeresésekről készült képernyőképek adminisztrátori fiókot és meglévő bemutatóadatokat használnak. Az útmutatóhoz nem hoztunk létre, nem hagytunk jóvá, nem szerkesztettünk, nem helyeztünk át és nem töröltünk megkeresést. A jóváhagyási példát mentés nélkül bezártuk; a mentést, az állapotváltásokat és a törlést nem próbáltuk ki.</p>
+  </section>
+  <footer>Megosztáskor tartsd együtt ezt az oldalt és az images mappáját. PDF-ként történő mentéshez használd a böngésző Nyomtatás parancsát.</footer>
+</body>
+</html>

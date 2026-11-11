@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_date_flexibility
+field_name: cr_date_flexibility
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_7b8592036b96a517e70a
+      label: 'Fix dátum'
+    -
+      value: choice_c893848620e3f8131c25
+      label: '± néhány nap belefér'
+    -
+      value: choice_46e1c2c508945196c765
+      label: 'Még keressük az ideális időpontot'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

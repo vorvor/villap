@@ -1,0 +1,184 @@
+.request-calendar {
+  --calendar-border: #dce1e7;
+  color: #20242a;
+}
+
+.request-calendar__toolbar,
+.request-calendar__navigation,
+.request-calendar__month-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.request-calendar__toolbar {
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.request-calendar__navigation a,
+.request-calendar__month-picker button {
+  display: inline-block;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--calendar-border);
+  border-radius: 4px;
+  color: #264e78;
+  background: #fff;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.request-calendar__navigation a:hover,
+.request-calendar__month-picker button:hover {
+  background: #edf3fa;
+}
+
+.request-calendar__month-picker input {
+  padding: 0.4rem;
+  border: 1px solid var(--calendar-border);
+  border-radius: 4px;
+  font: inherit;
+}
+
+.request-calendar__help {
+  color: #626873;
+  font-size: 0.875rem;
+}
+
+.request-calendar__scroll {
+  overflow-x: auto;
+}
+
+.request-calendar .request-calendar__table {
+  width: 100%;
+  min-width: 56rem;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.request-calendar__table caption {
+  padding: 0.75rem 0;
+  color: #20242a;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: start;
+}
+
+.request-calendar .request-calendar__table th,
+.request-calendar .request-calendar__table td {
+  width: calc(100% / 7);
+  padding: 0.5rem;
+  border: 1px solid var(--calendar-border);
+  vertical-align: top;
+  background: #fff;
+}
+
+.request-calendar .request-calendar__table th {
+  background: #f2f5f8;
+  font-size: 0.8125rem;
+  text-align: start;
+}
+
+.request-calendar__day > time {
+  display: inline-block;
+  min-width: 1.75rem;
+  margin-bottom: 0.5rem;
+  padding: 0.1rem 0.25rem;
+  border-radius: 3px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.request-calendar .request-calendar__day--outside {
+  background: #f7f8fa;
+  color: #8a9099;
+}
+
+.request-calendar__day--today > time {
+  color: #fff;
+  background: #285b8c;
+}
+
+.request-calendar__events {
+  min-height: 6rem;
+}
+
+.request-calendar__event {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--request-calendar-status-color);
+  border-inline-start-width: 3px;
+  border-radius: 4px;
+  color: var(--villa-request-status-text);
+  background: var(--request-calendar-status-color);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.request-calendar__event--new {
+  --request-calendar-status-color: var(--villa-request-new);
+}
+
+.request-calendar__event--cancelled {
+  --request-calendar-status-color: var(--villa-request-cancelled);
+}
+
+.request-calendar__event--archive {
+  --request-calendar-status-color: var(--villa-request-archive);
+}
+
+.request-calendar__event--approved {
+  --request-calendar-status-color: var(--villa-request-approved);
+}
+
+.request-calendar__event .field {
+  margin: 0;
+}
+
+.request-calendar__event .field--name-title {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.request-calendar__event a {
+  color: inherit;
+}
+
+.request-calendar__event .field--name-cr-guest-count .field__label {
+  display: inline;
+  float: none;
+  font-weight: 500;
+}
+
+.request-calendar__event .field--name-cr-guest-count .field__item {
+  display: inline;
+}
+
+.request-calendar__state {
+  display: block;
+  margin-top: 0.25rem;
+  color: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.request-calendar__undated {
+  margin-top: 1.5rem;
+}
+
+.request-calendar__undated-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.75rem;
+}
+
+.request-calendar a:focus-visible,
+.request-calendar button:focus-visible,
+.request-calendar input:focus-visible,
+.request-calendar__scroll:focus-visible {
+  outline: 2px solid #2369a5;
+  outline-offset: 3px;
+}

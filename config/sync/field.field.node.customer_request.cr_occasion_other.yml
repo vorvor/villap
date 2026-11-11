@@ -1,0 +1,19 @@
+uuid: 345ab832-8b1f-4113-8a8f-6827ff2c72ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_occasion_other
+    - node.type.customer_request
+id: node.customer_request.cr_occasion_other
+field_name: cr_occasion_other
+entity_type: node
+bundle: customer_request
+label: 'Milyen eseményt terveztek? – Egyéb'
+description: 'Céges események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

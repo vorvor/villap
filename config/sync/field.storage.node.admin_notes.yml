@@ -1,0 +1,19 @@
+uuid: a1939f57-59ab-43b5-8209-5ff1f79e53ee
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.admin_notes
+field_name: admin_notes
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

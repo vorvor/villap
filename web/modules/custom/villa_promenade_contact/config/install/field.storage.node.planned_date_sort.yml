@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.planned_date_sort
+field_name: planned_date_sort
+entity_type: node
+type: integer
+settings:
+  unsigned: true
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -15,7 +15,23 @@ use Drupal\villa_promenade_contact\Form\RequestStateActions;
  * Implements hook_theme().
  */
 function villa_promenade_contact_theme($existing, $type, $theme, $path): array {
-  $hooks = [];
+  $hooks = [
+    'villa_request_calendar' => [
+      'variables' => [
+        'month_label' => NULL,
+        'selected_month' => NULL,
+        'previous_url' => NULL,
+        'next_url' => NULL,
+        'today_url' => NULL,
+        'action_url' => NULL,
+        'weekdays' => [],
+        'weeks' => [],
+        'undated' => [],
+      ],
+      'template' => 'villa-request-calendar',
+      'path' => $path . '/templates',
+    ],
+  ];
   foreach (RequestStateActions::DISPLAYS as $display) {
     foreach (['unformatted', 'fields'] as $type) {
       $hooks['views_view_' . $type . '__villa_customer_requests__' . $display] = [
@@ -68,6 +84,10 @@ function villa_promenade_contact_form_views_exposed_form_alter(array &$form, For
 function villa_promenade_contact_form_alter(array &$form, FormStateInterface $form_state, $form_id): void {
   if (str_starts_with($form_id, 'views_form_villa_customer_requests_')) {
     RequestStateActions::build($form, $form_state);
+  }
+  $object = $form_state->getFormObject();
+  if ($object instanceof \Drupal\node\Form\NodeForm && $object->getEntity()->bundle() === 'customer_request') {
+    \Drupal\villa_promenade_contact\CustomerRequestAnswers::alterForm($form);
   }
 }
 
@@ -133,4 +153,79 @@ function villa_promenade_contact_mail($key, &$message, $params) {
     // first so angle brackets cannot become markup or disappear from the mail.
     $message['body'][] = nl2br(Html::escape($params['body']));
   }
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function villa_promenade_contact_node_presave(\Drupal\node\NodeInterface $node): void {
+  if ($node->bundle() === 'customer_request') {
+    // Requests are internal business records, never public website content.
+    $node->setUnpublished();
+    $node->setPromoted(FALSE);
+    if ($node->hasField('cr_description')) {
+      \Drupal\villa_promenade_contact\CustomerRequestAnswers::synchronize($node);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function villa_promenade_contact_node_access(\Drupal\node\NodeInterface $node, $operation, \Drupal\Core\Session\AccountInterface $account) {
+  if ($node->bundle() !== 'customer_request') {
+    return \Drupal\Core\Access\AccessResult::neutral();
+  }
+  return ($account->hasPermission('manage villa customer requests')
+    ? \Drupal\Core\Access\AccessResult::allowed()
+    : \Drupal\Core\Access\AccessResult::forbidden())->cachePerPermissions();
+}
+
+/**
+ * Implements hook_node_create_access().
+ */
+function villa_promenade_contact_node_create_access(\Drupal\Core\Session\AccountInterface $account, array $context, $bundle) {
+  if ($bundle !== 'customer_request') {
+    return \Drupal\Core\Access\AccessResult::neutral();
+  }
+  return ($account->hasPermission('manage villa customer requests')
+    ? \Drupal\Core\Access\AccessResult::allowed()
+    : \Drupal\Core\Access\AccessResult::forbidden())->cachePerPermissions();
+}
+
+/**
+ * Implements hook_node_access_records().
+ */
+function villa_promenade_contact_node_access_records(\Drupal\node\NodeInterface $node): array {
+  if ($node->bundle() !== 'customer_request') {
+    return [];
+  }
+  return [[
+    'realm' => 'villa_customer_requests', 'gid' => 1, 'priority' => 1,
+    'grant_view' => 1, 'grant_update' => 1, 'grant_delete' => 1,
+  ]];
+}
+
+/**
+ * Implements hook_node_grants().
+ */
+function villa_promenade_contact_node_grants(\Drupal\Core\Session\AccountInterface $account, $operation): array {
+  return $account->hasPermission('manage villa customer requests') ? ['villa_customer_requests' => [1]] : [];
+}
+
+/**
+ * Implements hook_entity_field_access().
+ */
+function villa_promenade_contact_entity_field_access($operation, \Drupal\Core\Field\FieldDefinitionInterface $definition, \Drupal\Core\Session\AccountInterface $account, ?\Drupal\Core\Field\FieldItemListInterface $items = NULL) {
+  $entity = $items ? $items->getEntity() : NULL;
+  if (!$entity || $entity->getEntityTypeId() !== 'node' || $entity->bundle() !== 'customer_request') {
+    return \Drupal\Core\Access\AccessResult::neutral();
+  }
+  if (!$account->hasPermission('manage villa customer requests')) {
+    return \Drupal\Core\Access\AccessResult::forbidden()->cachePerPermissions();
+  }
+  if ($operation === 'edit' && in_array($definition->getName(), ['planned_date_sort', 'status', 'details'], TRUE)) {
+    return \Drupal\Core\Access\AccessResult::forbidden();
+  }
+  return \Drupal\Core\Access\AccessResult::neutral()->cachePerPermissions();
 }

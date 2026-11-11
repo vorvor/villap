@@ -1,0 +1,200 @@
+{
+  "width": 1440,
+  "height": 17801,
+  "blocks": [
+    {
+      "label": "Hero / navigation",
+      "y": 0,
+      "end": 814
+    },
+    {
+      "label": "Egy régi ház új történetei.",
+      "y": 814,
+      "end": 1354
+    },
+    {
+      "label": "Admin status message",
+      "y": 1354,
+      "end": 1405
+    },
+    {
+      "label": "A múlt",
+      "y": 1405,
+      "end": 2487
+    },
+    {
+      "label": "A ház",
+      "y": 2487,
+      "end": 3569
+    },
+    {
+      "label": "Kert",
+      "y": 3569,
+      "end": 4441
+    },
+    {
+      "label": "Pince",
+      "y": 4441,
+      "end": 5313
+    },
+    {
+      "label": "Szoba",
+      "y": 5313,
+      "end": 6248
+    },
+    {
+      "label": "Gasztronómia",
+      "y": 6248,
+      "end": 6719
+    },
+    {
+      "label": "Catering",
+      "y": 6719,
+      "end": 7123
+    },
+    {
+      "label": "Sommelier",
+      "y": 7123,
+      "end": 7521
+    },
+    {
+      "label": "Zene",
+      "y": 7521,
+      "end": 7911
+    },
+    {
+      "label": "Szolgáltatásaink",
+      "y": 7911,
+      "end": 8993
+    },
+    {
+      "label": "Galéria",
+      "y": 8993,
+      "end": 9550
+    },
+    {
+      "label": "Photo gallery",
+      "y": 9550,
+      "end": 11512
+    },
+    {
+      "label": "Ismerj meg minket",
+      "y": 11512,
+      "end": 12181
+    },
+    {
+      "label": "Doro",
+      "y": 12181,
+      "end": 12958
+    },
+    {
+      "label": "Simon",
+      "y": 12958,
+      "end": 13734
+    },
+    {
+      "label": "Robi",
+      "y": 13734,
+      "end": 14511
+    },
+    {
+      "label": "Máté",
+      "y": 14511,
+      "end": 15288
+    },
+    {
+      "label": "Klaudia",
+      "y": 15288,
+      "end": 16056
+    },
+    {
+      "label": "Tervezzünk együtt",
+      "y": 16056,
+      "end": 16613
+    },
+    {
+      "label": "Minden esemény más. Kezdjük az alapoknál.",
+      "y": 16613,
+      "end": 17194
+    },
+    {
+      "label": "Footer",
+      "y": 17194,
+      "end": 17801
+    }
+  ],
+  "tiles": [
+    {
+      "file": "desktop-00.png",
+      "y": 0
+    },
+    {
+      "file": "desktop-01.png",
+      "y": 1000
+    },
+    {
+      "file": "desktop-02.png",
+      "y": 2000
+    },
+    {
+      "file": "desktop-03.png",
+      "y": 3000
+    },
+    {
+      "file": "desktop-04.png",
+      "y": 4000
+    },
+    {
+      "file": "desktop-05.png",
+      "y": 5000
+    },
+    {
+      "file": "desktop-06.png",
+      "y": 6000
+    },
+    {
+      "file": "desktop-07.png",
+      "y": 7000
+    },
+    {
+      "file": "desktop-08.png",
+      "y": 8000
+    },
+    {
+      "file": "desktop-09.png",
+      "y": 9000
+    },
+    {
+      "file": "desktop-10.png",
+      "y": 10000
+    },
+    {
+      "file": "desktop-11.png",
+      "y": 11000
+    },
+    {
+      "file": "desktop-12.png",
+      "y": 12000
+    },
+    {
+      "file": "desktop-13.png",
+      "y": 13000
+    },
+    {
+      "file": "desktop-14.png",
+      "y": 14000
+    },
+    {
+      "file": "desktop-15.png",
+      "y": 15000
+    },
+    {
+      "file": "desktop-16.png",
+      "y": 16000
+    },
+    {
+      "file": "desktop-17.png",
+      "y": 16801
+    }
+  ]
+}

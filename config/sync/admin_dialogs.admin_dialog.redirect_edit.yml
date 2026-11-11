@@ -1,0 +1,17 @@
+uuid: c9f26e04-7563-4dcf-86a7-be2e200b424d
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: kQw9wDI65dfEXKo20xAClNvy0hmhyNOuoWtqq-NqLV4
+id: redirect_edit
+label: 'Redirect Edit'
+type: ops
+dialog_group: contrib_modules
+dialog_type: modal
+dialog_width: '550'
+dialog_title_override: ''
+selection_criteria:
+  entity_type: redirect
+  key: edit
+  bundles: {  }

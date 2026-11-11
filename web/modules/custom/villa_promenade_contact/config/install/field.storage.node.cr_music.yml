@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_music
+field_name: cr_music
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_c0f977a78988bccea1aa
+      label: Élőzene
+    -
+      value: choice_6792a7378ad3efaa577a
+      label: DJ
+    -
+      value: choice_d32ed64ee316d3d25704
+      label: 'Csak hangfal bekészítése'
+    -
+      value: choice_f20ee40e3e46f96f48e8
+      label: 'Háttérzene hangfalról és a zenét ránk bízzátok'
+    -
+      value: choice_fc140a2738f75946eb33
+      label: 'Nem szeretnénk zenét'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

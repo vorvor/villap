@@ -1,0 +1,11 @@
+name: Villa Promenade Dashboard
+type: module
+description: 'A central administration dashboard for backend pages and reports.'
+package: Villa Promenade
+core_version_requirement: ^11
+dependencies:
+  - drupal:system
+  - drupal:views
+  - admin_dialogs:admin_dialogs
+  - quicktabs:quicktabs
+  - villa_promenade_contact:villa_promenade_contact

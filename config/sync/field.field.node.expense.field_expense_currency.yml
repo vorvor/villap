@@ -1,0 +1,23 @@
+uuid: dc70fbc5-4221-419e-ad48-00709d6043fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_expense_currency
+    - node.type.expense
+  module:
+    - options
+id: node.expense.field_expense_currency
+field_name: field_expense_currency
+entity_type: node
+bundle: expense
+label: Currency
+description: 'Select the currency of the amount.'
+required: true
+translatable: true
+default_value:
+  -
+    value: HUF
+default_value_callback: ''
+settings: {  }
+field_type: list_string

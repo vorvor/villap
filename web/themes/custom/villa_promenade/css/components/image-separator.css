@@ -29,11 +29,10 @@
 .front-intro__title {
   max-width: 60rem;
   margin: 0 auto 1.5rem;
-  font-family: var(--villa-font-h2);
+  font-family: var(--villa-font-handwritten);
   font-size: clamp(2rem, 3.45vw, 3.25rem);
   font-weight: 700;
   line-height: 1.15;
-  text-align: left;
   text-transform: none;
 }
 
@@ -97,5 +96,21 @@
 }
 
 .image-separator__description {
-  text-align: left;
+  text-align: center;
+}
+
+#tervezzunk {
+  background: #f6f6ef url(../../images/paper-texture.png) repeat;
+
+  .image-separator__title {
+    font-family: var(--villa-font-handwritten);
+    text-transform: none;
+    color: #111111;
+    font-weight: 100;
+    text-shadow: none;
+  }
+
+  .image-separator__image::after {
+    display: none;
+  }
 }

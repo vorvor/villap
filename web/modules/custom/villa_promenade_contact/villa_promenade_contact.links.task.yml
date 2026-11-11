@@ -1,15 +1,32 @@
+villa_promenade_contact.requests_all:
+  title: All
+  route_name: view.villa_customer_requests.page_all
+  base_route: view.villa_customer_requests.page_all
+  weight: -1
 villa_promenade_contact.requests_new:
   title: New
   route_name: view.villa_customer_requests.page_1
-  base_route: view.villa_customer_requests.page_1
+  base_route: view.villa_customer_requests.page_all
   weight: 0
 villa_promenade_contact.requests_cancelled:
   title: Cancelled
   route_name: view.villa_customer_requests.page_cancelled
-  base_route: view.villa_customer_requests.page_1
+  base_route: view.villa_customer_requests.page_all
   weight: 1
 villa_promenade_contact.requests_archive:
   title: Archive
   route_name: view.villa_customer_requests.page_archive
-  base_route: view.villa_customer_requests.page_1
+  base_route: view.villa_customer_requests.page_all
   weight: 2
+
+villa_promenade_contact.requests_approved:
+  title: Approved
+  route_name: view.villa_customer_requests.page_approved
+  base_route: view.villa_customer_requests.page_all
+  weight: 3
+
+villa_promenade_contact.requests_calendar:
+  title: Calendar
+  route_name: view.villa_customer_requests_calendar.page_calendar
+  base_route: view.villa_customer_requests.page_all
+  weight: 100

@@ -1,0 +1,88 @@
+/* Button-style navigation scoped to the dashboard's customer-request tabs. */
+#quicktabs-dashboard_customer_requests .quicktabs-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  list-style: none;
+}
+
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li {
+  --request-tab-background: #edf0f3;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li.new {
+  --request-tab-background: var(--villa-request-new);
+}
+
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li.approved {
+  --request-tab-background: var(--villa-request-approved);
+}
+
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li.cancelled {
+  --request-tab-background: var(--villa-request-cancelled);
+}
+
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li.archive {
+  --request-tab-background: var(--villa-request-archive);
+}
+
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 2.75rem;
+  padding: 0.625rem 1.125rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--villa-request-status-text);
+  background: var(--request-tab-background);
+  box-shadow: 0 1px 3px rgb(20 30 45 / 8%);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li[aria-selected="true"] > a,
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li.active > a {
+  border-color: var(--villa-request-status-text);
+  box-shadow: inset 0 0 0 1px var(--villa-request-status-text), 0 2px 5px rgb(20 30 45 / 10%);
+  font-weight: 700;
+}
+
+#quicktabs-dashboard_customer_requests .quicktabs-tabs > li > a:focus-visible {
+  outline: 2px solid var(--villa-request-status-text);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #quicktabs-dashboard_customer_requests .quicktabs-tabs > li > a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgb(20 30 45 / 15%);
+  }
+
+  #quicktabs-dashboard_customer_requests .quicktabs-tabs > li.active > a:hover {
+    box-shadow: inset 0 0 0 1px var(--villa-request-status-text), 0 4px 8px rgb(20 30 45 / 15%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #quicktabs-dashboard_customer_requests .quicktabs-tabs > li > a {
+    transition: none;
+  }
+
+  #quicktabs-dashboard_customer_requests .quicktabs-tabs > li > a:hover {
+    transform: none;
+  }
+}

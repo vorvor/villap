@@ -114,6 +114,12 @@ image-text-block:
   css:
     component:
       css/components/image-text-block.css: {}
+  js:
+    js/image-text-block.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - villa_promenade/leaf-parallax
 four-block-layout:
   css:
     component:
@@ -124,6 +130,17 @@ team-members:
   css:
     component:
       css/components/team-members.css: {}
+  dependencies:
+    - villa_promenade/leaf-parallax
+leaf-parallax:
+  css:
+    component:
+      css/components/leaf-parallax.css: {}
+  js:
+    js/leaf-parallax.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
 photo-gallery:
   css:
     component:

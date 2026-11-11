@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.cr_duration
+field_name: cr_duration
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: choice_ba048f454df8f0b7e04b
+      label: 'Fél napos esemény'
+    -
+      value: choice_57b934a38c53c35f2220
+      label: 'Egész napos esemény'
+    -
+      value: choice_2ea001a211cad0677242
+      label: 'Esti esemény'
+    -
+      value: choice_ea88bb44ecc14f2ce2fd
+      label: 'Többnapos / egyedi program'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

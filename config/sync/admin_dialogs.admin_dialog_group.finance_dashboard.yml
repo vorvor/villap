@@ -1,0 +1,9 @@
+uuid: a2f596ad-4758-4aec-b705-599adde0e134
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: qG5BAijJjhqox4bc6kXP5AM64p6WNDRC5Rimy556MnY
+id: finance_dashboard
+label: 'Finance dashboard'
+description: 'Dialog settings for adding income and expenses from the dashboard.'

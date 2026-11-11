@@ -1,0 +1,9 @@
+uuid: 12442b96-f11f-4654-8c6f-ed84f6dc76dc
+langcode: en
+status: true
+dependencies: {  }
+name: 'Income category'
+vid: income_category
+description: 'Categories for business income.'
+weight: 0
+new_revision: false

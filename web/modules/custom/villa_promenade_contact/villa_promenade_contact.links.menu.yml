@@ -1,8 +1,8 @@
 villa_promenade_contact.requests:
   title: 'Customer requests'
   description: 'List, filter and manage Villa Promenade event enquiries.'
-  route_name: view.villa_customer_requests.page_1
-  parent: system.admin_content
+  route_name: view.villa_customer_requests.page_all
+  parent: villa_promenade_dashboard.page
   weight: 15
 
 villa_promenade_contact.settings:

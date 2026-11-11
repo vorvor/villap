@@ -1,0 +1,22 @@
+uuid: 34307ed3-349b-4774-8a0e-05120a2d170a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.income
+id: node.income.promote
+field_name: promote
+entity_type: node
+bundle: income
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

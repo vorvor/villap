@@ -1,0 +1,17 @@
+uuid: 7820e395-27ae-4890-8838-f6507e257a98
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: nqfmORIm8e7N_ZYvjQRzJgWA1mFKhY0tUp_J3higGh4
+id: node_revisions
+label: 'Node Revisions'
+type: selectors
+dialog_group: administrative
+dialog_type: modal
+dialog_width: '550'
+dialog_title_override: ''
+selection_criteria:
+  selectors:
+    - '.node-revision-table .revert a'
+    - '.node-revision-table .delete a'

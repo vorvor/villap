@@ -1,0 +1,195 @@
+<?php
+
+/**
+ * @file
+ * Views integration for the Villa Promenade dashboard.
+ */
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function villa_promenade_dashboard_views_data_alter(array &$data): void {
+  foreach (['expense', 'income'] as $type) {
+    if (isset($data['node__field_' . $type . '_date']['field_' . $type . '_date_value']['filter'])) {
+      $data['node__field_' . $type . '_date']['field_' . $type . '_date_value']['filter']['id'] = 'villa_expense_date';
+    }
+  }
+  $data['views']['villa_balance'] = [
+    'title' => t('Financial balance'),
+    'help' => t('Income, expense and net totals for the current ledger filters, grouped by currency.'),
+    'area' => ['id' => 'villa_balance'],
+  ];
+  foreach (['date', 'amount', 'currency', 'description', 'notes', 'category', 'user'] as $suffix) {
+    $data['node_field_data']['financial_' . $suffix] = [
+      'title' => t('Financial @field', ['@field' => $suffix]),
+      'help' => t('The matching value from an income or expense record.'),
+      'field' => ['id' => 'villa_financial_field', 'financial_field' => $suffix],
+    ];
+  }
+  $data['node_field_data']['financial_date']['filter'] = ['id' => 'villa_balance_date'];
+  $data['node_field_data']['financial_date']['sort'] = ['id' => 'villa_financial_date'];
+  $data['node_field_data']['financial_month'] = [
+    'title' => t('Financial month'),
+    'help' => t('The income or expense month and year, for grouping ledger rows.'),
+    'field' => [
+      'id' => 'villa_financial_field',
+      'financial_field' => 'date',
+      'date_format' => 'F Y',
+    ],
+  ];
+  $data['node_field_data']['financial_user']['filter'] = [
+    'id' => 'villa_balance_user',
+    'entity_type' => 'node',
+    'field_name' => 'field_expense_user',
+  ];
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function villa_promenade_dashboard_views_pre_view(\Drupal\views\ViewExecutable $view, $display_id, array &$args): void {
+  if ($view->id() === 'villa_customer_requests_calendar' && \Drupal::routeMatch()->getRouteName() === 'villa_promenade_dashboard.page') {
+    // Keep month navigation on the dashboard, with Calendar selected on return.
+    $view->override_url = \Drupal\Core\Url::fromRoute('villa_promenade_dashboard.page', [], ['fragment' => 'calendar']);
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for node_form.
+ */
+function villa_promenade_dashboard_form_node_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, string $form_id): void {
+  $node = $form_state->getFormObject()->getEntity();
+  $type = $node->bundle();
+  if (!in_array($type, ['expense', 'income'], TRUE)) {
+    return;
+  }
+  $amount = 'field_' . $type . '_amount';
+  $currency = 'field_' . $type . '_currency';
+  if (!isset($form[$amount], $form[$currency])) {
+    return;
+  }
+
+  // Group the native widgets visually without changing submitted field values.
+  $form['expense_money'] = [
+    '#type' => 'container',
+    '#weight' => $form[$amount]['#weight'] ?? 2,
+    '#attributes' => [
+      'class' => ['expense-money'],
+      'role' => 'group',
+      'aria-label' => t('Amount and currency'),
+    ],
+  ];
+  $form[$amount]['#group'] = 'expense_money';
+  $form[$currency]['#group'] = 'expense_money';
+  $form[$amount]['#attributes']['class'][] = 'expense-money__amount';
+  $form[$currency]['#attributes']['class'][] = 'expense-money__currency';
+  $form['#attached']['library'][] = 'villa_promenade_dashboard/expense-form';
+
+  // Admin Dialogs opens the native node form; retain its validation and save.
+  $request = \Drupal::request();
+  if ($request->query->get('villa_dashboard_dialog') === '1' || (!$node->isNew() && $request->query->get('_wrapper_format') === 'drupal_modal')) {
+    $destination = (string) \Drupal::request()->query->get('destination', '');
+    $query = [];
+    parse_str(parse_url($destination, PHP_URL_QUERY) ?: '', $query);
+    $query = array_diff_key($query, array_flip(\Drupal\views\Controller\ViewAjaxController::FILTERED_QUERY_PARAMETERS));
+    $form_state->set('villa_dashboard_query', $query);
+    $routes = [
+      '/admin/dashboard' => 'villa_promenade_dashboard.page',
+      '/admin/content/balance' => 'view.balance.page_1',
+      '/admin/content/expenses' => 'view.expenses.page_1',
+      '/admin/content/income' => 'view.income.page_1',
+    ];
+    $form_state->set('villa_dashboard_return_route', $routes[parse_url($destination, PHP_URL_PATH) ?: ''] ?? 'villa_promenade_dashboard.page');
+    $form_state->set('villa_dashboard_dialog_title', $node->isNew()
+      ? ($type === 'income' ? t('Add income') : t('Add expense'))
+      : ($type === 'income' ? t('Edit income') : t('Edit expense')));
+    $submit_url = $node->isNew()
+      ? \Drupal\Core\Url::fromRoute('node.add', ['node_type' => $type])
+      : $node->toUrl('edit-form');
+    $submit_url->setOption('query', ['villa_dashboard_dialog' => 1, 'destination' => $destination]);
+    $form['actions']['submit']['#ajax'] = [
+      'callback' => 'villa_promenade_dashboard_dialog_saved',
+      'url' => $submit_url,
+    ];
+    $form['actions']['preview']['#access'] = FALSE;
+    $form['#attached']['library'][] = 'villa_promenade_dashboard/dashboard';
+  }
+}
+
+/**
+ * Keeps validation in the dialog and returns to the refreshed ledger on save.
+ */
+function villa_promenade_dashboard_dialog_saved(array &$form, \Drupal\Core\Form\FormStateInterface $form_state): \Drupal\Core\Ajax\AjaxResponse {
+  $response = new \Drupal\Core\Ajax\AjaxResponse();
+  $node = $form_state->getFormObject()->getEntity();
+  if ($form_state->hasAnyErrors() || $node->isNew() || $form_state->isRebuilding()) {
+    $content['messages'] = ['#type' => 'status_messages'];
+    $content['form'] = $form;
+    $response->addCommand(new \Drupal\Core\Ajax\OpenModalDialogCommand(
+      $form_state->get('villa_dashboard_dialog_title'),
+      $content,
+      ['width' => 'min(760px, 94vw)'],
+    ));
+  }
+  else {
+    // A normal page refresh also updates charts, totals and status messages.
+    $response->addCommand(new \Drupal\Core\Ajax\CloseModalDialogCommand());
+    $response->addCommand(new \Drupal\Core\Ajax\RedirectCommand(
+      \Drupal\Core\Url::fromRoute($form_state->get('villa_dashboard_return_route') ?? 'villa_promenade_dashboard.page', [], [
+        'query' => $form_state->get('villa_dashboard_query') ?? [],
+      ])->toString(),
+    ));
+  }
+  return $response;
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function villa_promenade_dashboard_views_pre_render(\Drupal\views\ViewExecutable $view): void {
+  if (in_array($view->id(), ['balance', 'expenses', 'income'], TRUE) && $view->current_display === 'page_1') {
+    $view->element['#attached']['library'][] = 'villa_promenade_dashboard/balance';
+  }
+  if (in_array($view->id(), ['expenses', 'income'], TRUE) && $view->current_display === 'page_1') {
+    // The scoped Views preprocess places charts above the exposed filters.
+    $view->attachment_before['expense_chart'] = (new \Drupal\villa_promenade_dashboard\ExpenseChart())->build($view);
+  }
+  if ($view->id() === 'balance' && $view->current_display === 'page_1') {
+    $view->attachment_before['balance_charts'] = (new \Drupal\villa_promenade_dashboard\BalanceCharts())->build($view);
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function villa_promenade_dashboard_preprocess_views_view(array &$variables): void {
+  $view = $variables['view'];
+  $charts = ['balance' => 'balance_charts', 'expenses' => 'expense_chart', 'income' => 'expense_chart'];
+  $key = $charts[$view->id()] ?? NULL;
+  if ($view->current_display !== 'page_1' || !$key || !isset($variables['attachment_before'][$key])) {
+    return;
+  }
+
+  // Core renders the header before exposed filters, then the list below them.
+  $variables['header'] = [
+    'financial_charts' => $variables['attachment_before'][$key],
+    'existing_header' => $variables['header'],
+  ];
+  unset($variables['attachment_before'][$key]);
+}
+
+/**
+ * Implements hook_preprocess_views_view_table().
+ */
+function villa_promenade_dashboard_preprocess_views_view_table(array &$variables): void {
+  $view = $variables['view'];
+  if (!in_array($view->id(), ['balance', 'expenses', 'income'], TRUE) || $view->current_display !== 'page_1') {
+    return;
+  }
+  foreach ($variables['rows'] as $index => &$row) {
+    $node = $variables['result'][$index]->_entity ?? NULL;
+    if ($node && in_array($node->bundle(), ['income', 'expense'], TRUE)) {
+      $row['attributes']->addClass('financial-row--' . $node->bundle());
+    }
+  }
+}

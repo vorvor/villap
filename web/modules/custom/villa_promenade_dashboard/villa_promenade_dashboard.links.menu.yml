@@ -1,0 +1,27 @@
+villa_promenade_dashboard.page:
+  title: 'Dashboard'
+  description: 'Backend pages and reports.'
+  route_name: villa_promenade_dashboard.page
+  parent: system.admin
+  weight: -20
+
+villa_promenade_dashboard.expenses:
+  title: 'Expenses'
+  description: 'List all expenses and see the total amount.'
+  route_name: view.expenses.page_1
+  parent: villa_promenade_dashboard.page
+  weight: -10
+
+villa_promenade_dashboard.income:
+  title: 'Income'
+  description: 'List all income and see totals by currency.'
+  route_name: view.income.page_1
+  parent: villa_promenade_dashboard.page
+  weight: -9
+
+villa_promenade_dashboard.balance:
+  title: 'Balance'
+  description: 'Summarize income, expenses and net balance by currency.'
+  route_name: view.balance.page_1
+  parent: villa_promenade_dashboard.page
+  weight: -8

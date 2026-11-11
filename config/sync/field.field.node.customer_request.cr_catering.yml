@@ -1,0 +1,21 @@
+uuid: 2039ded7-b906-4a4e-8b20-12596d43f067
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.cr_catering
+    - node.type.customer_request
+  module:
+    - options
+id: node.customer_request.cr_catering
+field_name: cr_catering
+entity_type: node
+bundle: customer_request
+label: 'Milyen vendéglátást képzeltetek el?'
+description: 'Privát események, Céges események'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

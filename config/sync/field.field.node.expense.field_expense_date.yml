@@ -1,0 +1,21 @@
+uuid: 10ce49f7-702c-4f4e-96ac-804af939d172
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_expense_date
+    - node.type.expense
+  module:
+    - datetime
+id: node.expense.field_expense_date
+field_name: field_expense_date
+entity_type: node
+bundle: expense
+label: 'Expense date'
+description: 'The date the expense occurred, independently of when this record was created.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

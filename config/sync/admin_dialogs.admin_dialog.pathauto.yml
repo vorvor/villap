@@ -1,0 +1,17 @@
+uuid: 9e72e424-bfc0-4e46-aaf3-0c924828ead3
+langcode: en
+status: false
+dependencies: {  }
+_core:
+  default_config_hash: KKgK6eCfZyTT_s9anUBYfhSrMVSAKS-4uj9Hf-ns-AQ
+id: pathauto
+label: Pathauto
+type: ops
+dialog_group: contrib_modules
+dialog_type: modal
+dialog_width: '550'
+dialog_title_override: ''
+selection_criteria:
+  entity_type: pathauto_pattern
+  key: duplicate
+  bundles: {  }
