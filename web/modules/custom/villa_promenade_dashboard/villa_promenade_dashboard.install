@@ -517,3 +517,18 @@ function villa_promenade_dashboard_update_11010(): void {
     $role->grantPermission('manage villa customer requests')->save();
   }
 }
+
+/**
+ * Allows managers to create and edit financial records and customer requests.
+ */
+function villa_promenade_dashboard_update_11011(): void {
+  $role = \Drupal\user\Entity\Role::load('manager');
+  if (!$role) {
+    return;
+  }
+  foreach (['income', 'expense', 'customer_request'] as $bundle) {
+    $role->grantPermission('create ' . $bundle . ' content');
+    $role->grantPermission('edit any ' . $bundle . ' content');
+  }
+  $role->grantPermission('manage villa customer requests')->save();
+}

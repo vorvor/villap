@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.customer_request
     - node.type.expense
     - node.type.income
   module:
@@ -18,8 +19,12 @@ permissions:
   - 'access administration pages'
   - 'access navigation'
   - 'access villa dashboard'
+  - 'create customer_request content'
   - 'create expense content'
   - 'create income content'
+  - 'edit any customer_request content'
+  - 'edit any expense content'
+  - 'edit any income content'
   - 'manage villa customer requests'
   - 'view the administration theme'
   - 'view villa financial reports'
