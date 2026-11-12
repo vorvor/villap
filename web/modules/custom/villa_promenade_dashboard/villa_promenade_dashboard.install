@@ -532,3 +532,26 @@ function villa_promenade_dashboard_update_11011(): void {
   }
   $role->grantPermission('manage villa customer requests')->save();
 }
+
+/**
+ * Allows managers to change financial publication status using native widgets.
+ */
+function villa_promenade_dashboard_update_11012(): void {
+  $role = \Drupal\user\Entity\Role::load('manager');
+  if ($role) {
+    $role->grantPermission('administer node published status')->save();
+  }
+  $storage = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+  foreach (['income', 'expense'] as $bundle) {
+    $display = $storage->load('node.' . $bundle . '.default');
+    if ($display && !$display->getComponent('status')) {
+      $display->setComponent('status', [
+        'type' => 'boolean_checkbox',
+        'weight' => 9,
+        'region' => 'content',
+        'settings' => ['display_label' => TRUE],
+      ])->save();
+    }
+  }
+  // Customer requests remain forcibly unpublished by their privacy hook.
+}

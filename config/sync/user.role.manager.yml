@@ -20,6 +20,7 @@ permissions:
   - 'access administration pages'
   - 'access navigation'
   - 'access villa dashboard'
+  - 'administer node published status'
   - 'create customer_request content'
   - 'create expense content'
   - 'create income content'
