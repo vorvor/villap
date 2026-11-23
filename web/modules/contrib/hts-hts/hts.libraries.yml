@@ -1,0 +1,7 @@
+cascade:
+  js:
+    js/hts-cascade.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once

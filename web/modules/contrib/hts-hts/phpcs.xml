@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="HTS">
+  <description>Drupal coding standards for Hierarchical Term Selector.</description>
+  <file>src</file>
+  <file>tests</file>
+  <file>hts.module</file>
+  <arg name="extensions" value="php,module,yml"/>
+  <config name="drupal_core_version" value="11"/>
+  <rule ref="Drupal"/>
+  <rule ref="DrupalPractice"/>
+</ruleset>

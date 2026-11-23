@@ -1,0 +1,13 @@
+name: 'HTS Facets'
+type: module
+description: 'Adds the HTS hierarchical facet widget for Facets.'
+package: 'User interface'
+core_version_requirement: ^10.3 || ^11 || ^12
+dependencies:
+  - hts:hts
+  - facets:facets
+
+# Information added by Drupal.org packaging script on 2026-07-20
+version: '2.0.0-beta1'
+project: 'hts'
+datestamp: 1784569771

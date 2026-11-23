@@ -1,0 +1,6 @@
+# Config schema for the HTS hierarchical Facets widget. Extends the Facets
+# default widget config, which already provides the "show_numbers" toggle used
+# by this widget.
+facet.widget.config.hts_hierarchical:
+  type: facet.widget.default_config
+  label: 'HTS hierarchical widget configuration'

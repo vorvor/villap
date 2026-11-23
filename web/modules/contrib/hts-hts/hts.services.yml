@@ -1,0 +1,56 @@
+services:
+  hts.term_tree_helper:
+    class: Drupal\hts\Service\TermTreeHelper
+    arguments:
+      - '@entity_type.manager'
+  hts.term_path_resolver:
+    class: Drupal\hts\Service\HtsTermPathResolver
+    arguments:
+      - '@plugin.manager.entity_reference_selection'
+      - '@entity_type.manager'
+      - '@entity.repository'
+      - '@string_translation'
+  hts.options_builder:
+    class: Drupal\hts\Service\HtsOptionsBuilder
+    arguments:
+      - '@hts.term_tree_helper'
+  hts.settings_form_builder:
+    class: Drupal\hts\Service\HtsSettingsFormBuilder
+    arguments:
+      - '@module_handler'
+  hts.select_options:
+    class: Drupal\hts\Service\HtsSelectOptions
+    arguments:
+      - '@hts.options_builder'
+      - '@hts.term_path_resolver'
+  hts.ajax_callbacks:
+    class: Drupal\hts\Service\HtsAjaxCallbacks
+    arguments:
+      - '@hts.select_options'
+      - '@module_handler'
+  hts.cascade_map_builder:
+    class: Drupal\hts\Service\HtsCascadeMapBuilder
+    arguments:
+      - '@hts.options_builder'
+      - '@hts.term_tree_helper'
+      - '@hts.term_path_resolver'
+  hts.element_builder:
+    class: Drupal\hts\Service\HtsElementBuilder
+    arguments:
+      - '@hts.options_builder'
+      - '@hts.term_tree_helper'
+      - '@hts.term_path_resolver'
+      - '@module_handler'
+      - '@hts.cascade_map_builder'
+  hts.bef_shared:
+    class: Drupal\hts\Service\HtsBefShared
+  logger.channel.hts:
+    parent: logger.channel_base
+    arguments:
+      - 'hts'
+  hts.formatter_support:
+    class: Drupal\hts\Service\HtsFormatterSupport
+    arguments:
+      - '@hts.term_path_resolver'
+      - '@entity.repository'
+      - '@logger.channel.hts'

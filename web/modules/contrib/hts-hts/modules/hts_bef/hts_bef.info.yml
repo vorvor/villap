@@ -1,0 +1,13 @@
+name: 'HTS Better Exposed Filters'
+type: module
+description: 'Adds the HTS cascading exposed filter wrapper for Better Exposed Filters.'
+package: 'User interface'
+core_version_requirement: ^10.3 || ^11 || ^12
+dependencies:
+  - hts:hts
+  - better_exposed_filters:better_exposed_filters
+
+# Information added by Drupal.org packaging script on 2026-07-20
+version: '2.0.0-beta1'
+project: 'hts'
+datestamp: 1784569771

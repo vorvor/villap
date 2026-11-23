@@ -1,0 +1,14 @@
+{% macro tree(items) %}
+  {% if items %}
+    <ul class="hts-hierarchical-list">
+      {% for item in items %}
+        <li>
+          {{ item.link }}
+          {{ _self.tree(item.children) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{{ _self.tree(items) }}

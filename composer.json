@@ -22,8 +22,10 @@
         "drupal/core-project-message": "^11.4",
         "drupal/core-recipe-unpack": "^11.4",
         "drupal/core-recommended": "^11.4",
+        "drupal/hts-hts": "^2.0@beta",
         "drupal/masquerade": "^2.2",
         "drupal/quicktabs": "^4.3",
+        "drupal/taxonomy_manager": "^2.0",
         "drupal/views_bulk_operations": "^4.4",
         "drush/drush": "^13.8"
     },

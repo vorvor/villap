@@ -1,0 +1,55 @@
+# Schema for the Views plugins of the HTS module.
+
+# Reusable definition of the extra config HTS stores on a taxonomy filter.
+# Referenced by both the core taxonomy_index_tid class override and the HTS
+# taxonomy_index_tid filter so the mapping is declared once.
+hts.filter.hierarchical_term_selector:
+  type: mapping
+  label: 'Hierarchical term selector settings'
+  mapping:
+    hierarchy_depth:
+      type: integer
+      label: 'Hierarchy depth'
+    label_level:
+      type: text
+      label: 'Label per level'
+    description_level:
+      type: text
+      label: 'Description per level'
+    none_label:
+      type: text
+      label: 'The "no selection" label'
+    widget_type:
+      type: string
+      label: 'Widget type'
+      constraints:
+        Choice:
+          choices:
+            - select
+            - select2
+    label_hide:
+      type: boolean
+      label: 'Hide field label'
+    multiple_parent_policy:
+      type: string
+      label: 'Multiple-parent policy'
+      constraints:
+        Choice:
+          choices:
+            - first
+            - all
+
+views.filter.hts_taxonomy_index_tid:
+  type: views.filter.taxonomy_index_tid
+  label: 'HTS Taxonomy term ID'
+  mapping:
+    hierarchical_term_selector:
+      type: hts.filter.hierarchical_term_selector
+
+views.field.hts_term_hierarchy:
+  type: views_field
+  label: 'HTS term hierarchy field'
+  mapping:
+    delimiter:
+      type: string
+      label: 'Delimiter'

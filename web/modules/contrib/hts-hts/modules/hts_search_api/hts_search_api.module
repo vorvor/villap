@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for the HTS Search API integration.
+ */
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Search API registers its own search_api_term filter through
+ * hook_views_plugins_filter_alter(). Module hooks run in module-weight then
+ * alphabetical order, so "hts_search_api" runs before "search_api" and Search
+ * API would overwrite the HTS class override. Move this module's implementation
+ * to the end so the override always wins.
+ */
+function hts_search_api_module_implements_alter(array &$implementations, $hook) {
+  if ($hook === 'views_plugins_filter_alter' && isset($implementations['hts_search_api'])) {
+    $group = $implementations['hts_search_api'];
+    unset($implementations['hts_search_api']);
+    $implementations['hts_search_api'] = $group;
+  }
+}
+
+/**
+ * Implements hook_views_plugins_filter_alter().
+ *
+ * Registers the HTS Search API term filter and overrides Search API's core
+ * term filter with it, mirroring how HTS overrides core's taxonomy_index_tid.
+ *
+ * The plugin id is defined dynamically (by string) the same way Search API
+ * registers its own SearchApiTerm filter in
+ * search_api_views_plugins_filter_alter(), so nothing tries to autoload the
+ * class on sites without Search API.
+ *
+ * Views resolves a filter handler's class from the "id" in views data, not from
+ * the plugin_id stored in a display, so simply registering hts_search_api_term
+ * would never be selected for a Search API index field (views data always maps
+ * those to search_api_term). Overriding search_api_term's class is therefore
+ * required for the HTS filter to take effect, and it is safe: every
+ * HTS-specific behavior in the shared trait is gated behind the "type" option
+ * being set to "hts", so a normal search_api_term filter keeps its core
+ * behavior.
+ */
+function hts_search_api_views_plugins_filter_alter(array &$plugins) {
+  $plugins['hts_search_api_term'] = [
+    'plugin_type' => 'filter',
+    'id' => 'hts_search_api_term',
+    'class' => 'Drupal\\hts_search_api\\Plugin\\views\\filter\\HtsSearchApiTerm',
+    'provider' => 'hts_search_api',
+  ];
+
+  if (isset($plugins['search_api_term'])) {
+    $plugins['search_api_term']['class'] = $plugins['hts_search_api_term']['class'];
+  }
+}

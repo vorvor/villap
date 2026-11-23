@@ -1,0 +1,91 @@
+field.widget.settings.hierarchical_term_selector:
+  type: mapping
+  label: 'Hierarchical Term Selector Settings'
+  mapping:
+    match_operator:
+      type: string
+      label: 'Autocomplete matching operator'
+    match_limit:
+      type: integer
+      label: 'Autocomplete match limit'
+    size:
+      type: integer
+      label: 'Autocomplete size'
+    placeholder:
+      type: label
+      label: 'Autocomplete placeholder'
+    hierarchical_term_selector:
+      type: mapping
+      label: 'Hierarchical term selector settings'
+      mapping:
+        hierarchy_depth:
+          type: integer
+          label: 'Hierarchy depth'
+        label_level:
+          type: text
+          label: 'Label per level'
+        description_level:
+          type: text
+          label: 'Description per level'
+        none_label:
+          type: text
+          label: 'The "no selection" label'
+        widget_type:
+          type: string
+          label: 'Widget type'
+          constraints:
+            Choice:
+              choices:
+                - select
+                - select2
+        label_hide:
+          type: boolean
+          label: 'Hide field label'
+        multiple_parent_policy:
+          type: string
+          label: 'Multiple-parent policy'
+          constraints:
+            Choice:
+              choices:
+                - first
+                - all
+
+field.formatter.settings.hts_breadcrumb_path:
+  type: mapping
+  label: 'HTS breadcrumb path formatter settings'
+  mapping:
+    delimiter:
+      type: string
+      label: 'Delimiter'
+    multiple_parent_policy:
+      type: string
+      label: 'Multiple-parent policy'
+      constraints:
+        Choice:
+          choices:
+            - first
+
+field.formatter.settings.hts_hierarchical_list:
+  type: mapping
+  label: 'HTS hierarchical list formatter settings'
+  mapping:
+    multiple_parent_policy:
+      type: string
+      label: 'Multiple-parent policy'
+      constraints:
+        Choice:
+          choices:
+            - first
+            - all
+
+field.formatter.settings.hts_leaf_only:
+  type: mapping
+  label: 'HTS leaf-only formatter settings'
+  mapping:
+    multiple_parent_policy:
+      type: string
+      label: 'Multiple-parent policy'
+      constraints:
+        Choice:
+          choices:
+            - first

@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for the Hierarchical Term Selector module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function hts_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name !== 'help.page.hts') {
+    return NULL;
+  }
+  return '<p>' . t('Hierarchical Term Selector provides parent-dependent cascading taxonomy term selectors for entity reference fields, plus hierarchy-aware formatters and a Views exposed filter. Select2 and Better Exposed Filters are optional integrations.') . '</p>';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function hts_theme($existing, $type, $theme, $path) {
+  return [
+    'hts_hierarchical_list' => [
+      'variables' => ['items' => []],
+      'template' => 'hts-hierarchical-list',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_config_schema_info_alter().
+ *
+ * HTS overrides core's taxonomy_index_tid filter class for every such filter,
+ * and HtsTaxonomyFilterTrait::defineOptions() adds a hierarchical_term_selector
+ * key to that filter's config. Core's own schema does not declare that key, and
+ * a contrib schema file cannot override a core type definition, so add the key
+ * to the resolved definition here.
+ */
+function hts_config_schema_info_alter(array &$definitions) {
+  if (isset($definitions['views.filter.taxonomy_index_tid']['mapping'])) {
+    $definitions['views.filter.taxonomy_index_tid']['mapping']['hierarchical_term_selector'] = [
+      'type' => 'hts.filter.hierarchical_term_selector',
+      'label' => 'Hierarchical term selector settings',
+    ];
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function hts_views_data_alter(array &$data) {
+  $data['taxonomy_term_field_data']['hts_term_hierarchy'] = [
+    'title' => t('HTS term hierarchy'),
+    'help' => t('Displays the term and its deterministic first-parent ancestry.'),
+    'field' => [
+      'id' => 'hts_term_hierarchy',
+      'real field' => 'tid',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_views_plugins_filter_alter().
+ *
+ * Overrides core's taxonomy_index_tid filter class with the HTS cascading
+ * variant. Views resolves a filter handler's class from the "id" in views
+ * data, not from the plugin_id stored in a display, so overriding the class is
+ * required for the HTS filter to take effect. It is safe: every HTS-specific
+ * behavior in the shared trait is gated behind the "type" option being set to
+ * "hts", so a normal taxonomy_index_tid filter keeps its core behavior.
+ */
+function hts_views_plugins_filter_alter(array &$plugins) {
+  $overrides = ['taxonomy_index_tid' => 'hts_taxonomy_index_tid'];
+  foreach ($overrides as $core_plugin => $hts_plugin) {
+    if (isset($plugins[$core_plugin], $plugins[$hts_plugin])) {
+      $plugins[$core_plugin]['class'] = $plugins[$hts_plugin]['class'];
+    }
+  }
+}

@@ -1,0 +1,13 @@
+name: 'HTS Search API'
+type: module
+description: 'Adds the HTS cascading exposed filter to Search API-backed Views.'
+package: 'User interface'
+core_version_requirement: ^10.3 || ^11 || ^12
+dependencies:
+  - hts:hts
+  - search_api:search_api
+
+# Information added by Drupal.org packaging script on 2026-07-20
+version: '2.0.0-beta1'
+project: 'hts'
+datestamp: 1784569771

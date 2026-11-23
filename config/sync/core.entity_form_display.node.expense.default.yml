@@ -13,6 +13,7 @@ dependencies:
     - node.type.expense
   module:
     - datetime
+    - hts
     - path
 id: node.expense.default
 targetEntityType: node
@@ -27,10 +28,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_expense_category:
-    type: options_select
+    type: hierarchical_term_selector
     weight: 6
     region: content
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+      hierarchical_term_selector:
+        hierarchy_depth: 2
+        label_level: 'főkategória,alkategória'
+        description_level: ''
+        none_label: '- Any -'
+        widget_type: select
+        label_hide: true
     third_party_settings: {  }
   field_expense_currency:
     type: options_select
