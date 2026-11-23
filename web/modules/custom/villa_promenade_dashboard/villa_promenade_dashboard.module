@@ -55,6 +55,35 @@ function villa_promenade_dashboard_views_pre_view(\Drupal\views\ViewExecutable $
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_prepare_form() for node.
+ */
+function villa_promenade_dashboard_node_prepare_form(\Drupal\node\NodeInterface $node, string $operation, \Drupal\Core\Form\FormStateInterface $form_state): void {
+  $type = $node->bundle();
+  if (!$node->isNew() || !in_array($type, ['expense', 'income'], TRUE)) {
+    return;
+  }
+  $vocabulary = $type . '_category';
+  $field = 'field_' . $vocabulary;
+  if (!$node->hasField($field) || !$node->get($field)->isEmpty()) {
+    return;
+  }
+  $id = \Drupal::request()->query->all()[$vocabulary] ?? NULL;
+  if (!is_string($id) || !ctype_digit($id) || (int) $id < 1 || !$node->get($field)->access('edit')) {
+    return;
+  }
+  $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($id);
+  if (!$term || $term->bundle() !== $vocabulary || !$term->access('view')) {
+    return;
+  }
+  $selection = \Drupal::service('plugin.manager.entity_reference_selection')->getSelectionHandler($node->getFieldDefinition($field), $node);
+  if ($selection->validateReferenceableEntities([$id])) {
+    // Set the entity before widget construction, including the hierarchy path.
+    // Native submission still extracts the user's current choice from the form.
+    $node->set($field, ['target_id' => $id]);
+  }
+}
+
+/**
  * Implements hook_form_BASE_FORM_ID_alter() for node_form.
  */
 function villa_promenade_dashboard_form_node_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, string $form_id): void {

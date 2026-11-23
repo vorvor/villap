@@ -1,3 +1,72 @@
+.expense-category-picker {
+  margin-block: 0 1.5rem;
+}
+
+.expense-category-picker h2 {
+  margin-block: 0 0.75rem;
+  font-size: 1.125rem;
+}
+
+.expense-category-picker .expense-category-tree {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.expense-category-tree > li {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.expense-category-tree .expense-category-tree {
+  margin-block-start: 0.5rem;
+  margin-inline-start: 1rem;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 2px solid #ccc;
+}
+
+.expense-category-picker .expense-category-tree__link {
+  display: inline-block;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0.65rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 0.25rem;
+  color: #211b16;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.expense-category-tree__link--level-1 {
+  background: #f28585;
+}
+
+.expense-category-tree__link--level-2 {
+  background: #ffb35c;
+}
+
+.expense-category-tree__link--level-3 {
+  background: #ffe477;
+}
+
+.expense-category-picker .expense-category-tree__link:hover {
+  border-color: currentColor;
+  color: #211b16;
+  text-decoration: underline;
+}
+
+.expense-category-picker .expense-category-tree__link:focus-visible {
+  outline: 3px solid #211b16;
+  outline-offset: 2px;
+}
+
 .finance-dashboard-intro {
   max-width: 65rem;
   margin-block: 0 1rem;

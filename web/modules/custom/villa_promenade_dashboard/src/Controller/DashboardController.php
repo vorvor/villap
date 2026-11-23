@@ -5,6 +5,7 @@ namespace Drupal\villa_promenade_dashboard\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\quicktabs\Entity\QuickTabsInstance;
+use Drupal\villa_promenade_dashboard\ExpenseCategoryTree;
 use Drupal\views\Views;
 
 /**
@@ -21,6 +22,9 @@ final class DashboardController extends ControllerBase {
       throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
     }
 
+    $category_tree = new ExpenseCategoryTree();
+    $build['income_categories'] = $category_tree->build('income');
+    $build['expense_categories'] = $category_tree->build('expense');
     $build['intro'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['finance-dashboard-intro']],

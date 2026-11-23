@@ -555,3 +555,15 @@ function villa_promenade_dashboard_update_11012(): void {
   }
   // Customer requests remain forcibly unpublished by their privacy hook.
 }
+
+/**
+ * Allows the expense category widget to show the complete vocabulary hierarchy.
+ */
+function villa_promenade_dashboard_update_11013(): void {
+  $display = \Drupal::entityTypeManager()->getStorage('entity_form_display')->load('node.expense.default');
+  $component = $display?->getComponent('field_expense_category');
+  if ($component && $component['type'] === 'hierarchical_term_selector') {
+    $component['settings']['hierarchical_term_selector']['hierarchy_depth'] = 0;
+    $display->setComponent('field_expense_category', $component)->save();
+  }
+}

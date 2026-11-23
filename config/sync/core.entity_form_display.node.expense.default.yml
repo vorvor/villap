@@ -37,7 +37,7 @@ content:
       size: 60
       placeholder: ''
       hierarchical_term_selector:
-        hierarchy_depth: 2
+        hierarchy_depth: 0
         label_level: 'főkategória,alkategória'
         description_level: ''
         none_label: '- Any -'

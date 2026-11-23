@@ -10,6 +10,7 @@ dependencies:
     - navigation
     - node
     - system
+    - taxonomy_manager
     - villa_promenade_contact
     - villa_promenade_dashboard
 id: manager
@@ -19,6 +20,7 @@ is_admin: false
 permissions:
   - 'access administration pages'
   - 'access navigation'
+  - 'access taxonomy manager list'
   - 'access villa dashboard'
   - 'administer node published status'
   - 'create customer_request content'
