@@ -9,10 +9,6 @@ Thumbs.db
 
 # Composer-managed dependencies; keep composer.json and composer.lock tracked.
 
-/web/core/
-/web/themes/contrib/
-/web/profiles/contrib/
-/web/libraries/
 /drush/Commands/contrib/
 
 # Drupal site-specific configuration and uploaded/private files.
@@ -36,7 +32,6 @@ Thumbs.db
 /.lando.local.yml
 
 # Frontend dependencies and generated test/cache output.
-node_modules/
 .phpunit.result.cache
 .phpunit.cache/
 /coverage/
